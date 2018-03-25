@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import javax.annotation.Resource;
@@ -34,13 +35,9 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
         clazz = (Class<T>) (actualTypeArguments[0]);
     }
 
-    @Resource(name = "sessionFactory")
-    public void setMySessionFactory(SessionFactory sessionFactory) {
+    @Autowired
+    public void setSessionFactory0(SessionFactory sessionFactory){
         super.setSessionFactory(sessionFactory);
-    }
-
-    public Session getSession(){
-        return this.getSessionFactory().getCurrentSession();
     }
 
     @Override

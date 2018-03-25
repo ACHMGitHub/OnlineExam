@@ -13,11 +13,10 @@ public class Student {
     private Integer sex;
     private String phone;
     private String card;
-    private String stuClass;
+    private String className;
     private Collection<StudentTP> stuTestPapers;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "uuid", nullable = false)
     public Integer getUuid() {
         return uuid;
@@ -89,12 +88,12 @@ public class Student {
 
     @Basic
     @Column(name = "stu_class", nullable = false, length = 45)
-    public String getStuClass() {
-        return stuClass;
+    public String getClassName() {
+        return className;
     }
 
-    public void setStuClass(String stuClass) {
-        this.stuClass = stuClass;
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     @Override
@@ -111,7 +110,7 @@ public class Student {
         if (sex != null ? !sex.equals(student.sex) : student.sex != null) return false;
         if (phone != null ? !phone.equals(student.phone) : student.phone != null) return false;
         if (card != null ? !card.equals(student.card) : student.card != null) return false;
-        if (stuClass != null ? !stuClass.equals(student.stuClass) : student.stuClass != null) return false;
+        if (className != null ? !className.equals(student.className) : student.className != null) return false;
 
         return true;
     }
@@ -125,7 +124,7 @@ public class Student {
         result = 31 * result + (sex != null ? sex.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (card != null ? card.hashCode() : 0);
-        result = 31 * result + (stuClass != null ? stuClass.hashCode() : 0);
+        result = 31 * result + (className != null ? className.hashCode() : 0);
         return result;
     }
 

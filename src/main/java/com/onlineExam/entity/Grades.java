@@ -6,12 +6,10 @@ import javax.persistence.*;
 @Table(name = "tb_grades", schema = "exam", catalog = "")
 public class Grades {
     private Integer uuid;
-    private Integer grSTPID;
-    private Integer grade;
+    private Integer grGrade;
     private StudentTP stuTestPaper;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "uuid", nullable = false)
     public Integer getUuid() {
         return uuid;
@@ -22,23 +20,13 @@ public class Grades {
     }
 
     @Basic
-    @Column(name = "gr_stp_id", nullable = false)
-    public Integer getGrSTPID() {
-        return grSTPID;
-    }
-
-    public void setGrSTPID(Integer grSTPID) {
-        this.grSTPID = grSTPID;
-    }
-
-    @Basic
     @Column(name = "gr_grade", nullable = false)
-    public Integer getGrade() {
-        return grade;
+    public Integer getGrGrade() {
+        return grGrade;
     }
 
-    public void setGrade(Integer grade) {
-        this.grade = grade;
+    public void setGrGrade(Integer grGrade) {
+        this.grGrade = grGrade;
     }
 
     @Override
@@ -49,8 +37,7 @@ public class Grades {
         Grades grades = (Grades) o;
 
         if (uuid != null ? !uuid.equals(grades.uuid) : grades.uuid != null) return false;
-        if (grSTPID != null ? !grSTPID.equals(grades.grSTPID) : grades.grSTPID != null) return false;
-        if (grade != null ? !grade.equals(grades.grade) : grades.grade != null) return false;
+        if (grGrade != null ? !grGrade.equals(grades.grGrade) : grades.grGrade != null) return false;
 
         return true;
     }
@@ -58,8 +45,7 @@ public class Grades {
     @Override
     public int hashCode() {
         int result = uuid != null ? uuid.hashCode() : 0;
-        result = 31 * result + (grSTPID != null ? grSTPID.hashCode() : 0);
-        result = 31 * result + (grade != null ? grade.hashCode() : 0);
+        result = 31 * result + (grGrade != null ? grGrade.hashCode() : 0);
         return result;
     }
 

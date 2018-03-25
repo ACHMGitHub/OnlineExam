@@ -26,7 +26,7 @@
         </property>
     </bean>
 
-    <!-- dataSource 配置 -->
+     <!--dataSource 配置 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <!-- 基本属性 url、user、password -->
         <property name="driverClassName" value="${jdbc.driver}"/>
@@ -62,13 +62,11 @@
     </bean>
 
     <!-- 配置Hibernate -->
-    <!--扫描配置文件(这里指向的是之前配置的那个config.properties)-->
-    <context:property-placeholder location="classpath:/hibernateConfig.properties"/>
 
     <!--配置session工厂-->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="packagesToScan" value="com.onlineExam.entity" />
+        <property name="packagesToScan" value="com.onlineExam.entity"/>
         <property name="hibernateProperties">
             <props>
                 <!--指定数据库方言-->

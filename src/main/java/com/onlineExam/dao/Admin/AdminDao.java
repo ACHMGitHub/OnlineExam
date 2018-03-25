@@ -3,10 +3,11 @@ package com.onlineExam.dao.Admin;
 import com.onlineExam.dao.BaseDao.BaseDaoImpl;
 import com.onlineExam.entity.Admin;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 @Repository
-public class AdminDao extends BaseDaoImpl<Admin> implements IAdminDaoI {
+public class AdminDao extends BaseDaoImpl<Admin> implements IAdminDao {
 
     @Override
     public void save(String id, String pw) {

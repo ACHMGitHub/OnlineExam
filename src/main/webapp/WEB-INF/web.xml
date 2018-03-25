@@ -23,19 +23,6 @@
     <session-timeout>360</session-timeout>
   </session-config>
 
-  <!--
- 部署applicationContext的xml文件。如果在web.xml中不写任何参数配置信息，默认的路径是"/WEB-INF/applicationContext.xml，
- 在WEB-INF目录下创建的xml文件的名称必须是applicationContext.xml。
- 如果是要自定义文件名可以在web.xml里加入contextConfigLocation这个context参数：
- 在<param-value> </param-value>里指定相应的xml文件名，如果有多个xml文件，可以写在一起并以“,”号分隔，
- 也可以这样applicationContext-*.xml采用通配符，匹配的文件都会一同被载入。
- 在ContextLoaderListener中关联了ContextLoader这个类，所以整个加载配置过程由ContextLoader来完成。
- -->
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring/applicationContext.xml</param-value>
-  </context-param>
-
   <!--如果你的DispatcherServlet拦截"/"，为了实现REST风格，拦截了所有的请求，那么同时对*.js,*.jpg等静态文件的访问也就被拦截了。-->
   <!--方案一：激活Tomcat的defaultServlet来处理静态文件-->
   <!--要写在DispatcherServlet的前面，让defaultServlet先拦截请求，这样请求就不会进入Spring了-->
@@ -91,7 +78,8 @@
       <!--指明了配置文件的文件名，不使用默认配置文件名，而使用spring-mvc.xml配置文件。-->
       <param-name>contextConfigLocation</param-name>
       <param-value>
-        classpath:spring/spring-mvc.xml
+        classpath:spring/spring-mvc.xml,
+        classpath:spring/applicationContext.xml
       </param-value>
     </init-param>
     <!--是启动顺序，让这个Servlet随Servlet容器一起启动。-->

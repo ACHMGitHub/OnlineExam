@@ -7,18 +7,16 @@ import java.util.Collection;
 @Table(name = "tb_testpaper", schema = "exam", catalog = "")
 public class TestPaper {
     private Integer uuid;
-    private Integer cozId;
     private Integer timeLimit;
     private Integer totalGrade;
     private Integer choiceNum;
     private Integer blankNum;
-    private Collection<StudentTP> studentTestPapers;
+    private Collection<StudentTP> stuTestPapers;
     private Course course;
     private Collection<TPBlank> blanks;
     private Collection<TPChoice> choices;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "uuid", nullable = false)
     public Integer getUuid() {
         return uuid;
@@ -26,16 +24,6 @@ public class TestPaper {
 
     public void setUuid(Integer uuid) {
         this.uuid = uuid;
-    }
-
-    @Basic
-    @Column(name = "tp_coz_id", nullable = false)
-    public Integer getCozId() {
-        return cozId;
-    }
-
-    public void setCozId(Integer couzId) {
-        this.cozId = couzId;
     }
 
     @Basic
@@ -86,7 +74,6 @@ public class TestPaper {
         TestPaper testPaper = (TestPaper) o;
 
         if (uuid != null ? !uuid.equals(testPaper.uuid) : testPaper.uuid != null) return false;
-        if (cozId != null ? !cozId.equals(testPaper.cozId) : testPaper.cozId != null) return false;
         if (timeLimit != null ? !timeLimit.equals(testPaper.timeLimit) : testPaper.timeLimit != null) return false;
         if (totalGrade != null ? !totalGrade.equals(testPaper.totalGrade) : testPaper.totalGrade != null) return false;
         if (choiceNum != null ? !choiceNum.equals(testPaper.choiceNum) : testPaper.choiceNum != null) return false;
@@ -98,7 +85,6 @@ public class TestPaper {
     @Override
     public int hashCode() {
         int result = uuid != null ? uuid.hashCode() : 0;
-        result = 31 * result + (cozId != null ? cozId.hashCode() : 0);
         result = 31 * result + (timeLimit != null ? timeLimit.hashCode() : 0);
         result = 31 * result + (totalGrade != null ? totalGrade.hashCode() : 0);
         result = 31 * result + (choiceNum != null ? choiceNum.hashCode() : 0);
@@ -107,12 +93,12 @@ public class TestPaper {
     }
 
     @OneToMany(mappedBy = "testPaper")
-    public Collection<StudentTP> getStudentTestPapers() {
-        return studentTestPapers;
+    public Collection<StudentTP> getStuTestPapers() {
+        return stuTestPapers;
     }
 
-    public void setStudentTestPapers(Collection<StudentTP> studentTestPapers) {
-        this.studentTestPapers = studentTestPapers;
+    public void setStuTestPapers(Collection<StudentTP> stuTestPapers) {
+        this.stuTestPapers = stuTestPapers;
     }
 
     @ManyToOne

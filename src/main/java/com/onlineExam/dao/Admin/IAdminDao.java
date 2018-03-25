@@ -2,11 +2,9 @@ package com.onlineExam.dao.Admin;
 
 import com.onlineExam.dao.BaseDao.IBaseDao;
 import com.onlineExam.entity.Admin;
-
-import java.io.Serializable;
 import java.util.List;
 
-public interface IAdminDaoI extends IBaseDao<Admin> {
+public interface IAdminDao extends IBaseDao<Admin> {
 
     //Add
     void save(String id, String pw);

@@ -14,7 +14,7 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
     public String addAdmin(ModelMap model){
         model.addAttribute("message","success");
         return "index";

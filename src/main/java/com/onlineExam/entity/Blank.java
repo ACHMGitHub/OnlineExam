@@ -7,7 +7,6 @@ import java.util.Collection;
 @Table(name = "tb_blank", schema = "exam", catalog = "")
 public class Blank {
     private Integer uuid;
-    private Integer tchId;
     private String question;
     private String answer;
     private String analyse;
@@ -15,7 +14,6 @@ public class Blank {
     private Collection<TPBlank> testPapers;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "uuid", nullable = false)
     public Integer getUuid() {
         return uuid;
@@ -23,16 +21,6 @@ public class Blank {
 
     public void setUuid(Integer uuid) {
         this.uuid = uuid;
-    }
-
-    @Basic
-    @Column(name = "bl_tch_id", nullable = false)
-    public Integer getTchId() {
-        return tchId;
-    }
-
-    public void setTchId(Integer tchId) {
-        this.tchId = tchId;
     }
 
     @Basic
@@ -73,7 +61,6 @@ public class Blank {
         Blank blank = (Blank) o;
 
         if (uuid != null ? !uuid.equals(blank.uuid) : blank.uuid != null) return false;
-        if (tchId != null ? !tchId.equals(blank.tchId) : blank.tchId != null) return false;
         if (question != null ? !question.equals(blank.question) : blank.question != null) return false;
         if (answer != null ? !answer.equals(blank.answer) : blank.answer != null) return false;
         if (analyse != null ? !analyse.equals(blank.analyse) : blank.analyse != null) return false;
@@ -84,7 +71,6 @@ public class Blank {
     @Override
     public int hashCode() {
         int result = uuid != null ? uuid.hashCode() : 0;
-        result = 31 * result + (tchId != null ? tchId.hashCode() : 0);
         result = 31 * result + (question != null ? question.hashCode() : 0);
         result = 31 * result + (answer != null ? answer.hashCode() : 0);
         result = 31 * result + (analyse != null ? analyse.hashCode() : 0);
