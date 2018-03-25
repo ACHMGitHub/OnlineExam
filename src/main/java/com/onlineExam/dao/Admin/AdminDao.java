@@ -1,92 +1,67 @@
 package com.onlineExam.dao.Admin;
 
+import com.onlineExam.dao.BaseDao.BaseDaoImpl;
 import com.onlineExam.entity.Admin;
-
+import org.springframework.stereotype.Repository;
 import java.util.List;
 
-public class AdminDao implements IAdminDao{
+@Repository
+public class AdminDao extends BaseDaoImpl<Admin> implements IAdminDaoI {
+
     @Override
-    public int save(Admin admin) {
-        return 0;
+    public void save(String id, String pw) {
+        Admin admin = new Admin();
+        admin.setId(id);
+        admin.setPw(pw);
+        admin.setName("");
+        admin.setSex("");
+        admin.setPhone("");
+        admin.setCard("");
+        this.save(admin);
     }
 
     @Override
-    public int save(String id, String pw) {
-        return 0;
+    public void delete(int uuid) {
+        Admin admin = new Admin();
+        admin.setUuid(uuid);
+        delete(admin);
     }
 
     @Override
-    public int delete(Admin admin) {
-        return 0;
+    public void delete(String id) {
+        List admins = this.getHibernateTemplate().find("from Admin where id = :id", id);
+        this.getHibernateTemplate().deleteAll(admins);
     }
 
     @Override
-    public int delete(int uuid) {
-        return 0;
-    }
-
-    @Override
-    public int delete(String id) {
-        return 0;
-    }
-
-    @Override
-    public int deleteBySex(String sex) {
-        return 0;
+    public void deleteBySex(String sex) {
+        List admins = this.getHibernateTemplate().find("from Admin where sex = :sex", sex);
+        this.getHibernateTemplate().deleteAll(admins);
     }
 
     @Override
     public Admin getByUuid(int uuid) {
-        return null;
+        return findById(uuid);
     }
 
     @Override
     public Admin getById(String id) {
-        return null;
+        return (Admin)this.getHibernateTemplate().find("from Admin where id = :id", id).get(0);
     }
 
     @Override
     public Admin getByCard(String card) {
-        return null;
+        return (Admin)this.getHibernateTemplate().find("from Admin where card = :card", card).get(0);
     }
 
     @Override
     public Admin getByPhone(String phone) {
-        return null;
+        return (Admin)this.getHibernateTemplate().find("from Admin where phone = :phone", phone).get(0);
     }
 
     @Override
     public List<Admin> getBySex(String sex) {
-        return null;
+        return (List<Admin>)this.getHibernateTemplate().find("from Admin where sex = :sex", sex);
     }
 
-    @Override
-    public void alterCard(Admin admin, String newCard) {
-
-    }
-
-    @Override
-    public void alterPhone(Admin admin, String newPhone) {
-
-    }
-
-    @Override
-    public void alterSex(Admin admin, String newSex) {
-
-    }
-
-    @Override
-    public void alterName(Admin admin, String newName) {
-
-    }
-
-    @Override
-    public void alterPW(Admin admin, String newPW) {
-
-    }
-
-    @Override
-    public void alterId(Admin admin, String newId) {
-
-    }
 }
