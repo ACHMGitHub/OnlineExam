@@ -1,5 +1,7 @@
 package com.onlineExam.service.Admin;
 
-public interface IAdminService {
+import com.onlineExam.entity.Admin;
 
+public interface IAdminService {
+    public void save(Admin admin);
 }
