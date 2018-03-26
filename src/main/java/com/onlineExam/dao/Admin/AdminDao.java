@@ -2,9 +2,11 @@ package com.onlineExam.dao.Admin;
 
 import com.onlineExam.dao.BaseDao.BaseDaoImpl;
 import com.onlineExam.entity.Admin;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Property;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
+
 
 @Repository
 public class AdminDao extends BaseDaoImpl<Admin> implements IAdminDao {
@@ -64,5 +66,19 @@ public class AdminDao extends BaseDaoImpl<Admin> implements IAdminDao {
     public List<Admin> getBySex(String sex) {
         return (List<Admin>)this.getHibernateTemplate().find("from Admin where sex = :sex", sex);
     }
+
+    @Override
+    public List<Admin> findAllByPage(int startIndex, int pageSize) {
+        DetachedCriteria dc = DetachedCriteria.forClass(Admin.class);
+        return this.findByPage(dc, startIndex, pageSize);
+    }
+
+    @Override
+    public List<Admin> findSexByPage(String sex, int startIndex, int pageSize) {
+//        DetachedCriteria dc = DetachedCriteria.forClass(Admin.class).add(Restrictions.eq("sex",sex));
+        DetachedCriteria dc = DetachedCriteria.forClass(Admin.class).add( Property.forName("sex").eq(sex));
+        return this.findByPage(dc, startIndex, pageSize);
+    }
+
 
 }

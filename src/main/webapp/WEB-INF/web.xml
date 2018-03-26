@@ -11,7 +11,7 @@
   <!--当系统出现404错误，跳转到页面NoPage.html-->
   <error-page>
     <error-code>404</error-code>
-    <location>/WEB-INF/NoPage.html</location>
+    <location>/WEB-INF/error.html</location>
   </error-page>
   <!--当系统出现java.lang.NullPointerException，跳转到页面error.html-->
   <error-page>

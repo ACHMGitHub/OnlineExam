@@ -80,7 +80,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
         if (list.size() > 0) {
             return list.get(0).intValue();
         }
-        return null;
+        return 0;
     }
 
     @Override

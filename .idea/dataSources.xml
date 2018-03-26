@@ -15,5 +15,32 @@
         <property name="yearIsDateType" value="false" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="sessionFactory/Hibernate" uuid="81375d8a-2621-44d0-9786-64237be8dc70">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/src/main/resources/spring/applicationContext.xml</remarks>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/exam?useUnicode=true&amp;characterEncoding=utf-8</jdbc-url>
+      <driver-properties>
+        <property name="autoReconnect" value="true" />
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+        <property name="characterEncoding" value="utf8" />
+        <property name="characterSetResults" value="utf8" />
+        <property name="yearIsDateType" value="false" />
+      </driver-properties>
+    </data-source>
+    <data-source source="LOCAL" name="jdbc" uuid="7c6a3169-da4d-4c61-95f9-823dea749099">
+      <driver-ref>exasol</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/src/main/resources/jdbc.properties</remarks>
+      <jdbc-driver>com.exasol.jdbc.EXADriver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/exam?useUnicode=true&amp;characterEncoding=utf-8</jdbc-url>
+      <driver-properties>
+        <property name="clientname" value="DataGrip" />
+      </driver-properties>
+    </data-source>
   </component>
 </project>
