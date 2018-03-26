@@ -10,11 +10,11 @@ public class MainController {
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String login(){
-        return "index";
+    public String homePage(){
+        return "login";
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String addAdmin(ModelMap model){
         model.addAttribute("message","success");
         return "index";
