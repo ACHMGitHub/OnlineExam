@@ -1,5 +1,8 @@
 package com.onlineExam;
 
+/**
+ * 从页面获取信息的辅助类
+ */
 public class User {
 
     private String userType;

@@ -40,7 +40,7 @@ public class AdminDao extends BaseDaoImpl<Admin> implements IAdminDao {
     @Override
     public void deleteBySex(int sex) {
         List admins = this.getHibernateTemplate().find("from Admin where sex = ?", sex);
-        if(admins != null)
+        if(admins.size() > 0)
             this.getHibernateTemplate().deleteAll(admins);
     }
 
@@ -60,17 +60,29 @@ public class AdminDao extends BaseDaoImpl<Admin> implements IAdminDao {
 
     @Override
     public Admin getByCard(String card) {
-        return (Admin)this.getHibernateTemplate().find("from Admin where phone = ?", card).get(0);
+        List admins = this.getHibernateTemplate().find("from Admin where card = ?", card);
+        if(admins.size() > 0)
+            return (Admin) admins.get(0);
+        else
+            return null;
     }
 
     @Override
     public Admin getByPhone(String phone) {
-        return (Admin)this.getHibernateTemplate().find("from Admin where phone = ?", phone).get(0);
+        List admins = this.getHibernateTemplate().find("from Admin where phone = ?", phone);
+        if(admins.size() > 0)
+            return (Admin) admins.get(0);
+        else
+            return null;
     }
 
     @Override
     public List<Admin> getBySex(int sex) {
-        return (List<Admin>)this.getHibernateTemplate().find("from Admin where sex = ?", sex);
+        List admins = this.getHibernateTemplate().find("from Admin where sex = ?", sex);
+        if(admins.size() > 0)
+            return (List<Admin>) admins;
+        else
+            return null;
     }
 
     @Override

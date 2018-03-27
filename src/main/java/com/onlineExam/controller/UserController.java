@@ -1,19 +1,21 @@
 package com.onlineExam.controller;
 
-import com.onlineExam.User;
 import com.onlineExam.entity.Admin;
 import com.onlineExam.entity.Student;
-import com.onlineExam.service.Admin.AdminService;
+import com.onlineExam.entity.Teacher;
 import com.onlineExam.service.Admin.IAdminService;
 import com.onlineExam.service.Student.IStudentService;
+import com.onlineExam.service.Teacher.ITeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpSession;
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/user")
@@ -23,23 +25,20 @@ public class UserController {
     IAdminService adminService;
     @Autowired
     IStudentService studentService;
+    @Autowired
+    ITeacherService teacherService;
 
     @RequestMapping("/test")
     public String login(String userName, String passWord, ModelMap model){
 
-        Admin admin = adminService.login(userName, passWord);
-        if(admin != null)
-            model.addAttribute("message", admin.getName() + " " + admin.getPw());
-        else
-            model.addAttribute("message","Fail");
         return "index";
     }
 
     @RequestMapping("/studentLogin")
     @ResponseBody
-    public boolean stuLogin(@RequestBody User user, HttpSession session){
+    public boolean stuLogin(@RequestBody Student user, HttpSession session){
 
-        Student student = studentService.login(user.getUserName(), user.getPassWord());
+        Student student = studentService.login(user.getId(), user.getPw());
         if (student != null){
             session.setAttribute("currentUser", student);
             return true;
@@ -50,10 +49,10 @@ public class UserController {
 
     @RequestMapping("/teacherLogin")
     @ResponseBody
-    public boolean tchLogin(@RequestBody User user, HttpSession session){
-        Admin admin = adminService.login(user.getUserName(), user.getPassWord());
-        if (admin != null){
-            session.setAttribute("currentUser", admin);
+    public boolean tchLogin(@RequestBody Teacher user, HttpSession session){
+        Teacher teacher = teacherService.login(user.getId(), user.getPw());
+        if (teacher != null){
+            session.setAttribute("currentUser", teacher);
             return true;
         }
         else
@@ -62,14 +61,27 @@ public class UserController {
 
     @RequestMapping("/adminLogin")
     @ResponseBody
-    public boolean adminLogin(@RequestBody User user, HttpSession session){
+    public boolean adminLogin(@RequestBody Admin user, HttpSession session){
 
-        Admin admin = adminService.login(user.getUserName(), user.getPassWord());
+        Admin admin = adminService.login(user.getId(), user.getPw());
         if (admin != null){
             session.setAttribute("currentUser", admin);
             return true;
         }
         else
             return false;
+    }
+
+    @RequestMapping("adminInfo")
+    public String allAdminInfo(ModelMap model){
+        List<Admin> list = adminService.findAll();
+        model.addAttribute("admins", list);
+        return "AdminPage/admin_info";
+    }
+
+    @RequestMapping("managerDelete/{id}")
+    public String managerDelete(@PathVariable(value="id")String id){
+        adminService.delete(id);
+        return "redirect:/user/adminInfo";
     }
 }

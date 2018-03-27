@@ -11,22 +11,22 @@ public class MainController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String stuLoginPage(){
-        return "studentLogin";
+        return "LoginPage/studentLogin";
     }
 
     @RequestMapping(value = "/teacherLogin", method = RequestMethod.GET)
     public String tchLoginPage(){
-        return "teacherLogin";
+        return "LoginPage/teacherLogin";
     }
 
     @RequestMapping(value = "/adminLogin", method = RequestMethod.GET)
     public String adminLoginPage(){
-        return "adminLogin";
+        return "LoginPage/adminLogin";
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String addAdmin(ModelMap model){
         model.addAttribute("message","success");
-        return "index";
+        return "AdminPage/adminHome";
     }
 }

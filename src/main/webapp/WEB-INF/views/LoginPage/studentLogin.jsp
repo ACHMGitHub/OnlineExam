@@ -36,7 +36,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#login").click(function () {
-                var param = { userName : $("#userName").val(), passWord : $("#passWord").val(), userType : "学生"};
+                var param = { id : $("#userName").val(), pw : $("#passWord").val()};
                 login(param);
             });
             function login(param){
