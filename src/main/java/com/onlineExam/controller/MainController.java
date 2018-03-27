@@ -10,8 +10,18 @@ public class MainController {
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String homePage(){
-        return "login";
+    public String stuLoginPage(){
+        return "studentLogin";
+    }
+
+    @RequestMapping(value = "/teacherLogin", method = RequestMethod.GET)
+    public String tchLoginPage(){
+        return "teacherLogin";
+    }
+
+    @RequestMapping(value = "/adminLogin", method = RequestMethod.GET)
+    public String adminLoginPage(){
+        return "adminLogin";
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)

@@ -64,4 +64,12 @@ public interface IBaseService<T> {
      */
     List<T> findByPage(DetachedCriteria detachedCriteria, Integer startIndex, Integer pageSize);
 
+    /**
+     * 查找满足条件的总记录数
+     *
+     * @param detachedCriteria
+     * @return
+     */
+    Integer findRecordNumByPage(DetachedCriteria detachedCriteria);
+
 }

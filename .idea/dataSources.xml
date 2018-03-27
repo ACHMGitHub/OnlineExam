@@ -31,16 +31,5 @@
         <property name="yearIsDateType" value="false" />
       </driver-properties>
     </data-source>
-    <data-source source="LOCAL" name="jdbc" uuid="7c6a3169-da4d-4c61-95f9-823dea749099">
-      <driver-ref>exasol</driver-ref>
-      <synchronize>true</synchronize>
-      <imported>true</imported>
-      <remarks>$PROJECT_DIR$/src/main/resources/jdbc.properties</remarks>
-      <jdbc-driver>com.exasol.jdbc.EXADriver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/exam?useUnicode=true&amp;characterEncoding=utf-8</jdbc-url>
-      <driver-properties>
-        <property name="clientname" value="DataGrip" />
-      </driver-properties>
-    </data-source>
   </component>
 </project>

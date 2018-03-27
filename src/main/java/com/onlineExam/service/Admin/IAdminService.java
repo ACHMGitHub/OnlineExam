@@ -1,26 +1,13 @@
 package com.onlineExam.service.Admin;
 
 import com.onlineExam.entity.Admin;
+import com.onlineExam.service.BaseService.IBaseService;
 
 import java.util.List;
 
-public interface IAdminService {
-
-    //Add
-    /**
-     * 持久到数据库
-     * @param id
-     * @param pw
-     */
-    void save(String id, String pw);
+public interface IAdminService extends IBaseService<Admin>{
 
     //Delete
-    /**
-     * 主键删除
-     * @param uuid
-     */
-    void delete(int uuid);
-
     /**
      * 唯一用户名删除
      * @param id
@@ -31,7 +18,7 @@ public interface IAdminService {
      * 按性别删除
      * @param sex
      */
-    void deleteBySex(String sex);
+    void deleteBySex(int sex);
 
     //Search
     /**
@@ -64,10 +51,10 @@ public interface IAdminService {
 
     /**
      * 按性别分类
-     * @param sex
+     * @param sex 1 为 male 0 为 female
      * @return 按sex分类的Admin list集合
      */
-    List<Admin> getBySex(String sex);
+    List<Admin> getBySex(int sex);
 
     /**
      * 分页查询所有管理员
@@ -84,6 +71,13 @@ public interface IAdminService {
      * @param pageSize 页面大小
      * @return 从startIndex到startIndex+pageSize的Admin list集合
      */
-    List<Admin> findSexByPage(String sex, int startIndex, int pageSize);
+    List<Admin> findSexByPage(int sex, int startIndex, int pageSize);
 
+    /**
+     * 用户登录方法
+     * @param id 用户账号
+     * @param pw 用户密码
+     * @return 成功返回用户实例
+     */
+    Admin login(String id, String pw);
 }

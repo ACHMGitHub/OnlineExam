@@ -17,7 +17,7 @@ public class AdminDao extends BaseDaoImpl<Admin> implements IAdminDao {
         admin.setId(id);
         admin.setPw(pw);
         admin.setName("");
-        admin.setSex("");
+        admin.setSex(1);
         admin.setPhone("");
         admin.setCard("");
         this.save(admin);
@@ -25,21 +25,23 @@ public class AdminDao extends BaseDaoImpl<Admin> implements IAdminDao {
 
     @Override
     public void delete(int uuid) {
-        Admin admin = new Admin();
-        admin.setUuid(uuid);
-        delete(admin);
+        Admin admin = findById(uuid);
+        if(admin != null)
+            delete(admin);
     }
 
     @Override
     public void delete(String id) {
-        List admins = this.getHibernateTemplate().find("from Admin where id = :id", id);
-        this.getHibernateTemplate().deleteAll(admins);
+        Admin admin = getById(id);
+        if(admin != null)
+            delete(admin);
     }
 
     @Override
-    public void deleteBySex(String sex) {
-        List admins = this.getHibernateTemplate().find("from Admin where sex = :sex", sex);
-        this.getHibernateTemplate().deleteAll(admins);
+    public void deleteBySex(int sex) {
+        List admins = this.getHibernateTemplate().find("from Admin where sex = ?", sex);
+        if(admins != null)
+            this.getHibernateTemplate().deleteAll(admins);
     }
 
     @Override
@@ -49,22 +51,26 @@ public class AdminDao extends BaseDaoImpl<Admin> implements IAdminDao {
 
     @Override
     public Admin getById(String id) {
-        return (Admin)this.getHibernateTemplate().find("from Admin where id = :id", id).get(0);
+        List admins = this.getHibernateTemplate().find("from Admin where id = ?", id);
+        if(admins.size() > 0)
+            return (Admin)admins.get(0);
+        else
+            return null;
     }
 
     @Override
     public Admin getByCard(String card) {
-        return (Admin)this.getHibernateTemplate().find("from Admin where card = :card", card).get(0);
+        return (Admin)this.getHibernateTemplate().find("from Admin where phone = ?", card).get(0);
     }
 
     @Override
     public Admin getByPhone(String phone) {
-        return (Admin)this.getHibernateTemplate().find("from Admin where phone = :phone", phone).get(0);
+        return (Admin)this.getHibernateTemplate().find("from Admin where phone = ?", phone).get(0);
     }
 
     @Override
-    public List<Admin> getBySex(String sex) {
-        return (List<Admin>)this.getHibernateTemplate().find("from Admin where sex = :sex", sex);
+    public List<Admin> getBySex(int sex) {
+        return (List<Admin>)this.getHibernateTemplate().find("from Admin where sex = ?", sex);
     }
 
     @Override
@@ -74,7 +80,7 @@ public class AdminDao extends BaseDaoImpl<Admin> implements IAdminDao {
     }
 
     @Override
-    public List<Admin> findSexByPage(String sex, int startIndex, int pageSize) {
+    public List<Admin> findSexByPage(int sex, int startIndex, int pageSize) {
 //        DetachedCriteria dc = DetachedCriteria.forClass(Admin.class).add(Restrictions.eq("sex",sex));
         DetachedCriteria dc = DetachedCriteria.forClass(Admin.class).add( Property.forName("sex").eq(sex));
         return this.findByPage(dc, startIndex, pageSize);
