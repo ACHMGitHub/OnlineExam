@@ -1,7 +1,7 @@
 package com.onlineExam.service.Admin;
 
 import com.onlineExam.entity.Admin;
-import com.onlineExam.service.BaseService.IBaseService;
+import com.onlineExam.service.IBaseService;
 
 import java.util.List;
 
@@ -54,14 +54,6 @@ public interface IAdminService extends IBaseService<Admin>{
      * @return 按sex分类的Admin list集合
      */
     List<Admin> getBySex(int sex);
-
-    /**
-     * 分页查询所有管理员
-     * @param startIndex 起始索引
-     * @param pageSize 页面大小
-     * @return 从startIndex到startIndex+pageSize的Admin list集合
-     */
-    List<Admin> findAllByPage(int startIndex, int pageSize);
 
     /**
      * 分页查询按性别分类的管理员

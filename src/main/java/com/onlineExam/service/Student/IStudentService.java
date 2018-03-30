@@ -1,7 +1,7 @@
 package com.onlineExam.service.Student;
 
 import com.onlineExam.entity.Student;
-import com.onlineExam.service.BaseService.IBaseService;
+import com.onlineExam.service.IBaseService;
 
 import java.util.List;
 
@@ -54,14 +54,6 @@ public interface IStudentService extends IBaseService<Student>{
      * @return 按sex分类的Admin list集合
      */
     List<Student> getBySex(int sex);
-
-    /**
-     * 分页查询所有学生
-     * @param startIndex 起始索引
-     * @param pageSize 页面大小
-     * @return 从startIndex到startIndex+pageSize的Admin list集合
-     */
-    List<Student> findAllByPage(int startIndex, int pageSize);
 
     /**
      * 分页查询按班级分类的学生

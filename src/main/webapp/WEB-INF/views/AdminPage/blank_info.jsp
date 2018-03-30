@@ -19,30 +19,33 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>教师登录id</th>
-                    <th>教师姓名</th>
-                    <th>教师性别</th>
-                    <th>身份证号</th>
-                    <th>职称</th>
-                    <th>电话</th>
-                    <th colspan="2" style="text-align:center;">操作</th>
+                    <th>编号</th>
+                    <th>题目</th>
+                    <th>答案</th>
+                    <th>分析</th>
+                    <th>出题教师</th>
+                    <th>详细</th>
                 </tr>
                 </thead>
 
                 <tbody>
-                <c:forEach items="${teacher}" var="u">
+                <c:forEach items="${blanks}" var="u">
                     <tr>
-                        <td>${u.id}</td>
-                        <td>${u.name}</td>
+                        <td>${u.uuid}</td>
                         <td>
-                            <c:if test="${u.sex == 0}">女</c:if>
-                            <c:if test="${u.sex == 1}">男</c:if>
+                            <c:if test="${u.question.length() > 15}">${fn:substring(u.question, 0, 15)}... ...</c:if>
+                            <c:if test="${u.question.length() <= 15}">${u.question}</c:if>
                         </td>
-                        <td>${u.card}</td>
-                        <td>${u.title}</td>
-                        <td>${u.phone}</td>
-                        <td><a href="/adminPage/teacherUpdatePage/${u.uuid}">修改</a></td>
-                        <td><a href="/adminPage/adminDelete/${u.id}">删除</a></td>
+                        <td>
+                            <c:if test="${u.answer.length() > 15}">${fn:substring(u.answer, 0, 15)}... ...</c:if>
+                            <c:if test="${u.answer.length() <= 15}">${u.answer}</c:if>
+                        </td>
+                        <td>
+                            <c:if test="${u.analyse.length() > 15}">${fn:substring(u.analyse, 0, 15)}... ...</c:if>
+                            <c:if test="${u.analyse.length() <= 15}">${u.analyse}</c:if>
+                        </td>
+                        <td>${u.teacher.name}</td>
+                        <td><a href="/adminPage/blankMoreInfo/${u.uuid}">详细</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -50,15 +53,15 @@
             <div class="page_index">
                 <ul class="pagination " >
                     <li>
-                        <a href="/adminPage/studentInfoByPage/1"><<</a>
+                        <a href="/adminPage/blankInfoByPage/1"><<</a>
                     </li>
                     <c:forEach var="i" begin="1" end="${num}" step="1">
                         <li>
-                            <a href="/adminPage/studentInfoByPage/${i}">${i}</a>
+                            <a href="/adminPage/blankInfoByPage/${i}">${i}</a>
                         </li>
                     </c:forEach>
                     <li>
-                        <a href="/adminPage/studentInfoByPage/${num}">>></a>
+                        <a href="/adminPage/blankInfoByPage/${num}">>></a>
                     </li>
                 </ul>
             </div>

@@ -2,7 +2,7 @@ package com.onlineExam.service.Teacher;
 
 
 import com.onlineExam.entity.Teacher;
-import com.onlineExam.service.BaseService.IBaseService;
+import com.onlineExam.service.IBaseService;
 
 import java.util.List;
 
@@ -50,15 +50,7 @@ public interface ITeacherService extends IBaseService<Teacher>{
     List<Teacher> getBySex(int sex);
 
     /**
-     * 分页查询所有教师
-     * @param startIndex 起始索引
-     * @param pageSize 页面大小
-     * @return 从startIndex到startIndex+pageSize的Teacher list集合
-     */
-    List<Teacher> findAllByPage(int startIndex, int pageSize);
-
-    /**
-     * 分页查询按职称分类的学生
+     * 分页查询按职称分类的教师
      * @param title 职称
      * @param startIndex 起始索引
      * @param pageSize 页面大小

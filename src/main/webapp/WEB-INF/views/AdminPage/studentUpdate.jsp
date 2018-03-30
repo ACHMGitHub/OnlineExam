@@ -26,7 +26,8 @@
         $.validator.setDefaults({
             submitHandler: function() {
                 var param = {
-                    id : $("#id").val(),
+                    uuid : ${student.uuid},
+                    id : ${student.id},
                     pw : $("#pw").val(),
                     name : $("#name").val(),
                     sex : $("input[name='sex']:checked").val(),
@@ -34,26 +35,18 @@
                     card : $("#card").val(),
                     className : $("#className").val()
                 };
-                add(param);
-                function add(param){
+                update(param);
+                function update(param){
                     $.ajax({
                         type : "post",
                         dataType: 'json',
-                        url : "/adminPage/studentAdd",
+                        url : "/adminPage/studentUpdate",
                         contentType : "application/json",
                         data : JSON.stringify(param),
                         async:false,
                         success:function(data){
                             if(data){
-                                $("#id").val("");
-                                $("#pw").val("");
-                                $("#name").val("");
-                                $("input:radio[name='sex']").attr("checked",false);
-                                $("#phoneNum").val("");
-                                $("#card").val("");
-                                $("#title").val("");
-                                $("#className").val("");
-                                alert("添加成功");
+                                alert("修改成功");
                             }
                         }
                     })
@@ -63,20 +56,6 @@
         $().ready(function() {
             $("#signupForm").validate({
                 rules: {
-                    id: {
-                        required: true,
-                        minlength: 8,
-                        remote: {
-                            url: "/adminPage/studentIdCheck",
-                            type: "post",
-                            dataType: "json",
-                            data: {
-                                id: function () {
-                                    return $("#id").val();
-                                }
-                            }
-                        }
-                    },
                     username: {
                         required: true,
                         minlength: 2
@@ -99,11 +78,6 @@
                     }
                 },
                 messages: {
-                    id:{
-                        required: "请输入用户名",
-                        minlength: "用户名必需由8字符组成",
-                        remote: "用户名已存在"
-                    },
                     username: {
                         required: "请输入用户名",
                         minlength: "姓名必需由两个字符组成"
@@ -146,24 +120,16 @@
 <form class="form" role="form" id="signupForm">
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">用户名</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="id" name="id" placeholder="请输入用户名">
-        </div>
-    </div>
-
-
-    <div class="form-group">
         <label for="name" class="col-sm-2 control-label">学生姓名</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="name" name="username" placeholder="请输入姓名" >
+            <input type="text" class="form-control" id="name" name="username" placeholder="请输入姓名" value="${student.name}">
         </div>
     </div>
 
     <div class="form-group">
         <label for="pw" class="col-sm-2 control-label">密码</label>
         <div class="col-sm-10">
-            <input type="password" class="form-control" id="pw" name="password" placeholder="请输入密码">
+            <input type="password" class="form-control" id="pw" name="password" value="${student.pw}">
         </div>
     </div>
 
@@ -172,8 +138,8 @@
         <div class="col-sm-10">
             <div>
                 <label>
-                    <input type="radio" name="sex" id="gridRadios1" value="1">男
-                    <input type="radio" name="sex" id="gridRadios2" value="0">女
+                    <input type="radio" name="sex" id="gridRadios1" value="1" <c:if test="${student.sex == 1}">checked="checked"</c:if>>男
+                    <input type="radio" name="sex" id="gridRadios2" value="0" <c:if test="${student.sex == 0}">checked="checked"</c:if>>女
                 </label>
             </div>
         </div>
@@ -182,21 +148,21 @@
     <div class="form-group">
         <label for="phoneNum" class="col-sm-2 control-label">联系电话</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="phoneNum" name="phoneNum" placeholder="请输入电话">
+            <input type="text" class="form-control" id="phoneNum" name="phoneNum" value="${student.phone}">
         </div>
     </div>
 
     <div class="form-group">
         <label for="className"  class="col-sm-2 control-label">班级</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="className" name="className" placeholder="请输入班级">
+            <input type="text" class="form-control" id="className" name="className" value="${student.className}">
         </div>
     </div>
 
     <div class="form-group">
         <label for="card" class="col-sm-2 control-label">身份证</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="card" name="IDcard" placeholder="请输入身份证">
+            <input type="text" class="form-control" id="card" name="IDcard" value="${student.card}">
         </div>
     </div>
 

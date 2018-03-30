@@ -26,34 +26,27 @@
         $.validator.setDefaults({
             submitHandler: function() {
                 var param = {
-                    id : $("#id").val(),
-                    pw : $("#pw").val(),
-                    name : $("#name").val(),
+                    uuid : ${teacher.uuid},
+                    id : ${teacher.id},
+                    pw : $("#tch_pwd").val(),
+                    name : $("#tch_name").val(),
                     sex : $("input[name='sex']:checked").val(),
                     phone : $("#phoneNum").val(),
-                    card : $("#card").val(),
-                    className : $("#className").val()
+                    card : $("#tch_card").val(),
+                    title : $("#tch_title").val()
                 };
-                add(param);
-                function add(param){
+                update(param);
+                function update(param){
                     $.ajax({
                         type : "post",
                         dataType: 'json',
-                        url : "/adminPage/studentAdd",
+                        url : "/adminPage/teacherUpdate",
                         contentType : "application/json",
                         data : JSON.stringify(param),
                         async:false,
                         success:function(data){
                             if(data){
-                                $("#id").val("");
-                                $("#pw").val("");
-                                $("#name").val("");
-                                $("input:radio[name='sex']").attr("checked",false);
-                                $("#phoneNum").val("");
-                                $("#card").val("");
-                                $("#title").val("");
-                                $("#className").val("");
-                                alert("添加成功");
+                                alert("修改成功");
                             }
                         }
                     })
@@ -63,20 +56,6 @@
         $().ready(function() {
             $("#signupForm").validate({
                 rules: {
-                    id: {
-                        required: true,
-                        minlength: 8,
-                        remote: {
-                            url: "/adminPage/studentIdCheck",
-                            type: "post",
-                            dataType: "json",
-                            data: {
-                                id: function () {
-                                    return $("#id").val();
-                                }
-                            }
-                        }
-                    },
                     username: {
                         required: true,
                         minlength: 2
@@ -94,19 +73,14 @@
                     sex:{
                         required:true,
                     },
-                    className:{
+                    tchtitle:{
                         required:true
                     }
                 },
                 messages: {
-                    id:{
-                        required: "请输入用户名",
-                        minlength: "用户名必需由8字符组成",
-                        remote: "用户名已存在"
-                    },
                     username: {
                         required: "请输入用户名",
-                        minlength: "姓名必需由两个字符组成"
+                        minlength: "用户名必需由两个字母组成"
                     },
                     password: {
                         required: "请输入密码",
@@ -117,12 +91,13 @@
                     },
                     IDcard:{
                         required:"请输入身份证号",
+
                     },
                     sex:{
                         required:"请选择",
                     },
-                    className:{
-                        required:"请填写班级",
+                    tchtitle:{
+                        required:"请填写职称",
                     }
                 },
 
@@ -146,24 +121,16 @@
 <form class="form" role="form" id="signupForm">
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">用户名</label>
+        <label for="tch_name" class="col-sm-2 control-label">姓名</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="id" name="id" placeholder="请输入用户名">
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">学生姓名</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="name" name="username" placeholder="请输入姓名" >
+            <input type="text" class="form-control" id="tch_name" name="username" placeholder="请输入姓名" value="${teacher.name}">
         </div>
     </div>
 
     <div class="form-group">
-        <label for="pw" class="col-sm-2 control-label">密码</label>
+        <label for="tch_pwd" class="col-sm-2 control-label">密码</label>
         <div class="col-sm-10">
-            <input type="password" class="form-control" id="pw" name="password" placeholder="请输入密码">
+            <input type="text" class="form-control" id="tch_pwd" name="password" value="${teacher.pw}">
         </div>
     </div>
 
@@ -172,37 +139,39 @@
         <div class="col-sm-10">
             <div>
                 <label>
-                    <input type="radio" name="sex" id="gridRadios1" value="1">男
-                    <input type="radio" name="sex" id="gridRadios2" value="0">女
+                    <input type="radio" name="sex" id="gridRadios1" value="1" <c:if test="${teacher.sex == 1}">checked="checked"</c:if>>男
+                    <input type="radio" name="sex" id="gridRadios2" value="0" <c:if test="${teacher.sex == 0}">checked="checked"</c:if>>女
                 </label>
             </div>
+
         </div>
     </div>
 
     <div class="form-group">
         <label for="phoneNum" class="col-sm-2 control-label">联系电话</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="phoneNum" name="phoneNum" placeholder="请输入电话">
+            <input type="text" class="form-control" id="phoneNum" name="phoneNum" value="${teacher.phone}">
         </div>
     </div>
 
     <div class="form-group">
-        <label for="className"  class="col-sm-2 control-label">班级</label>
+        <label for="tch_card" class="col-sm-2 control-label">身份证</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="className" name="className" placeholder="请输入班级">
+            <input type="text" class="form-control" id="tch_card" name="IDcard" value="${teacher.card}">
         </div>
     </div>
 
     <div class="form-group">
-        <label for="card" class="col-sm-2 control-label">身份证</label>
+        <label for="tch_title" class="col-sm-2 control-label">教工职称</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="card" name="IDcard" placeholder="请输入身份证">
+            <input type="text" class="form-control" id="tch_title" placeholder="请输入职称" name="tchtitle" value="${teacher.title}">
         </div>
     </div>
+
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-success btn-block" id="submit">确认</button>
+            <button type="submit" class="btn btn-success btn-block">修改</button>
         </div>
     </div>
 </form>

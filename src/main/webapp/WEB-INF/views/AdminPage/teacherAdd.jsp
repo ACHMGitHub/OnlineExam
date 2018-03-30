@@ -155,15 +155,14 @@
     <div class="form-group">
         <label for="tch_name" class="col-sm-2 control-label">姓名</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="tch_name" name="username"
-                   placeholder="请输入姓名">
+            <input type="text" class="form-control" id="tch_name" name="username" placeholder="请输入姓名">
         </div>
     </div>
 
     <div class="form-group">
         <label for="tch_pwd" class="col-sm-2 control-label">密码</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="tch_pwd" name="password">
+            <input type="text" class="form-control" id="tch_pwd" name="password" placeholder="请输入密码">
         </div>
     </div>
 
@@ -183,14 +182,14 @@
     <div class="form-group">
         <label for="phoneNum" class="col-sm-2 control-label">联系电话</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="phoneNum" name="phoneNum">
+            <input type="text" class="form-control" id="phoneNum" name="phoneNum" placeholder="请输入电话">
         </div>
     </div>
 
     <div class="form-group">
         <label for="tch_card" class="col-sm-2 control-label">身份证</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="tch_card" name="IDcard">
+            <input type="text" class="form-control" id="tch_card" name="IDcard" placeholder="请输入身份证">
         </div>
     </div>
 

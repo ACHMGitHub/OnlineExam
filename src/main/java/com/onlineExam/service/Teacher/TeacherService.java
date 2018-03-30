@@ -81,6 +81,14 @@ public class TeacherService implements ITeacherService{
     }
 
     @Override
+    public boolean saveViaCheck(Teacher entity) {
+        if(!allowToSave(entity))
+            return false;
+        teacherDao.save(entity);
+        return true;
+    }
+
+    @Override
     public boolean allowToSave(Teacher entity) {
         if(entity.getId() == null)
             return false;
@@ -115,6 +123,13 @@ public class TeacherService implements ITeacherService{
     }
 
     @Override
+    public void delete(Serializable oid) {
+        Teacher teacher = findById(oid);
+        if(teacher != null)
+            delete(teacher);
+    }
+
+    @Override
     public Teacher findById(Serializable oid) {
         return teacherDao.findById(oid);
     }
@@ -127,6 +142,11 @@ public class TeacherService implements ITeacherService{
     @Override
     public List<Teacher> findByPage(DetachedCriteria detachedCriteria, Integer startIndex, Integer pageSize) {
         return teacherDao.findByPage(detachedCriteria, startIndex, pageSize);
+    }
+
+    @Override
+    public Integer recordNum() {
+        return teacherDao.findRecordNumByPage(DetachedCriteria.forClass(Teacher.class));
     }
 
     @Override

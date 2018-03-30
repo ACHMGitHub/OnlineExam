@@ -2,7 +2,6 @@ package com.onlineExam.service.Admin;
 
 import com.onlineExam.dao.Admin.IAdminDao;
 import com.onlineExam.entity.Admin;
-import com.onlineExam.service.BaseService.BaseServiceImpl;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,6 +86,17 @@ public class AdminService implements IAdminService{
     }
 
     @Override
+    public boolean saveViaCheck(Admin entity) {
+        if(!allowToSave(entity))
+            return false;
+        else{
+            adminDao.save(entity);
+            return true;
+        }
+    }
+
+
+    @Override
     public boolean allowToSave(Admin entity) {
         if(entity.getId() == null)
             return false;
@@ -119,6 +129,13 @@ public class AdminService implements IAdminService{
     }
 
     @Override
+    public void delete(Serializable oid) {
+        Admin admin = adminDao.findById(oid);
+        if(admin != null)
+            adminDao.delete(admin);
+    }
+
+    @Override
     public Admin findById(Serializable oid) {
         return adminDao.findById(oid);
     }
@@ -131,6 +148,11 @@ public class AdminService implements IAdminService{
     @Override
     public List<Admin> findByPage(DetachedCriteria detachedCriteria, Integer startIndex, Integer pageSize) {
         return adminDao.findByPage(detachedCriteria, startIndex, pageSize);
+    }
+
+    @Override
+    public Integer recordNum() {
+        return adminDao.findRecordNumByPage(DetachedCriteria.forClass(Admin.class));
     }
 
     @Override

@@ -128,16 +128,15 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a href="#"  data-toggle="collapse" data-target="#channel_demo5">题目管理</a>
+                            <a href="#"  data-toggle="collapse" data-target="#channel_demo5">题库管理</a>
                         </h4>
                     </div>
                     <div class="collapse panel-collapse"  id="channel_demo5">
                         <div class="panel-body">
                             <ul>
-                                <li><a href="../01adminJSP/examQue.html" target="iframe_a">题目答案</a></li>
-                                <li><a href="../06testPaper/choiceQue_add.html" target="iframe_a">添加选择题</a></li>
-                                <li><a href="../06testPaper/Complet_add.html" target="iframe_a">添加填空题</a></li>
-                                <li><a href="../06testPaper/testPaper_info.html" target="iframe_a">试卷信息</a></li>
+                                <li><a href="/adminPage/courseInfoByPage/1" target="iframe_a">课程管理</a></li>
+                                <li><a href="/adminPage/choiceInfoByPage/1" target="iframe_a">选择题管理</a></li>
+                                <li><a href="/adminPage/blankInfoByPage/1" target="iframe_a">填空题管理</a></li>
                             </ul>
                         </div>
                     </div>

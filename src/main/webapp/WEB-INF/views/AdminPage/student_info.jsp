@@ -23,7 +23,6 @@
                     <th>考生姓名</th>
                     <th>考生性别</th>
                     <th>身份证号</th>
-                    <th>考生密码</th>
                     <th>班别</th>
                     <th>考生电话</th>
                     <th colspan="2" style="text-align:center;">操作</th>
@@ -40,10 +39,9 @@
                             <c:if test="${u.sex == 1}">男</c:if>
                         </td>
                         <td>${u.card}</td>
-                        <td>${u.pw}</td>
                         <td>${u.className}</td>
                         <td>${u.phone}</td>
-                        <td><a href="#">修改</a></td>
+                        <td><a href="/adminPage/studentUpdatePage/${u.uuid}">修改</a></td>
                         <td><a href="/adminPage/studentDelete/${u.id}">删除</a></td>
                     </tr>
                 </c:forEach>

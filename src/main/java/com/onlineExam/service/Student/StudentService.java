@@ -86,6 +86,16 @@ public class StudentService implements IStudentService{
     }
 
     @Override
+    public boolean saveViaCheck(Student entity) {
+
+        if(!allowToSave(entity))
+            return false;
+
+        studentDao.save(entity);
+        return true;
+    }
+
+    @Override
     public boolean allowToSave(Student entity) {
 
         if(entity.getId() == null)
@@ -121,6 +131,13 @@ public class StudentService implements IStudentService{
     }
 
     @Override
+    public void delete(Serializable oid) {
+        Student student = findById(oid);
+        if(student != null)
+            delete(student);
+    }
+
+    @Override
     public Student findById(Serializable oid) {
         return studentDao.findById(oid);
     }
@@ -133,6 +150,11 @@ public class StudentService implements IStudentService{
     @Override
     public List<Student> findByPage(DetachedCriteria detachedCriteria, Integer startIndex, Integer pageSize) {
         return studentDao.findByPage(detachedCriteria, startIndex, pageSize);
+    }
+
+    @Override
+    public Integer recordNum() {
+        return studentDao.findRecordNumByPage(DetachedCriteria.forClass(Student.class));
     }
 
     @Override
