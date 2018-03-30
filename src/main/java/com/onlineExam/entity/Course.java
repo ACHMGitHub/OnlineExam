@@ -11,6 +11,7 @@ public class Course {
     private Collection<TestPaper> testPapers;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "uuid", nullable = false)
     public Integer getUuid() {
         return uuid;

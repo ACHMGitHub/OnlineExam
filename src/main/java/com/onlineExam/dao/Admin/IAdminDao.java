@@ -33,7 +33,7 @@ public interface IAdminDao extends IBaseDao<Admin> {
      * 按性别删除
      * @param sex
      */
-    void deleteBySex(String sex);
+    void deleteBySex(int sex);
 
     //Search
 
@@ -70,7 +70,7 @@ public interface IAdminDao extends IBaseDao<Admin> {
      * @param sex
      * @return 按sex分类的Admin list集合
      */
-    List<Admin> getBySex(String sex);
+    List<Admin> getBySex(int sex);
 
     /**
      * 分页查询所有管理员
@@ -87,6 +87,6 @@ public interface IAdminDao extends IBaseDao<Admin> {
      * @param pageSize 页面大小
      * @return 从startIndex到startIndex+pageSize的Admin list集合
      */
-    List<Admin> findSexByPage(String sex, int startIndex, int pageSize);
+    List<Admin> findSexByPage(int sex, int startIndex, int pageSize);
 
 }

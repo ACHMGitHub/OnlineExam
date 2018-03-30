@@ -10,6 +10,7 @@ public class TPChoice {
     private Choice choice;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "uuid", nullable = false)
     public Integer getUuid() {
         return uuid;

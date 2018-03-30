@@ -9,8 +9,8 @@ import java.util.List;
 
 public class BaseServiceImpl<T> implements IBaseService<T>{
 
-    @Autowired
-    BaseDaoImpl<T> baseDaoImpl;
+//    @Autowired
+    IBaseService<T> baseDaoImpl;
 
     @Override
     public Serializable save(T entity) {
@@ -19,32 +19,42 @@ public class BaseServiceImpl<T> implements IBaseService<T>{
     }
 
     @Override
-    public void update(T entity) {
+    public boolean allowToSave(T entity) {
+        return false;
+    }
 
+    @Override
+    public void update(T entity) {
+        baseDaoImpl.update(entity);
     }
 
     @Override
     public void saveOrUpdate(T entity) {
-
+        baseDaoImpl.saveOrUpdate(entity);
     }
 
     @Override
     public void delete(T entity) {
-
+        baseDaoImpl.delete(entity);
     }
 
     @Override
     public T findById(Serializable oid) {
-        return null;
+        return baseDaoImpl.findById(oid);
     }
 
     @Override
     public List<T> findAll() {
-        return null;
+        return baseDaoImpl.findAll();
     }
 
     @Override
     public List<T> findByPage(DetachedCriteria detachedCriteria, Integer startIndex, Integer pageSize) {
-        return null;
+        return baseDaoImpl.findByPage(detachedCriteria, startIndex, pageSize);
+    }
+
+    @Override
+    public Integer findRecordNumByPage(DetachedCriteria detachedCriteria) {
+        return baseDaoImpl.findRecordNumByPage(detachedCriteria);
     }
 }

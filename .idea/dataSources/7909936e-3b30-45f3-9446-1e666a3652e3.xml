@@ -978,7 +978,7 @@
     </column>
     <column id="247" parent="232" name="ad_sex">
       <Position>5</Position>
-      <DataType>varchar(45)|0</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>

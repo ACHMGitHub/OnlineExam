@@ -9,7 +9,7 @@ public class Admin {
     private String id;
     private String pw;
     private String name;
-    private String sex;
+    private Integer sex;
     private String phone;
     private String card;
 
@@ -56,11 +56,11 @@ public class Admin {
 
     @Basic
     @Column(name = "ad_sex", nullable = false, length = 45)
-    public String getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
