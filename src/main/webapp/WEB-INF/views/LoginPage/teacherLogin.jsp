@@ -6,14 +6,14 @@
 <head>
     <meta charset="UTF-8">
     <title>网上考试系统登录</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../../css/bootstrap.min.css" />
 
-    <link href="css/sign.css" rel="stylesheet">
+    <link href="../../../css/sign.css" rel="stylesheet">
 
     <style>
 
         body{
-            background:url(img/background.png);
+            background:url(../../../img/background.png);
             -moz-background-size:100% 100%; /* 老版本的 Firefox */
             background-size:100% 100%;
             background-repeat:no-repeat;
@@ -24,9 +24,9 @@
         }
     </style>
 
-    <script type="application/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="application/javascript" src="../../../js/jquery-1.11.1.min.js"></script>
 
-    <script language="JavaScript" src="js/bootstrap.min.js"></script>
+    <script language="JavaScript" src="../../../js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
         window.onload=function(){

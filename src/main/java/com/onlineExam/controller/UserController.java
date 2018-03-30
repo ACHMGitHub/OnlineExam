@@ -6,6 +6,7 @@ import com.onlineExam.entity.Teacher;
 import com.onlineExam.service.Admin.IAdminService;
 import com.onlineExam.service.Student.IStudentService;
 import com.onlineExam.service.Teacher.ITeacherService;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -72,16 +73,5 @@ public class UserController {
             return false;
     }
 
-    @RequestMapping("adminInfo")
-    public String allAdminInfo(ModelMap model){
-        List<Admin> list = adminService.findAll();
-        model.addAttribute("admins", list);
-        return "AdminPage/admin_info";
-    }
 
-    @RequestMapping("managerDelete/{id}")
-    public String managerDelete(@PathVariable(value="id")String id){
-        adminService.delete(id);
-        return "redirect:/user/adminInfo";
-    }
 }

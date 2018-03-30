@@ -73,4 +73,11 @@ public interface ITeacherService extends IBaseService<Teacher>{
      * @return 成功返回用户实例
      */
     Teacher login(String id, String pw);
+
+    /**
+     * 验证用户名唯一
+     * @param id 待验证用户名
+     * @return 唯一为true
+     */
+    Boolean idUnique(String id);
 }

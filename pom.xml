@@ -239,7 +239,7 @@
   </dependencies>
 
   <build>
-    <finalName>CharlieWebDemo</finalName>
+    <finalName>OnlineExamSystem</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

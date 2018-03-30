@@ -17,6 +17,7 @@ public class Student {
     private Collection<StudentTP> stuTestPapers;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "uuid", nullable = false)
     public Integer getUuid() {
         return uuid;

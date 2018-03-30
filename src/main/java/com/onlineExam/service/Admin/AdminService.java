@@ -73,8 +73,34 @@ public class AdminService implements IAdminService{
     }
 
     @Override
+    public Boolean idUnique(String id) {
+        Admin admin = this.getById(id);
+        if(admin == null)
+            return true;
+        else
+            return false;
+    }
+
+    @Override
     public Serializable save(Admin entity) {
         return adminDao.save(entity);
+    }
+
+    @Override
+    public boolean allowToSave(Admin entity) {
+        if(entity.getId() == null)
+            return false;
+        if(entity.getPw() == null)
+            return false;
+        if(entity.getName() == null)
+            return false;
+        if(entity.getSex() == null)
+            return false;
+        if(entity.getCard() == null)
+            return false;
+        if(entity.getPhone() == null)
+            return false;
+        return true;
     }
 
     @Override

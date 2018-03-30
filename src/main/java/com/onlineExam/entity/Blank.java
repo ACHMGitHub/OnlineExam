@@ -14,6 +14,7 @@ public class Blank {
     private Collection<TPBlank> testPapers;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "uuid", nullable = false)
     public Integer getUuid() {
         return uuid;

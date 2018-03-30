@@ -72,8 +72,37 @@ public class StudentService implements IStudentService{
     }
 
     @Override
+    public Boolean idUnique(String id) {
+        Student student = this.getById(id);
+        if(student == null)
+            return true;
+        else
+            return false;
+    }
+
+    @Override
     public Serializable save(Student entity) {
         return studentDao.save(entity);
+    }
+
+    @Override
+    public boolean allowToSave(Student entity) {
+
+        if(entity.getId() == null)
+            return false;
+        if(entity.getPw() == null)
+            return false;
+        if(entity.getName() == null)
+            return false;
+        if(entity.getSex() == null)
+            return false;
+        if(entity.getCard() == null)
+            return false;
+        if(entity.getPhone() == null)
+            return false;
+        if(entity.getClassName() == null)
+            return  false;
+        return true;
     }
 
     @Override

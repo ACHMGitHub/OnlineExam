@@ -19,6 +19,11 @@ public class BaseServiceImpl<T> implements IBaseService<T>{
     }
 
     @Override
+    public boolean allowToSave(T entity) {
+        return false;
+    }
+
+    @Override
     public void update(T entity) {
         baseDaoImpl.update(entity);
     }

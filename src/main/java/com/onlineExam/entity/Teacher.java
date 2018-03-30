@@ -18,6 +18,7 @@ public class Teacher {
     private Collection<Choice> choices;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "uuid", nullable = false)
     public Integer getUuid() {
         return uuid;

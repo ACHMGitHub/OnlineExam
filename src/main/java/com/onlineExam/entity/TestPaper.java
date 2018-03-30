@@ -17,6 +17,7 @@ public class TestPaper {
     private Collection<TPChoice> choices;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "uuid", nullable = false)
     public Integer getUuid() {
         return uuid;

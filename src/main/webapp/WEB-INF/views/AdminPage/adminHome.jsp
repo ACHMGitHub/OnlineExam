@@ -20,6 +20,10 @@
         window.onload=function(){
             document.body.parentNode.style.overflow="hidden";//隐藏且禁用
         }
+        $(document).ready(function(){
+            $("#home").append("<span></span>");
+            $("#home span").click();
+        });
     </script>
 </head>
 <body>
@@ -36,8 +40,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;修改密码</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-off"></span>&nbsp;注销</a></li>
+                <li><a href="/adminPage/adminUpdatePage" target="iframe_a"><span class="glyphicon glyphicon-user"></span>&nbsp;修改信息</a></li>
+                <li><a href="/adminPage/adminLogOut"><span class="glyphicon glyphicon-off"></span>&nbsp;注销</a></li>
             </ul>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="搜索">
@@ -62,8 +66,8 @@
                     <div class=" collapse panel-collapse"  id="channel_demo1">
                         <div class="panel-body">
                             <ul>
-                                <li><a href="/adminLogin" target="iframe_a">学生信息</a></li>
-                                <li><a href="../03studentJSP/stu_add.html" target="iframe_a">添加学生</a></li>
+                                <li><a href="/adminPage/studentInfoByPage/1" target="iframe_a">学生信息</a></li>
+                                <li><a href="/adminPage/studentAddPage" target="iframe_a">添加学生</a></li>
                             </ul>
                         </div>
                     </div>
@@ -81,15 +85,12 @@
                     <div class=" collapse panel-collapse"  id="channel_demo2">
                         <div class="panel-body">
                             <ul >
-                                <li><a href="../04teacherJSP/tch_info.html" target="iframe_a">教师信息</a></li>
-                                <li><a href="../04teacherJSP/tch_add.html" target="iframe_a">添加教师</a></li>
-
+                                <li><a href="/adminPage/teacherInfoByPage/1" target="iframe_a">教师信息</a></li>
+                                <li><a href="/adminPage/teacherAddPage" target="iframe_a">添加教师</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-
-
 
                 <!--一个功能 -->
                 <div class="panel panel-default">
@@ -102,8 +103,8 @@
                     <div class="collapse panel-collapse"  id="channel_demo3">
                         <div class="panel-body">
                             <ul>
-                                <li><a href="/user/adminInfo" target="iframe_a">管理员信息</a></li>
-                                <li><a href="../05administratorJSP/admin_add.html " target="iframe_a">添加管理员</a></li>
+                                <li><a href="/adminPage/adminInfoByPage/1" target="iframe_a">管理员信息</a></li>
+                                <li><a href="/adminPage/adminAddPage" target="iframe_a">添加管理员</a></li>
 
                             </ul>
                         </div>
@@ -148,11 +149,12 @@
 
 </div>
 <div class="main" style="background: #000000;">
-    <iframe src="../home.html" id="engine" name="iframe_a" frameborder="0" marginwidth="0" marginheight="0" allowtransparency="true" style="background-color:#fff"></iframe>
+    <iframe src="" id="engine" name="iframe_a" frameborder="0" marginwidth="0" marginheight="0" allowtransparency="true" style="background-color:#fff"></iframe>
+    <a href="/adminPage/homePage" target="iframe_a" style="display: none" id="home" />
 </div>
-<div class="navbar-fixed-bottom">
-    <iframe src="../07background/footer.html" id="engine1" name="engine" frameborder="0" marginwidth="0" marginheight="0" allowtransparency="true" style="background-color:#000"></iframe>
-</div>
+<%--<div class="navbar-fixed-bottom">--%>
+    <%--<iframe src="" id="engine1" name="engine" frameborder="0" marginwidth="0" marginheight="0" allowtransparency="true" style="background-color:#000"></iframe>--%>
+<%--</div>--%>
 </body>
 </html>
 

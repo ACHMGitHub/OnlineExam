@@ -35,37 +35,30 @@
                         <td>${u.id}</td>
                         <td>${u.name}</td>
                         <td>${u.pw}</td>
-                        <td>${u.sex}</td>
+                        <td>
+                            <c:if test="${u.sex == 0}">女</c:if>
+                            <c:if test="${u.sex == 1}">男</c:if>
+                        </td>
                         <td>${u.phone}</td>
                         <td>${u.card}</td>
                         <td><a href="#">修改</a></td>
-                        <td><a href="/user/managerDelete/${u.id}">删除</a></td>
+                        <td><a href="/adminPage/adminDelete/${u.id}">删除</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
             <div class="page_index">
-                <ul class="pagination " >
+                <ul class="pagination" >
                     <li>
-                        <a href="#"><<</a>
+                        <a href="/adminPage/adminInfoByPage/1"><<</a>
                     </li>
+                    <c:forEach var="i" begin="1" end="${num}" step="1">
                     <li>
-                        <a href="#">1</a>
+                        <a href="/adminPage/adminInfoByPage/${i}">${i}</a>
                     </li>
+                    </c:forEach>
                     <li>
-                        <a href="#">2</a>
-                    </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li>
-                        <a href="#">4</a>
-                    </li>
-                    <li>
-                        <a href="#">5</a>
-                    </li>
-                    <li>
-                        <a href="#">>></a>
+                        <a href="/adminPage/adminInfoByPage/${num}">>></a>
                     </li>
                 </ul>
             </div>

@@ -47,7 +47,7 @@ public class TeacherService implements ITeacherService{
 
     @Override
     public List<Teacher> findAllByPage(int startIndex, int pageSize) {
-        return findAllByPage(startIndex, pageSize);
+        return teacherDao.findAllByPage(startIndex, pageSize);
     }
 
     @Override
@@ -67,8 +67,36 @@ public class TeacherService implements ITeacherService{
     }
 
     @Override
+    public Boolean idUnique(String id) {
+        Teacher admin = this.getById(id);
+        if(admin == null)
+            return true;
+        else
+            return false;
+    }
+
+    @Override
     public Serializable save(Teacher entity) {
         return teacherDao.save(entity);
+    }
+
+    @Override
+    public boolean allowToSave(Teacher entity) {
+        if(entity.getId() == null)
+            return false;
+        if(entity.getPw() == null)
+            return false;
+        if(entity.getName() == null)
+            return false;
+        if(entity.getSex() == null)
+            return false;
+        if(entity.getCard() == null)
+            return false;
+        if(entity.getPhone() == null)
+            return false;
+        if(entity.getTitle() == null)
+            return false;
+        return true;
     }
 
     @Override

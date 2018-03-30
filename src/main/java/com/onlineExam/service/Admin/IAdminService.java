@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface IAdminService extends IBaseService<Admin>{
 
-    //Delete
     /**
      * 唯一用户名删除
      * @param id
@@ -80,4 +79,12 @@ public interface IAdminService extends IBaseService<Admin>{
      * @return 成功返回用户实例
      */
     Admin login(String id, String pw);
+
+    /**
+     * 验证用户名唯一
+     * @param id 待验证用户名
+     * @return 唯一为true
+     */
+    Boolean idUnique(String id);
+
 }

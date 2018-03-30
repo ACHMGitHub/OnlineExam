@@ -7,13 +7,21 @@ import java.util.List;
 public interface IBaseService<T> {
 
     /**
-     * 保存
+     * 持久化
      *
      * @param entity
      *
      * @return oid
      */
     Serializable save(T entity);
+
+    /**
+     * 是否允许持久化
+     * 判断各个字段是否为空值
+     * @param entity 要持久的实体
+     * @return true 为允许
+     */
+    boolean allowToSave(T entity);
 
     /**
      * 更新
