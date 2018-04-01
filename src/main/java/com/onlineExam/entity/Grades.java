@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "tb_grades", schema = "exam", catalog = "")
 public class Grades {
     private Integer uuid;
-    private Integer grGrade;
+    private Integer grade;
     private StudentTP stuTestPaper;
 
     @Id
@@ -22,12 +22,12 @@ public class Grades {
 
     @Basic
     @Column(name = "gr_grade", nullable = false)
-    public Integer getGrGrade() {
-        return grGrade;
+    public Integer getGrade() {
+        return grade;
     }
 
-    public void setGrGrade(Integer grGrade) {
-        this.grGrade = grGrade;
+    public void setGrade(Integer grade) {
+        this.grade = grade;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class Grades {
         Grades grades = (Grades) o;
 
         if (uuid != null ? !uuid.equals(grades.uuid) : grades.uuid != null) return false;
-        if (grGrade != null ? !grGrade.equals(grades.grGrade) : grades.grGrade != null) return false;
+        if (grade != null ? !grade.equals(grades.grade) : grades.grade != null) return false;
 
         return true;
     }
@@ -46,7 +46,7 @@ public class Grades {
     @Override
     public int hashCode() {
         int result = uuid != null ? uuid.hashCode() : 0;
-        result = 31 * result + (grGrade != null ? grGrade.hashCode() : 0);
+        result = 31 * result + (grade != null ? grade.hashCode() : 0);
         return result;
     }
 

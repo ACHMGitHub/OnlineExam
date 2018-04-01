@@ -41,8 +41,8 @@
                         </td>
                         <td>${u.phone}</td>
                         <td>${u.card}</td>
-                        <td><a href="#">修改</a></td>
-                        <td><a href="/adminPage/adminDelete/${u.id}">删除</a></td>
+                        <%--<td><a href="#">修改</a></td>--%>
+                        <%--<td><a href="/adminPage/adminDelete/${u.id}">删除</a></td>--%>
                     </tr>
                 </c:forEach>
                 </tbody>

@@ -19,7 +19,7 @@
     <script type="text/javascript">
         window.onload=function(){
             document.body.parentNode.style.overflow="hidden";//隐藏且禁用
-        }
+        };
         $(document).ready(function(){
             $("#home").append("<span></span>");
             $("#home span").click();
@@ -49,7 +49,6 @@
         </div>
     </div>
 </nav>
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
@@ -119,7 +118,7 @@
                     <div class="collapse panel-collapse"  id="channel_demo4">
                         <div class="panel-body">
                             <ul>
-                                <li><a href="../01adminJSP/grade_info.html" target="iframe_a">成绩信息</a></li>
+                                <li><a href="/adminPage/gradesInfoByPage/1" target="iframe_a">成绩信息</a></li>
                             </ul>
                         </div>
                     </div>
@@ -145,15 +144,10 @@
         </div>
     </div>
 </div>
-
-</div>
 <div class="main" style="background: #000000;">
     <iframe src="" id="engine" name="iframe_a" frameborder="0" marginwidth="0" marginheight="0" allowtransparency="true" style="background-color:#fff"></iframe>
     <a href="/adminPage/homePage" target="iframe_a" style="display: none" id="home" />
 </div>
-<%--<div class="navbar-fixed-bottom">--%>
-    <%--<iframe src="" id="engine1" name="engine" frameborder="0" marginwidth="0" marginheight="0" allowtransparency="true" style="background-color:#000"></iframe>--%>
-<%--</div>--%>
 </body>
 </html>
 

@@ -52,7 +52,7 @@
                     },
                     success:function(data){
                         if(data){
-                            location.href = "/test";
+                            location.href = "/studentPage/studentHome";
                         }
                         else{
                             alert("账号或密码错误");

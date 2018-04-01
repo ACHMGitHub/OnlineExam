@@ -18,8 +18,6 @@
 
     <script language="JavaScript" src="../../../js/additional-methods.js"></script>
 
-    <script language="JavaScript" src="../../../js/messages_zh.js"></script>
-
     <script>
         $.validator.setDefaults({
             submitHandler: function() {
@@ -57,41 +55,54 @@
                 rules: {
                     username: {
                         required: true,
-                        minlength: 2
+                        minlength: 2,
+                        maxlength: 10
                     },
                     password: {
                         required: true,
-                        minlength: 5
+                        minlength: 5,
+                        maxlength: 15
                     },
-                    sex: {
+                    phoneNum:{
                         required: true,
+                        digits:true,
+                        minlength: 8,
+                        maxlength: 11,
                     },
-                    phoneNum: {
-                        required: true,
-
+                    IDcard:{
+                        required:true,
+                        minlength: 18,
+                        maxlength: 18
                     },
-                    IDcard: {
-                        required: true,
+                    sex:{
+                        required:true
                     },
                 },
                 messages: {
                     username: {
-                        required: "请输入用户名",
-                        minlength: "用户名必需由两个字母组成"
+                        required: "请输入姓名",
+                        minlength: "姓名最少由两个字组成",
+                        maxlength: "姓名最多由10个字组成"
                     },
                     password: {
                         required: "请输入密码",
-                        minlength: "密码长度不能小于 5 个字母"
+                        minlength: "密码长度不能小于 5 个字符",
+                        maxlength: "密码长度不能多于 10 个字符组成"
                     },
-                    sex: {
-                        required: "Wrong Input",
+                    phoneNum:{
+                        required:"请输入电话号码",
+                        minlength: "电话号码长度不能小于 8 个字符",
+                        maxlength: "电话号码长度不能多于 11 个字符组成"
+                        // digits: "请输入数字"
                     },
-                    phoneNum: {
-                        required: "请输入电话号码",
+                    IDcard:{
+                        required:"请输入身份证号",
+                        minlength: "请输入正确的身份证号",
+                        maxlength: "请输入正确的身份证号"
                     },
-                    IDcard: {
-                        required: "请输入身份证号",
-                    }
+                    sex:{
+                        required:"请选择"
+                    },
                 },
 
                 errorPlacement: function (error, element) { //指定错误信息位置
