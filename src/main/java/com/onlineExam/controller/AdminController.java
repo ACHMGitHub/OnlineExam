@@ -1,10 +1,12 @@
 package com.onlineExam.controller;
 
+import com.onlineExam.dao.Grades.IGradesDao;
 import com.onlineExam.entity.*;
 import com.onlineExam.service.Admin.IAdminService;
 import com.onlineExam.service.Blank.IBlankService;
 import com.onlineExam.service.Choice.IChoiceService;
 import com.onlineExam.service.Course.ICourseService;
+import com.onlineExam.service.Grades.IGradesService;
 import com.onlineExam.service.Student.IStudentService;
 import com.onlineExam.service.Teacher.ITeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,8 @@ public class AdminController {
     IBlankService blankService;
     @Autowired
     IChoiceService choiceService;
+    @Autowired
+    IGradesService gradesService;
 
     //页面显示辅助
     @RequestMapping("homePage")
@@ -124,9 +128,9 @@ public class AdminController {
     /******************************学生信息管理****************************************************************/
     /**
      * 学生信息分页显示
-     * @param index
-     * @param model
-     * @return
+     * @param index 页号
+     * @param model 模型
+     * @return 页面
      */
     @RequestMapping("studentInfoByPage/{index}")
     public String studentInfo(@PathVariable(value="index")int index, ModelMap model){
@@ -145,8 +149,8 @@ public class AdminController {
     }
     /**
      * 学生删除操作
-     * @param id
-     * @return
+     * @param id 学生主码
+     * @return 页面
      */
     @RequestMapping("studentDelete/{id}")
     public String studentDelete(@PathVariable(value="id")String id){
@@ -155,7 +159,7 @@ public class AdminController {
     }
     /**
      * 添加学生页面
-     * @return
+     * @return 页面
      */
     @RequestMapping("studentAddPage")
     public String studentAdd(){
@@ -163,8 +167,8 @@ public class AdminController {
     }
     /**
      * 验证学生用户名唯一性
-     * @param id
-     * @return
+     * @param id 用户名
+     * @return  是否唯一
      */
     @RequestMapping("studentIdCheck")
     @ResponseBody
@@ -174,8 +178,8 @@ public class AdminController {
     }
     /**
      * 添加学生操作
-     * @param student
-     * @return
+     * @param student 学生实体
+     * @return 是否成功添加
      */
     @RequestMapping("studentAdd")
     @ResponseBody
@@ -190,9 +194,9 @@ public class AdminController {
 
     /**
      * 学生修改页面
-     * @param id
-     * @param model
-     * @return
+     * @param id 页号
+     * @param model 模型
+     * @return 页面
      */
     @RequestMapping("studentUpdatePage/{id}")
     public String studentUpdatePage(@PathVariable(value = "id") int id, ModelMap model){
@@ -203,8 +207,8 @@ public class AdminController {
 
     /**
      * 学生修改操作
-     * @param student
-     * @return
+     * @param student 学生实体
+     * @return 页面
      */
     @RequestMapping("studentUpdate")
     @ResponseBody
@@ -220,8 +224,8 @@ public class AdminController {
     /**
      * 教师信息页面
      * @param index 页号
-     * @param model
-     * @return
+     * @param model 模型
+     * @return 页面
      */
     @RequestMapping("teacherInfoByPage/{index}")
     public String teacherInfo(@PathVariable(value="index")int index, ModelMap model){
@@ -241,7 +245,7 @@ public class AdminController {
     /**
      * 教师删除操作
      * @param id 教师主码
-     * @return
+     * @return 页面
      */
     @RequestMapping("teacherDelete/{id}")
     public String teacherDelete(@PathVariable(value="id")String id){
@@ -250,7 +254,7 @@ public class AdminController {
     }
     /**
      * 教师添加页面
-     * @return
+     * @return 页面
      */
     @RequestMapping("teacherAddPage")
     public String teacherAdd(){
@@ -258,8 +262,8 @@ public class AdminController {
     }
     /**
      * 验证教师用户名唯一性
-     * @param id
-     * @return
+     * @param id 用户名
+     * @return 是否唯一
      */
     @RequestMapping("teacherIdCheck")
     @ResponseBody
@@ -269,8 +273,8 @@ public class AdminController {
     }
     /**
      * 教师添加操作
-     * @param teacher
-     * @return
+     * @param teacher 教师实体
+     * @return 是否成功添加
      */
     @RequestMapping("teacherAdd")
     @ResponseBody
@@ -284,9 +288,9 @@ public class AdminController {
     }
     /**
      * 教师修改页面
-     * @param id
-     * @param model
-     * @return
+     * @param id 页号
+     * @param model 模型
+     * @return 页面
      */
     @RequestMapping("teacherUpdatePage/{id}")
     public String teacherUpdatePage(@PathVariable(value = "id") int id, ModelMap model){
@@ -296,9 +300,9 @@ public class AdminController {
     }
 
     /**
-     * 学生修改操作
-     * @param teacher
-     * @return
+     * 教师修改操作
+     * @param teacher 教师实体
+     * @return 是否成功更新
      */
     @RequestMapping("teacherUpdate")
     @ResponseBody
@@ -311,9 +315,9 @@ public class AdminController {
     /******************************课程信息管理****************************************************************/
     /**
      * 课程信息分页显示页面
-     * @param index
-     * @param model
-     * @return
+     * @param index 页号
+     * @param model 模型
+     * @return 页面
      */
     @RequestMapping("courseInfoByPage/{index}")
     public String courseInfoByPage(@PathVariable(value="index")int index, ModelMap model){
@@ -331,8 +335,8 @@ public class AdminController {
 
     /**
      * 删除操作
-     * @param id
-     * @return
+     * @param id 课程主码
+     * @return 页面
      */
     @RequestMapping("courseDelete/{id}")
     public String courseDelete(@PathVariable(value="id")int id){
@@ -342,9 +346,9 @@ public class AdminController {
     /******************************填空题信息管理****************************************************************/
     /**
      * 填空题分页显示
-     * @param index
-     * @param model
-     * @return
+     * @param index 页号
+     * @param model 模型
+     * @return 页面
      */
     @RequestMapping("blankInfoByPage/{index}")
     public String blankInfoByPage(@PathVariable(value="index")int index, ModelMap model){
@@ -361,7 +365,7 @@ public class AdminController {
     }
     /**
      * 填空题详细信息
-     * @return
+     * @return 页面
      */
     @RequestMapping("blankMoreInfo/{id}")
     public String blankMoreInfo(@PathVariable(value="id")int id, ModelMap model){
@@ -372,9 +376,9 @@ public class AdminController {
     /******************************选择题信息管理****************************************************************/
     /**
      * 选择题分页显示页面
-     * @param index
-     * @param model
-     * @return
+     * @param index 页号
+     * @param model 模型
+     * @return 页面
      */
     @RequestMapping("choiceInfoByPage/{index}")
     public String choiceInfoByPage(@PathVariable(value="index")int index, ModelMap model){
@@ -391,12 +395,32 @@ public class AdminController {
     }
     /**
      * 选择题详细信息
-     * @return
+     * @return 页面
      */
     @RequestMapping("choiceMoreInfo/{id}")
     public String choiceMoreInfo(@PathVariable(value="id")int id, ModelMap model){
         Choice choice = choiceService.getByUuid(id);
         model.addAttribute("choice",choice);
         return "AdminPage/choiceMoreInfo";
+    }
+    /******************************成绩信息管理****************************************************************/
+    /**
+     * 成绩分页显示页面
+     * @param index 页号
+     * @param model 模型
+     * @return 页面
+     */
+    @RequestMapping("gradesInfoByPage/{index}")
+    public String gradesInfoByPage(@PathVariable(value="index")int index, ModelMap model){
+        int pageSize = 2;
+        int gradesNum = gradesService.recordNum();
+        int pageNum = gradesNum/pageSize;
+        pageNum = gradesNum % pageSize == 0 ? pageNum : pageNum+ 1;
+
+        List<Grades> list = gradesService.findAllByPage((index-1)*pageSize,pageSize);
+
+        model.addAttribute("grades", list);
+        model.addAttribute("num", pageNum);
+        return "AdminPage/grades_info";
     }
 }

@@ -111,4 +111,10 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
         }
         query.executeUpdate();
     }
+
+    /* *****************************自己加的*******************************************************************/
+    @Override
+    public DetachedCriteria getDetachedCriteria() {
+        return DetachedCriteria.forClass(clazz);
+    }
 }

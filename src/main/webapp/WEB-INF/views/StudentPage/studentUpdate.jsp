@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>${sessionScope.currentUser.id}</title>
     <link rel="stylesheet" href="../../../css/bootstrap.min.css" />
 
     <link rel="stylesheet" href="../../../css/addChangeCss.css"/>
@@ -19,34 +19,31 @@
     <script language="JavaScript" src="../../../js/additional-methods.js"></script>
 
     <script>
+
         $.validator.setDefaults({
             submitHandler: function() {
                 var param = {
-                    id : $("#id").val(),
-                    pw : $("#ad_pwd").val(),
-                    name : $("#ad_name").val(),
+                    uuid : ${sessionScope.currentUser.uuid},
+                    id : '${sessionScope.currentUser.id}',
+                    pw : $("#pw").val(),
+                    name : $("#name").val(),
                     sex : $("input[name='sex']:checked").val(),
-                    phone : $("#ad_phone").val(),
-                    card : $("#ad_card").val()
+                    phone : $("#phoneNum").val(),
+                    card : $("#card").val(),
+                    className : $("#className").val()
                 };
-                add(param);
-                function add(param){
+                update(param);
+                function update(param){
                     $.ajax({
                         type : "post",
                         dataType: 'json',
-                        url : "/adminPage/adminAdd",
+                        url : "/studentPage/studentUpdate",
                         contentType : "application/json",
                         data : JSON.stringify(param),
                         async:false,
                         success:function(data){
                             if(data){
-                                $("#id").val("");
-                                $("#ad_pwd").val("");
-                                $("#ad_name").val("");
-                                $("input:radio[name='sex']").attr("checked",false);
-                                $("#ad_phone").val("");
-                                $("#ad_card").val("");
-                                alert("添加成功");
+                                alert("修改成功");
                             }
                         }
                     })
@@ -54,25 +51,8 @@
             }
         });
         $().ready(function() {
-            // 在键盘按下并释放及提交后验证提交表单
-            $("#adminForm").validate({
-
+            $("#signupForm").validate({
                 rules: {
-                    id: {
-                        required: true,
-                        minlength: 6,
-                        maxlength: 8,
-                        remote: {
-                            url: "/adminPage/adminIdCheck",
-                            type: "post",
-                            dataType: "json",
-                            data: {
-                                id: function () {
-                                    return $("#id").val();
-                                }
-                            }
-                        }
-                    },
                     username: {
                         required: true,
                         minlength: 2,
@@ -97,14 +77,12 @@
                     sex:{
                         required:true
                     },
+                    className:{
+                        required:true,
+                        maxlength: 20
+                    }
                 },
                 messages: {
-                    id:{
-                        required: "请输入用户名",
-                        minlength: "用户名最少由6字母组成",
-                        maxlength: "用户名最多由8字母组成",
-                        remote: "用户名已存在"
-                    },
                     username: {
                         required: "请输入姓名",
                         minlength: "姓名最少由两个字组成",
@@ -128,6 +106,10 @@
                     sex:{
                         required:"请选择"
                     },
+                    className:{
+                        required:"请填写班级",
+                        maxlength: "班级名最多为20个字符"
+                    }
                 },
 
                 errorPlacement: function (error, element) { //指定错误信息位置
@@ -138,70 +120,63 @@
                         error.insertAfter(element);
                     }
                 }
-
             });
         });
     </script>
-
-    <script type="text/javascript">
-
-    </script>
-
 </head>
 <body>
-<form class="form" role="form" id="adminForm">
+<form class="form" role="form" id="signupForm">
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">用户名</label>
+        <label for="name" class="col-sm-2 control-label">学生姓名</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="id" name="id" placeholder="请输入用户名">
+            <input type="text" class="form-control" id="name" name="username" placeholder="请输入姓名" value="${sessionScope.currentUser.name}">
         </div>
     </div>
 
     <div class="form-group">
-        <label for="ad_name" class="col-sm-2 control-label">姓名</label>
+        <label for="pw" class="col-sm-2 control-label">密码</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="ad_name" name="username" placeholder="请输入姓名">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="ad_pwd" class="col-sm-2 control-label">密码</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="ad_pwd" name="password" placeholder="请输入密码">
+            <input type="password" class="form-control" id="pw" name="password" value="${sessionScope.currentUser.pw}">
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-2">性别</label>
         <div class="col-sm-10">
-            <div >
+            <div>
                 <label>
-                    <input type="radio" name="sex" id="gridRadios1" value="1">男
-                    <input type="radio" name="sex" id="gridRadios2" value="0">女
+                    <input type="radio" name="sex" id="gridRadios1" value="1" <c:if test="${sessionScope.currentUser.sex == 1}">checked="checked"</c:if> >男
+                    <input type="radio" name="sex" id="gridRadios2" value="0" <c:if test="${sessionScope.currentUser.sex == 0}">checked="checked"</c:if> >女
                 </label>
             </div>
-
         </div>
     </div>
 
     <div class="form-group">
-        <label for="ad_phone" class="col-sm-2 control-label">联系电话</label>
+        <label for="phoneNum" class="col-sm-2 control-label">联系电话</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="phoneNum" id="ad_phone" placeholder="请输入电话">
+            <input type="text" class="form-control" id="phoneNum" name="phoneNum" value="${sessionScope.currentUser.phone}">
         </div>
     </div>
 
     <div class="form-group">
-        <label for="ad_card" class="col-sm-2 control-label">身份证</label>
+        <label for="className"  class="col-sm-2 control-label">班级</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="ad_card" name="IDcard" placeholder="请输入证号">
+            <input type="text" class="form-control" id="className" name="className" value="${sessionScope.currentUser.className}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="card" class="col-sm-2 control-label">身份证</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="card" name="IDcard" value="${sessionScope.currentUser.card}">
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-success btn-block" id="addButton">添加</button>
+            <button type="submit" class="btn btn-success btn-block" id="submit">确认</button>
         </div>
     </div>
 </form>

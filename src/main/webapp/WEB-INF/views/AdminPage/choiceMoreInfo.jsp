@@ -26,68 +26,6 @@
 
     <script language="JavaScript" src="../../../js/messages_zh.js"></script>
 
-    <%--<script>--%>
-
-        <%--$.validator.setDefaults({--%>
-            <%--submitHandler: function() {--%>
-                <%--alert("提交事件!");--%>
-            <%--}--%>
-        <%--});--%>
-        <%--$().ready(function() {--%>
-<%--// 在键盘按下并释放及提交后验证提交表单--%>
-            <%--$("#addChioceForm").validate({--%>
-                <%--rules: {--%>
-                    <%--ch_question:"required",--%>
-                    <%--ch_a:"required",--%>
-                    <%--ch_c:"required",--%>
-                    <%--ch_b:"required",--%>
-                    <%--ch_d:"required",--%>
-                    <%--ch_answer:"required",--%>
-                    <%--ch_analyse:"required",--%>
-                    <%--username: {--%>
-                        <%--required: true,--%>
-                        <%--minlength: 2--%>
-                    <%--},--%>
-                    <%--gridRadios:{--%>
-                        <%--required:true,--%>
-                    <%--},--%>
-
-                <%--},--%>
-                <%--messages: {--%>
-                    <%--ch_question:"请输入",--%>
-                    <%--ch_a:"请输入",--%>
-                    <%--ch_b:"请输入",--%>
-                    <%--ch_c:"请输入",--%>
-                    <%--ch_d:"请输入",--%>
-                    <%--ch_answer:"请输入",--%>
-                    <%--ch_analyse:"请输入",--%>
-                    <%--username: {--%>
-                        <%--required: "请输入用户名",--%>
-                        <%--minlength: "用户名必需由两个字母组成"--%>
-                    <%--},--%>
-
-                    <%--gridRadios:{--%>
-                        <%--required:"请选择",--%>
-                    <%--},--%>
-
-                <%--},--%>
-
-                <%--errorPlacement: function (error, element) { //指定错误信息位置--%>
-                    <%--if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox--%>
-                        <%--var eid = element.attr('name'); //获取元素的name属性--%>
-                        <%--error.appendTo(element.parent()); //将错误信息添加当前元素的父结点后面--%>
-                    <%--} else {--%>
-                        <%--error.insertAfter(element);--%>
-                    <%--}--%>
-                <%--}--%>
-
-            <%--});--%>
-        <%--});--%>
-
-    <%--</script>--%>
-
-
-
 
 </head>
 <body style="padding: 0px;">

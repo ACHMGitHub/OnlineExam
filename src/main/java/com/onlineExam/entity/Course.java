@@ -51,7 +51,7 @@ public class Course {
         return result;
     }
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", orphanRemoval = true)
     public Collection<TestPaper> getTestPapers() {
         return testPapers;
     }

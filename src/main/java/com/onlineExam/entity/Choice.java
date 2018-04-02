@@ -140,7 +140,7 @@ public class Choice {
         this.teacher = teacher;
     }
 
-    @OneToMany(mappedBy = "choice")
+    @OneToMany(mappedBy = "choice", orphanRemoval = true)
     public Collection<TPChoice> getTestPapers() {
         return testPapers;
     }

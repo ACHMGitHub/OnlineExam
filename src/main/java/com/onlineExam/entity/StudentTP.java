@@ -66,7 +66,7 @@ public class StudentTP {
         return result;
     }
 
-    @OneToOne(mappedBy = "stuTestPaper")
+    @OneToOne(mappedBy = "stuTestPaper", orphanRemoval = true)
     public Grades getGrade() {
         return grade;
     }

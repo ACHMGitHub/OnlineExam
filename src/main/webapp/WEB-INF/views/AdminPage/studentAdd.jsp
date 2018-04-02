@@ -18,8 +18,6 @@
 
     <script language="JavaScript" src="../../../js/additional-methods.js"></script>
 
-    <script language="JavaScript" src="../../../js/messages_zh.js"></script>
-
 
     <script>
 
@@ -66,6 +64,7 @@
                     id: {
                         required: true,
                         minlength: 8,
+                        maxlength: 10,
                         remote: {
                             url: "/adminPage/studentIdCheck",
                             type: "post",
@@ -79,50 +78,66 @@
                     },
                     username: {
                         required: true,
-                        minlength: 2
+                        minlength: 2,
+                        maxlength: 10
                     },
                     password: {
                         required: true,
-                        minlength: 5
+                        minlength: 5,
+                        maxlength: 15
                     },
                     phoneNum:{
                         required: true,
+                        minlength: 8,
+                        maxlength: 11,
+                        digits:true
                     },
                     IDcard:{
                         required:true,
+                        minlength: 18,
+                        maxlength: 18
                     },
                     sex:{
                         required:true,
                     },
                     className:{
-                        required:true
+                        required:true,
+                        maxlength: 20
                     }
                 },
                 messages: {
                     id:{
                         required: "请输入用户名",
-                        minlength: "用户名必需由8字符组成",
+                        minlength: "用户名最少由8字符组成",
+                        maxlength: "用户名最多由10字符组成",
                         remote: "用户名已存在"
                     },
                     username: {
                         required: "请输入用户名",
-                        minlength: "姓名必需由两个字符组成"
+                        minlength: "姓名必需由两个字符组成",
+                        maxlength: "姓名最多由10个字组成"
                     },
                     password: {
                         required: "请输入密码",
-                        minlength: "密码长度不能小于 5 个字母"
+                        minlength: "密码长度不能小于 5 个字母",
+                        maxlength: "密码长度不能多于 10 个字符组成"
                     },
                     phoneNum:{
                         required:"请输入电话号码",
+                        minlength: "电话号码长度不能小于 8 个字符",
+                        maxlength: "电话号码长度不能多于 11 个字符组成"
                     },
                     IDcard:{
                         required:"请输入身份证号",
+                        minlength: "请输入正确的身份证号",
+                        maxlength: "请输入正确的身份证号"
                     },
                     sex:{
                         required:"请选择",
                     },
                     className:{
                         required:"请填写班级",
+                        maxlength: "班级名最多为20个字符"
                     }
                 },
 
