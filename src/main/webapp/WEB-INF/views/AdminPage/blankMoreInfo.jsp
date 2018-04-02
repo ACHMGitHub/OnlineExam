@@ -17,35 +17,6 @@
     <script language="JavaScript" src="../../../js/additional-methods.js"></script>
 
     <script language="JavaScript" src="../../../js/messages_zh.js"></script>
-    <%--<script>--%>
-
-        <%--$.validator.setDefaults({--%>
-            <%--submitHandler: function() {--%>
-                <%--alert("提交事件!");--%>
-            <%--}--%>
-        <%--});--%>
-        <%--$().ready(function() {--%>
-<%--// 在键盘按下并释放及提交后验证提交表单--%>
-            <%--$("#completForm").validate({--%>
-                <%--rules: {--%>
-                    <%--firstname: "required",--%>
-                    <%--title:"required",--%>
-                    <%--answer:"required",--%>
-                    <%--analyse:"required",--%>
-                <%--},--%>
-                <%--messages: {--%>
-                    <%--firstname: "请输入您的名字",--%>
-                    <%--title:"必填项",--%>
-                    <%--answer:"必填项",--%>
-                    <%--analyse:"必填项",--%>
-                <%--},--%>
-
-
-
-            <%--});--%>
-        <%--});--%>
-
-    <%--</script>--%>
 
 </head>
 <body>

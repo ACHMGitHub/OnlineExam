@@ -74,4 +74,12 @@ public interface IBaseDao<T> {
 	 * @param objects 参数列表
 	 */
 	void executeUpdate(String queryName, Object... objects);
+
+	/* *****************************自己加的*******************************************************************/
+
+	/**
+	 * 得到实体类的查询条件
+	 * @return 查询条件
+	 */
+	DetachedCriteria getDetachedCriteria();
 }

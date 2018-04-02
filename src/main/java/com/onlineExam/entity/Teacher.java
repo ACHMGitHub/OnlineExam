@@ -130,7 +130,7 @@ public class Teacher {
         return result;
     }
 
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher", orphanRemoval = true)
     public Collection<Blank> getBlanks() {
         return blanks;
     }
@@ -139,7 +139,7 @@ public class Teacher {
         this.blanks = blanks;
     }
 
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher", orphanRemoval = true)
     public Collection<Choice> getChoices() {
         return choices;
     }

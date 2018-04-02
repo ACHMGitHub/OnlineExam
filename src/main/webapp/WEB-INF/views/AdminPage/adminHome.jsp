@@ -20,10 +20,10 @@
         window.onload=function(){
             document.body.parentNode.style.overflow="hidden";//隐藏且禁用
         };
-        $(document).ready(function(){
-            $("#home").append("<span></span>");
-            $("#home span").click();
-        });
+        // $(document).ready(function(){
+        //     $("#home").append("<span></span>");
+        //     $("#home span").click();
+        // });
     </script>
 </head>
 <body>
@@ -145,8 +145,8 @@
     </div>
 </div>
 <div class="main" style="background: #000000;">
-    <iframe src="" id="engine" name="iframe_a" frameborder="0" marginwidth="0" marginheight="0" allowtransparency="true" style="background-color:#fff"></iframe>
-    <a href="/adminPage/homePage" target="iframe_a" style="display: none" id="home" />
+    <iframe src="/adminPage/homePage" id="engine" name="iframe_a" frameborder="0" marginwidth="0" marginheight="0" allowtransparency="true" style="background-color:#fff"></iframe>
+    <%--<a href="/adminPage/homePage" target="iframe_a" style="display: none" id="home" />--%>
 </div>
 </body>
 </html>

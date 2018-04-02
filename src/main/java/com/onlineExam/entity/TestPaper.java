@@ -93,7 +93,7 @@ public class TestPaper {
         return result;
     }
 
-    @OneToMany(mappedBy = "testPaper")
+    @OneToMany(mappedBy = "testPaper", orphanRemoval = true)
     public Collection<StudentTP> getStuTestPapers() {
         return stuTestPapers;
     }
@@ -112,7 +112,7 @@ public class TestPaper {
         this.course = course;
     }
 
-    @OneToMany(mappedBy = "testPaper")
+    @OneToMany(mappedBy = "testPaper", orphanRemoval = true)
     public Collection<TPBlank> getBlanks() {
         return blanks;
     }
@@ -121,7 +121,7 @@ public class TestPaper {
         this.blanks = blanks;
     }
 
-    @OneToMany(mappedBy = "testPaper")
+    @OneToMany(mappedBy = "testPaper", orphanRemoval = true)
     public Collection<TPChoice> getChoices() {
         return choices;
     }

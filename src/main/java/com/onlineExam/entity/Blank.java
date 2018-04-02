@@ -88,7 +88,7 @@ public class Blank {
         this.teacher = teacher;
     }
 
-    @OneToMany(mappedBy = "blank")
+    @OneToMany(mappedBy = "blank", orphanRemoval = true)
     public Collection<TPBlank> getTestPapers() {
         return testPapers;
     }

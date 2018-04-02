@@ -42,7 +42,7 @@
                         <td>${u.title}</td>
                         <td>${u.phone}</td>
                         <td><a href="/adminPage/teacherUpdatePage/${u.uuid}">修改</a></td>
-                        <td><a href="/adminPage/adminDelete/${u.id}">删除</a></td>
+                        <td><a href="/adminPage/teacherDelete/${u.id}">删除</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -50,15 +50,15 @@
             <div class="page_index">
                 <ul class="pagination " >
                     <li>
-                        <a href="/adminPage/studentInfoByPage/1"><<</a>
+                        <a href="/adminPage/teacherInfoByPage/1"><<</a>
                     </li>
                     <c:forEach var="i" begin="1" end="${num}" step="1">
                         <li>
-                            <a href="/adminPage/studentInfoByPage/${i}">${i}</a>
+                            <a href="/adminPage/teacherInfoByPage/${i}">${i}</a>
                         </li>
                     </c:forEach>
                     <li>
-                        <a href="/adminPage/studentInfoByPage/${num}">>></a>
+                        <a href="/adminPage/teacherInfoByPage/${num}">>></a>
                     </li>
                 </ul>
             </div>

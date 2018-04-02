@@ -129,7 +129,7 @@ public class Student {
         return result;
     }
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", orphanRemoval = true)
     public Collection<StudentTP> getStuTestPapers() {
         return stuTestPapers;
     }
