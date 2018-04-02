@@ -164,7 +164,9 @@ public class StudentController {
         //记录数
         int studentTPNum = studentTPService.recordOfTimeGradeStudent(student,aTime,bTime,min,max);
         //页面数
-        int pageNum = studentTPNum/pageSize + studentTPNum % pageSize == 0 ? 0 : 1;
+        int pageNum = studentTPNum/pageSize;
+        pageNum = studentTPNum % pageSize == 0 ? pageNum : pageNum+ 1;
+
         List<StudentTP> list = studentTPService.findByTimeGradeStudent(student, aTime, bTime, min, max, (index-1)*pageSize, pageSize);
 
         model.addAttribute("studentTPs", list);
