@@ -8,6 +8,8 @@ import java.util.Collection;
 public class Course {
     private Integer uuid;
     private String name;
+    private Collection<Choice> choices;
+    private Collection<Blank> blanks;
     private Collection<TestPaper> testPapers;
 
     @Id
@@ -58,5 +60,23 @@ public class Course {
 
     public void setTestPapers(Collection<TestPaper> testPapers) {
         this.testPapers = testPapers;
+    }
+
+    @OneToMany(mappedBy = "course", orphanRemoval = true)
+    public Collection<Choice> getChoices() {
+        return choices;
+    }
+
+    public void setChoices(Collection<Choice> choices) {
+        this.choices = choices;
+    }
+
+    @OneToMany(mappedBy = "course", orphanRemoval = true)
+    public Collection<Blank> getBlanks() {
+        return blanks;
+    }
+
+    public void setBlanks(Collection<Blank> blanks) {
+        this.blanks = blanks;
     }
 }

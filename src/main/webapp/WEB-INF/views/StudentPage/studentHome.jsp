@@ -79,7 +79,7 @@
                     <div class="collapse panel-collapse"  id="channel_demo5">
                         <div class="panel-body">
                             <ul>
-                                <li><a href="../02examFrame/middle.html" target="iframe_a">进入考试</a></li>
+                                <li><a href="/studentPage/studentExamPage">进入考试</a></li>
                             </ul>
                         </div>
                     </div>

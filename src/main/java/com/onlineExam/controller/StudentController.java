@@ -1,23 +1,20 @@
 package com.onlineExam.controller;
 
-import com.onlineExam.GradeSearchHelp;
-import com.onlineExam.entity.Grades;
 import com.onlineExam.entity.Student;
 import com.onlineExam.entity.StudentTP;
 import com.onlineExam.service.Course.ICourseService;
 import com.onlineExam.service.Grades.IGradesService;
 import com.onlineExam.service.Student.IStudentService;
 import com.onlineExam.service.StudentTP.IStudentTPService;
+import com.onlineExam.service.TestPaper.ITestPaperService;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.omg.CORBA.INTERNAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -33,6 +30,8 @@ public class StudentController {
     IGradesService gradesService;
     @Autowired
     IStudentTPService studentTPService;
+    @Autowired
+    ITestPaperService testPaperService;
 
     //页面显示辅助
     @RequestMapping("homePage")
@@ -174,4 +173,18 @@ public class StudentController {
         return "StudentPage/studentGrade";
     }
 
+    /********************************************考试功能************************************************************/
+
+    @RequestMapping("studentExamPage")
+    public String studentExamPage(ModelMap model){
+        model.addAttribute("courses", courseService.findAll());
+        return "StudentPage/exam_chooseCourse";
+    }
+
+    @RequestMapping("testPaperChoose/{cozId}")
+    public String showTestPaper(@PathVariable("cozId")Integer courseId, ModelMap model){
+        List list = testPaperService.findByCourse(courseId);
+        model.addAttribute("testPaper", list);
+        return "";
+    }
 }
