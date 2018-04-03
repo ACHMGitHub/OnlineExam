@@ -11,7 +11,9 @@ public class Blank {
     private String answer;
     private String analyse;
     private Teacher teacher;
+    private Course course;
     private Collection<TPBlank> testPapers;
+
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -88,6 +90,16 @@ public class Blank {
         this.teacher = teacher;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "bl_coz_id", referencedColumnName = "uuid", nullable = false)
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
     @OneToMany(mappedBy = "blank", orphanRemoval = true)
     public Collection<TPBlank> getTestPapers() {
         return testPapers;
@@ -96,4 +108,5 @@ public class Blank {
     public void setTestPapers(Collection<TPBlank> testPapers) {
         this.testPapers = testPapers;
     }
+
 }

@@ -15,6 +15,7 @@ public class Choice {
     private String answer;
     private String analyse;
     private Teacher teacher;
+    private Course course;
     private Collection<TPChoice> testPapers;
 
     @Id
@@ -138,6 +139,16 @@ public class Choice {
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ch_coz_id", referencedColumnName = "uuid", nullable = false)
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     @OneToMany(mappedBy = "choice", orphanRemoval = true)

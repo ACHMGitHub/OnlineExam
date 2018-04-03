@@ -28,6 +28,13 @@ public class TestPaperService implements ITestPaperService{
     }
 
     @Override
+    public List<TestPaper> findByCourse(Integer courseId) {
+        DetachedCriteria dc = testPaperDao.getDetachedCriteria();
+        dc = testPaperDao.findByCourse(dc, courseId);
+        return testPaperDao.findByCriteria(dc);
+    }
+
+    @Override
     public List<TestPaper> findAllByPage(int startIndex, int pageSize) {
         return testPaperDao.findByPage(DetachedCriteria.forClass(TestPaper.class), startIndex, pageSize);
     }

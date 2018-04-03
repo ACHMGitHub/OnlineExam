@@ -17,52 +17,29 @@
 <body>
 <div class="container">
     <h3 style="text-align: center ; background: #EEEEEE;height: 45px;line-height: 45px;">
-        请选择考试科目
+        你好 ${sessionScope.currentUser.name}, 请选择考试科目
     </h3>
     <div class="iconCon">
         <div class="row placeholders">
-            <div class="col-xs-12 col-sm-3 placeholder">
-                <a href="#">
-                    <img src="../../../img/icons_01.gif" width="200" height="200" class="img-responsive img-circle" alt="Generic placeholder thumbnail">
-                    <h4 class="text-center">语文</h4>
-                    <span class="text-muted">
-		              	<p class="text-center">text-center</p>
-		              </span>
-                </a>
-            </div>
-            <div class="col-xs-12 col-sm-3 placeholder">
-                <a href="#">
-                    <img src="../../../img/icons_02.gif" width="200" height="200" class="img-responsive img-circle" alt="Generic placeholder thumbnail">
-                    <h4 class="text-center">数学</h4>
-                    <span class="text-muted">
-	              	<p class="text-center">text-center</p>
-	              </span>
-                </a>
-            </div>
-            <div class="col-xs-12 col-sm-3 placeholder">
-                <a href="#">
-                    <img src="../../../img/icons_06.icons_03.jpg" width="200" height="200" class="img-responsive img-circle" alt="Generic placeholder thumbnail">
-                    <h4 class="text-center">英语</h4>
-                    <span class="text-muted">
-	              	<p class="text-center">text-center</p>
-	              </span>
-                </a>
-            </div>
-            <div class="col-xs-12 col-sm-3 placeholder">
-                <a href="#">
-                    <img src="../../../img/icons_08.icons_04.jpg" width="200" height="200" class="img-responsive img-circle" alt="Generic placeholder thumbnail">
-                    <h4 class="text-center">计算机</h4>
-                    <span class="text-muted">
-	              	<p class="text-center">text-center</p>
-	              </span>
-                </a>
-            </div>
+            <c:forEach items="${courses}" var="u" >
+                <div class="col-xs-12 col-sm-3 placeholder">
+                    <a href="#">
+                        <img <c:if test="${u.uuid % 4 == 0}">src="../../../img/icons_01.gif"</c:if>
+                             <c:if test="${u.uuid % 4 == 1}">src="../../../img/icons_02.gif"</c:if>
+                             <c:if test="${u.uuid % 4 == 2}">src="../../../img/icons_03.jpg"</c:if>
+                             <c:if test="${u.uuid % 4 == 3}">src="../../../img/icons_04.jpg"</c:if>
+                             width="200" height="200" class="img-responsive img-circle" alt="Generic placeholder thumbnail">
+                        <h4 class="text-center">${u.name}</h4>
+                        <span class="text-muted">
+                            <p class="text-center">text-center</p>
+                        </span>
+                    </a>
+                </div>
+            </c:forEach>
         </div>
     </div>
 
-
     <div class="col-md-12 column">
-
         <div class="jumbotron">
             <div class="place">
                 <h3>欢迎使用网上考试系统</h3>
@@ -83,7 +60,6 @@
         </div>
     </div>
 
-
     <div>
         <table  align="center" class="heise12x"  border="0" cellspacing="0" cellpadding="0">
             <tbody>
@@ -95,6 +71,5 @@
     </div>
 </div>
 </div>
-
 </body>
 </html>
