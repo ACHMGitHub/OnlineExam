@@ -147,4 +147,20 @@ public class Teacher {
     public void setChoices(Collection<Choice> choices) {
         this.choices = choices;
     }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "uuid=" + uuid +
+                ", id='" + id + '\'' +
+                ", pw='" + pw + '\'' +
+                ", name='" + name + '\'' +
+                ", sex=" + sex +
+                ", phone='" + phone + '\'' +
+                ", card='" + card + '\'' +
+                ", title='" + title + '\'' +
+                ", blanks=" + blanks +
+                ", choices=" + choices +
+                '}';
+    }
 }
