@@ -20,10 +20,6 @@
         window.onload=function(){
             document.body.parentNode.style.overflow="hidden";//隐藏且禁用
         };
-        // $(document).ready(function(){
-        //     $("#home").append("<span></span>");
-        //     $("#home span").click();
-        // });
     </script>
 </head>
 <body>

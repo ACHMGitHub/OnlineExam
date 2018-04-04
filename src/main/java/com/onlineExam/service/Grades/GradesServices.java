@@ -78,12 +78,12 @@ public class GradesServices implements IGradesService{
 
     @Override
     public Integer recordNum() {
-        return gradesDao.findRecordNumByPage(DetachedCriteria.forClass(Grades.class));
+        return gradesDao.findRecordNum(DetachedCriteria.forClass(Grades.class));
     }
 
     @Override
     public Integer findRecordNumByPage(DetachedCriteria detachedCriteria) {
-        return gradesDao.findRecordNumByPage(detachedCriteria);
+        return gradesDao.findRecordNum(detachedCriteria);
     }
 
     @Override

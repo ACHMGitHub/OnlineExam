@@ -146,11 +146,11 @@ public class TeacherService implements ITeacherService{
 
     @Override
     public Integer recordNum() {
-        return teacherDao.findRecordNumByPage(DetachedCriteria.forClass(Teacher.class));
+        return teacherDao.findRecordNum(DetachedCriteria.forClass(Teacher.class));
     }
 
     @Override
     public Integer findRecordNumByPage(DetachedCriteria detachedCriteria) {
-        return teacherDao.findRecordNumByPage(detachedCriteria);
+        return teacherDao.findRecordNum(detachedCriteria);
     }
 }

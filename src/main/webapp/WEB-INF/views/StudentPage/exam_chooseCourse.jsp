@@ -23,7 +23,7 @@
         <div class="row placeholders">
             <c:forEach items="${courses}" var="u" >
                 <div class="col-xs-12 col-sm-3 placeholder">
-                    <a href="#">
+                    <a href="/studentPage/exam/${u.uuid}" target="_blank">
                         <img <c:if test="${u.uuid % 4 == 0}">src="../../../img/icons_01.gif"</c:if>
                              <c:if test="${u.uuid % 4 == 1}">src="../../../img/icons_02.gif"</c:if>
                              <c:if test="${u.uuid % 4 == 2}">src="../../../img/icons_03.jpg"</c:if>

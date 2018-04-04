@@ -2,6 +2,7 @@ package com.onlineExam.service.Blank;
 
 import com.onlineExam.dao.Blank.IBlankDao;
 import com.onlineExam.entity.Blank;
+import com.onlineExam.entity.Course;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,12 +82,12 @@ public class BlankService implements IBlankService{
 
     @Override
     public Integer recordNum() {
-        return blankDao.findRecordNumByPage(DetachedCriteria.forClass(Blank.class));
+        return blankDao.findRecordNum(DetachedCriteria.forClass(Blank.class));
     }
 
     @Override
     public Integer findRecordNumByPage(DetachedCriteria detachedCriteria) {
-        return blankDao.findRecordNumByPage(detachedCriteria);
+        return blankDao.findRecordNum(detachedCriteria);
     }
 
     @Override
@@ -101,6 +102,20 @@ public class BlankService implements IBlankService{
     @Override
     public Blank getByUuid(int uuid) {
         return blankDao.getByUuid(uuid);
+    }
+
+    @Override
+    public List<Blank> findByCourse(Course course) {
+        DetachedCriteria dc = blankDao.getDetachedCriteria();
+        dc = blankDao.findByCourse(dc, course);
+        return blankDao.findByCriteria(dc);
+    }
+
+    @Override
+    public Integer recordOfCourse(Course course) {
+        DetachedCriteria dc = blankDao.getDetachedCriteria();
+        dc = blankDao.findByCourse(dc, course);
+        return blankDao.findRecordNum(dc);
     }
 
     @Override

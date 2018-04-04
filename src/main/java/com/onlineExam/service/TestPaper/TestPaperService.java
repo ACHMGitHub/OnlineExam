@@ -93,11 +93,11 @@ public class TestPaperService implements ITestPaperService{
 
     @Override
     public Integer recordNum() {
-        return testPaperDao.findRecordNumByPage(DetachedCriteria.forClass(TestPaper.class));
+        return testPaperDao.findRecordNum(DetachedCriteria.forClass(TestPaper.class));
     }
 
     @Override
     public Integer findRecordNumByPage(DetachedCriteria detachedCriteria) {
-        return testPaperDao.findRecordNumByPage(detachedCriteria);
+        return testPaperDao.findRecordNum(detachedCriteria);
     }
 }

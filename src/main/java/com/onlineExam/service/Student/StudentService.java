@@ -154,11 +154,11 @@ public class StudentService implements IStudentService{
 
     @Override
     public Integer recordNum() {
-        return studentDao.findRecordNumByPage(DetachedCriteria.forClass(Student.class));
+        return studentDao.findRecordNum(DetachedCriteria.forClass(Student.class));
     }
 
     @Override
     public Integer findRecordNumByPage(DetachedCriteria detachedCriteria) {
-        return studentDao.findRecordNumByPage(detachedCriteria);
+        return studentDao.findRecordNum(detachedCriteria);
     }
 }

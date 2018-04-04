@@ -2,6 +2,7 @@ package com.onlineExam.service.Choice;
 
 import com.onlineExam.dao.Choice.IChoiceDao;
 import com.onlineExam.entity.Choice;
+import com.onlineExam.entity.Course;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,20 @@ public class ChoiceService implements IChoiceService{
     @Override
     public Choice getByUuid(int uuid) {
         return choiceDao.getByUuid(uuid);
+    }
+
+    @Override
+    public List<Choice> findByCourse(Course course) {
+        DetachedCriteria dc = choiceDao.getDetachedCriteria();
+        dc = choiceDao.findByCourse(dc, course);
+        return choiceDao.findByCriteria(dc);
+    }
+
+    @Override
+    public Integer recordOfCourse(Course course) {
+        DetachedCriteria dc = choiceDao.getDetachedCriteria();
+        dc = choiceDao.findByCourse(dc, course);
+        return choiceDao.findRecordNum(dc);
     }
 
     @Override
@@ -103,11 +118,11 @@ public class ChoiceService implements IChoiceService{
 
     @Override
     public Integer recordNum() {
-        return choiceDao.findRecordNumByPage(DetachedCriteria.forClass(Choice.class));
+        return choiceDao.findRecordNum(DetachedCriteria.forClass(Choice.class));
     }
 
     @Override
     public Integer findRecordNumByPage(DetachedCriteria detachedCriteria) {
-        return choiceDao.findRecordNumByPage(detachedCriteria);
+        return choiceDao.findRecordNum(detachedCriteria);
     }
 }
