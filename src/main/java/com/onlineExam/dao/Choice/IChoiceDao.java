@@ -37,4 +37,11 @@ public interface IChoiceDao extends IBaseDao<Choice>{
      * @return
      */
     DetachedCriteria findByCourse(DetachedCriteria detachedCriteria, Course course);
+
+    /**
+     * 按教师编号升序
+     * @param detachedCriteria 已有查询条件
+     * @return 加上排序的查询条件
+     */
+    DetachedCriteria orderByTeacherAsc(DetachedCriteria detachedCriteria);
 }

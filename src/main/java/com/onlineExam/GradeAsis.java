@@ -2,6 +2,7 @@ package com.onlineExam;
 
 public class GradeAsis {
     private int id;
+    private int grade;
 
     public int getId() {
         return id;
@@ -18,6 +19,4 @@ public class GradeAsis {
     public void setGrade(int grade) {
         this.grade = grade;
     }
-
-    private int grade;
 }

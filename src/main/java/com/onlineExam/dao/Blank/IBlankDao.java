@@ -37,4 +37,11 @@ public interface IBlankDao extends IBaseDao<Blank>{
      * @return 加上课程查询的查询条件
      */
     DetachedCriteria findByCourse(DetachedCriteria detachedCriteria, Course course);
+
+    /**
+     * 按教师主码编号升序排序
+     * @param detachedCriteria 已有的查询条件
+     * @return 添加了按教师主码编号排序的查询条件
+     */
+    DetachedCriteria orderByTeacherAsc(DetachedCriteria detachedCriteria);
 }

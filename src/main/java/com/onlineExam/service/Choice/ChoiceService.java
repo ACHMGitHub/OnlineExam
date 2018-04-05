@@ -4,6 +4,7 @@ import com.onlineExam.dao.Choice.IChoiceDao;
 import com.onlineExam.entity.Choice;
 import com.onlineExam.entity.Course;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,13 @@ public class ChoiceService implements IChoiceService{
         DetachedCriteria dc = choiceDao.getDetachedCriteria();
         dc = choiceDao.findByCourse(dc, course);
         return choiceDao.findRecordNum(dc);
+    }
+
+    @Override
+    public List<Choice> allByTeacherAsc(int startIndex, int pageSize) {
+        DetachedCriteria dc = choiceDao.getDetachedCriteria();
+        dc = choiceDao.orderByTeacherAsc(dc);
+        return choiceDao.findByPage(dc, startIndex, pageSize);
     }
 
     @Override

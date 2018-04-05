@@ -34,4 +34,12 @@ public interface IBlankService extends IBaseService<Blank>{
      * @return 该课程拥有的选择题数
      */
     Integer recordOfCourse(Course course);
+
+    /**
+     * 按教师主码升序
+     * @param startIndex 起始
+     * @param pageSize 页面大小
+     * @return Blank集合
+     */
+    List<Blank> allByTeacherAsc(int startIndex, int pageSize);
 }

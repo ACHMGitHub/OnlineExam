@@ -23,6 +23,7 @@
                     <th>题目</th>
                     <th>答案</th>
                     <th>分析</th>
+                    <th>课程</th>
                     <th>出题教师</th>
                     <th>详细</th>
                 </tr>
@@ -44,8 +45,10 @@
                             <c:if test="${u.analyse.length() > 15}">${fn:substring(u.analyse, 0, 15)}... ...</c:if>
                             <c:if test="${u.analyse.length() <= 15}">${u.analyse}</c:if>
                         </td>
+                        <td>${u.course.name}</td>
                         <td>${u.teacher.name}</td>
                         <td><a href="/adminPage/blankMoreInfo/${u.uuid}">详细</a></td>
+                        <td><c:if test="${u.teacher.uuid == sessionScope.currentUser.uuid}"><a href="/teacherPage/blankUpdatePage/${u.uuid}">修改</a></c:if></td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -53,15 +56,15 @@
             <div class="page_index">
                 <ul class="pagination " >
                     <li>
-                        <a href="/adminPage/blankInfoByPage/1"><<</a>
+                        <a href="/teacherPage/blankInfoPage/1"><<</a>
                     </li>
                     <c:forEach var="i" begin="1" end="${num}" step="1">
                         <li>
-                            <a href="/adminPage/blankInfoByPage/${i}">${i}</a>
+                            <a href="/teacherPage/blankInfoPage/${i}">${i}</a>
                         </li>
                     </c:forEach>
                     <li>
-                        <a href="/adminPage/blankInfoByPage/${num}">>></a>
+                        <a href="/teacherPage/blankInfoPage${num}">>></a>
                     </li>
                 </ul>
             </div>

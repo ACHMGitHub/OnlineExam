@@ -91,7 +91,7 @@
 </head>
 <body>
 
-<<form class="form" role="form" id="completForm">
+<form class="form" role="form" id="completForm">
 
 
     <div class="form-group" style="padding-bottom: 50px;">

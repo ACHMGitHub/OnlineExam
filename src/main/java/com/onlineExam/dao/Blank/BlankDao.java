@@ -3,7 +3,9 @@ package com.onlineExam.dao.Blank;
 import com.onlineExam.dao.BaseDao.BaseDaoImpl;
 import com.onlineExam.entity.Blank;
 import com.onlineExam.entity.Course;
+import com.onlineExam.entity.TestPaper;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -34,5 +36,10 @@ public class BlankDao extends BaseDaoImpl<Blank> implements IBlankDao{
     public DetachedCriteria findByCourse(DetachedCriteria detachedCriteria, Course course) {
 //        detachedCriteria.createAlias("course", "course");
         return detachedCriteria.add(Restrictions.eq("course", course));
+    }
+
+    @Override
+    public DetachedCriteria orderByTeacherAsc(DetachedCriteria detachedCriteria) {
+        return detachedCriteria.addOrder(Order.asc("teacher"));
     }
 }

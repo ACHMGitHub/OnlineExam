@@ -119,6 +119,13 @@ public class BlankService implements IBlankService{
     }
 
     @Override
+    public List<Blank> allByTeacherAsc (int startIndex, int pageSize) {
+        DetachedCriteria dc = blankDao.getDetachedCriteria();
+        dc = blankDao.orderByTeacherAsc(dc);
+        return blankDao.findByPage(dc, startIndex, pageSize);
+    }
+
+    @Override
     public List<Blank> findAllByPage(int startIndex, int pageSize) {
         return blankDao.findAllByPage(startIndex, pageSize);
     }

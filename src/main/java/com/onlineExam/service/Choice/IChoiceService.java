@@ -34,4 +34,12 @@ public interface IChoiceService extends IBaseService<Choice>{
      * @return 该课程拥有的选择题数
      */
     Integer recordOfCourse(Course course);
+
+    /**
+     * 所有记录按教师编号升序
+     * @param startIndex 起始
+     * @param pageSize 页面大小
+     * @return 集合
+     */
+    List<Choice> allByTeacherAsc(int startIndex, int pageSize);
 }
