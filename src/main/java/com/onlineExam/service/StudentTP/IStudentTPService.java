@@ -105,13 +105,40 @@ public interface IStudentTPService extends IBaseService<StudentTP>{
      * @param student 学生实例
      * @param after 在此时间之后
      * @param before 在此时间之前
-     * @param startIndex 起始序号
-     * @param pageSize 页面大小
      * @param min 最小成绩
      * @param max 最大成绩
+     * @param startIndex 起始序号
+     * @param pageSize 页面大小
      * @return 按时间、成绩和学生分页查询的集合
      */
     List<StudentTP> findByTimeGradeStudent(Student student, Timestamp after, Timestamp before, int min, int max, int startIndex, int pageSize);
+
+    /**
+     * 按时间、成绩和学生学号,班级的总数
+     * @param stuId 学号
+     * @param className 班级
+     * @param after  在此时间之后
+     * @param before 在此时间之前
+     * @param min 最小成绩
+     * @param max 最大成绩
+     * @return  按时间、成绩和学生学号,班级的总数
+     */
+    Integer recordOfTimeGradeStudent(String stuId, String className, Timestamp after, Timestamp before, int min, int max);
+
+    /**
+     * 按时间、成绩和学生学号,班级的集合
+     * @param stuId 学号
+     * @param className 班级
+     * @param after  在此时间之后
+     * @param before 在此时间之前
+     * @param min 最小成绩
+     * @param max 最大成绩
+     * @param startIndex 起始序号
+     * @param pageSize 页面大小
+     * @return  按时间、成绩和学生学号,班级的集合
+     */
+    List<StudentTP> findByTimeGradeStudent(String stuId, String className, Timestamp after, Timestamp before,
+                                           int min, int max, int startIndex, int pageSize);
 
     /**
      * 按试卷查询

@@ -2,6 +2,8 @@ package com.onlineExam.dao.Student;
 
 import com.onlineExam.dao.BaseDao.IBaseDao;
 import com.onlineExam.entity.Student;
+import org.hibernate.criterion.DetachedCriteria;
+
 import java.util.List;
 
 public interface IStudentDao extends IBaseDao<Student>{
@@ -95,5 +97,21 @@ public interface IStudentDao extends IBaseDao<Student>{
      * @return 从startIndex到startIndex+pageSize的Admin list集合
      */
     List<Student> findClassByPage(String className, int startIndex, int pageSize);
+
+    /**
+     * 学号模糊查询
+     * @param detachedCriteria 已有查询条件
+     * @param id 学号
+     * @return 加上学号查询的查询条件
+     */
+    DetachedCriteria findByIdBlur(DetachedCriteria detachedCriteria, String id);
+
+    /**
+     * 班级模糊查询
+     * @param detachedCriteria 已有查询条件
+     * @param className 班级名
+     * @return 加上班级查询的查询条件
+     */
+    DetachedCriteria findByClassBlur(DetachedCriteria detachedCriteria, String className);
 
 }

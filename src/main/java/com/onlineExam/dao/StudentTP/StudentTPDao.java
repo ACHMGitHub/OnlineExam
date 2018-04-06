@@ -5,6 +5,7 @@ import com.onlineExam.entity.Student;
 import com.onlineExam.entity.StudentTP;
 import com.onlineExam.entity.TestPaper;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -26,8 +27,17 @@ public class StudentTPDao extends BaseDaoImpl<StudentTP> implements IStudentTPDa
 
     @Override
     public DetachedCriteria findByStudent(DetachedCriteria detachedCriteria, Student student) {
-
         return detachedCriteria.add(Restrictions.eq("student",student));
+    }
+
+    @Override
+    public DetachedCriteria findByStudentIdBlur(DetachedCriteria detachedCriteria, String studentId) {
+        return detachedCriteria.add(Restrictions.like("student.id", studentId, MatchMode.ANYWHERE));
+    }
+
+    @Override
+    public DetachedCriteria findByStudentClassBlur(DetachedCriteria detachedCriteria, String studentClass) {
+        return detachedCriteria.add(Restrictions.like("student.className", studentClass, MatchMode.ANYWHERE));
     }
 
     @Override

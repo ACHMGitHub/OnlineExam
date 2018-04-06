@@ -6,6 +6,7 @@ import com.onlineExam.service.Choice.IChoiceService;
 import com.onlineExam.service.Course.ICourseService;
 import com.onlineExam.service.Grades.IGradesService;
 import com.onlineExam.service.Student.IStudentService;
+import com.onlineExam.service.StudentTP.IStudentTPService;
 import com.onlineExam.service.Teacher.ITeacherService;
 import com.onlineExam.service.TestPaper.ITestPaperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Controller
@@ -38,6 +40,8 @@ public class TeacherController {
     ICourseService courseService;
     @Autowired
     ITestPaperService testPaperService;
+    @Autowired
+    IStudentTPService studentTPService;
 
     //页面显示辅助
     @RequestMapping("homePage")
@@ -121,6 +125,62 @@ public class TeacherController {
         model.addAttribute("grades", list);
         model.addAttribute("num", pageNum);
         return "TeacherPage/grades_info";
+    }
+
+
+    @RequestMapping("gradesInfoSearch/{index}")
+    public String gradesInfoSearch(String after, String before, Integer min, Integer max,
+                                   String stuId, String className, @PathVariable(value = "index")int index, ModelMap model){
+        //保留查询条件
+        model.addAttribute("after", after);
+        model.addAttribute("before", before);
+        model.addAttribute("min", min);
+        model.addAttribute("max", max);
+        model.addAttribute("stuId", stuId);
+        model.addAttribute("className", className);
+
+        //时间检验
+        Timestamp aTime, bTime;
+        if(after == null || after.equals("")) after = "0000-01-01 00:00:00";
+        else after = after + " 00:00:00";
+        if(before == null || before.equals("")) before = "3000-01-01 00:00:00";
+        else before = before + " 00:00:00";
+        aTime = Timestamp.valueOf(after);
+        bTime = Timestamp.valueOf(before);
+        //比较时间大小，使其正常化
+        if(aTime.compareTo(bTime) > 0) {
+            Timestamp mid = aTime;
+            aTime = bTime;
+            bTime = mid;
+        }
+        //使后一个时间增加23：59：59
+        bTime.setTime(bTime.getTime() + 86399000);
+
+        //分数检验
+        if(min == null)
+            min = 0;
+        if(max == null)
+            max = 100;
+
+        //学生条件
+        if(stuId == null)
+            stuId = "";
+        if(className == null)
+            className = "";
+
+        //页面大小
+        int pageSize = 2;
+        //记录数
+        int studentTPNum = studentTPService.recordOfTimeGradeStudent(stuId,className,aTime,bTime,min,max);
+        //页面数
+        int pageNum = studentTPNum/pageSize;
+        pageNum = studentTPNum % pageSize == 0 ? pageNum : pageNum+ 1;
+
+        List<StudentTP> list = studentTPService.findByTimeGradeStudent(stuId,className, aTime, bTime, min, max, (index-1)*pageSize, pageSize);
+
+        model.addAttribute("studentTPs", list);
+        model.addAttribute("num", pageNum);
+        return "TeacherPage/gradesInfo";
     }
 
 /****************************填空题目信息管理***********************************************************************/

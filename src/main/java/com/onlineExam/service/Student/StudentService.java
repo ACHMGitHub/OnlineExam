@@ -61,6 +61,28 @@ public class StudentService implements IStudentService{
     }
 
     @Override
+    public List<Student> findByIdBlur(String id) {
+        DetachedCriteria dc = studentDao.getDetachedCriteria();
+        dc = studentDao.findByIdBlur(dc, id);
+        return studentDao.findByCriteria(dc);
+    }
+
+    @Override
+    public List<Student> findByClassNameBlur(String className) {
+        DetachedCriteria dc = studentDao.getDetachedCriteria();
+        dc = studentDao.findByClassBlur(dc, className);
+        return studentDao.findByCriteria(dc);
+    }
+
+    @Override
+    public List<Student> findByStuIdClassBlur(String id, String className) {
+        DetachedCriteria dc = studentDao.getDetachedCriteria();
+        dc = studentDao.findByIdBlur(dc, id);
+        dc = studentDao.findByClassBlur(dc, className);
+        return studentDao.findByCriteria(dc);
+    }
+
+    @Override
     public Student login(String id, String pw) {
         Student student = getById(id);
         if(student == null)

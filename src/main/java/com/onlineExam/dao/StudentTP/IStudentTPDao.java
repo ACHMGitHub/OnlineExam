@@ -36,6 +36,25 @@ public interface IStudentTPDao extends IBaseDao<StudentTP>{
      * @return 加上学生查询的查询条件
      */
     DetachedCriteria findByStudent(DetachedCriteria detachedCriteria, Student student);
+
+    /**
+     * 按学生学号模糊查询
+     * 使用前需存在createAlias("student", student)
+     * @param detachedCriteria 已有查询条件
+     * @param studentId 学生学号
+     * @return 加上学生学号的查询条件
+     */
+    DetachedCriteria findByStudentIdBlur(DetachedCriteria detachedCriteria, String studentId);
+
+    /**
+     * 按学生班级模糊查询
+     * 使用前需存在createAlias("student", student)
+     * @param detachedCriteria 已有查询条件
+     * @param studentClass 班级
+     * @return 加上班级的查询条件
+     */
+    DetachedCriteria findByStudentClassBlur(DetachedCriteria detachedCriteria, String studentClass);
+
     /**
      * 按试卷查询
      * @param detachedCriteria 已有查询条件

@@ -118,7 +118,7 @@
                     <div class="collapse panel-collapse"  id="channel_demo4">
                         <div class="panel-body">
                             <ul>
-                                <li><a href="/adminPage/gradesInfoByPage/1" target="iframe_a">成绩信息</a></li>
+                                <li><a href="/teacherPage/gradesInfoSearch/1" target="iframe_a">成绩信息</a></li>
                             </ul>
                         </div>
                     </div>

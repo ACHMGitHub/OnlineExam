@@ -184,6 +184,28 @@ public class StudentTPService implements IStudentTPService{
     }
 
     @Override
+    public Integer recordOfTimeGradeStudent(String stuId, String className, Timestamp after, Timestamp before, int min, int max) {
+        DetachedCriteria dc = studentTPDao.getDetachedCriteria();
+        dc = studentTPDao.findByTime(dc, after, before);
+        dc = studentTPDao.findByGrade(dc, min, max);
+        dc.createAlias("student", "student");
+        dc = studentTPDao.findByStudentClassBlur(dc, className);
+        dc = studentTPDao.findByStudentIdBlur(dc, stuId);
+        return studentTPDao.findRecordNum(dc);
+    }
+
+    @Override
+    public List<StudentTP> findByTimeGradeStudent(String stuId, String className, Timestamp after, Timestamp before, int min, int max, int startIndex, int pageSize) {
+        DetachedCriteria dc = studentTPDao.getDetachedCriteria();
+        dc = studentTPDao.findByTime(dc, after, before);
+        dc = studentTPDao.findByGrade(dc, min, max);
+        dc.createAlias("student", "student");
+        dc = studentTPDao.findByStudentClassBlur(dc, className);
+        dc = studentTPDao.findByStudentIdBlur(dc, stuId);
+        return studentTPDao.findByPage(dc, startIndex, pageSize);
+    }
+
+    @Override
     public List<StudentTP> findByTestPaper(TestPaper testPaper) {
         DetachedCriteria dc = studentTPDao.getDetachedCriteria();
         dc = studentTPDao.findByTestPaper(dc, testPaper);
