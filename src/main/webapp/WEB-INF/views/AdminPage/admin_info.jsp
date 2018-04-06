@@ -25,7 +25,6 @@
                     <th>性别</th>
                     <th>电话</th>
                     <th>身份证号</th>
-                    <th colspan="2" style="text-align:center;">操作</th>
                 </tr>
                 </thead>
 
