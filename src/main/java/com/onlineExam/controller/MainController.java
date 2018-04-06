@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class MainController {
 
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/studentLogin", method = RequestMethod.GET)
     public String stuLoginPage(){
         return "LoginPage/studentLogin";
     }
@@ -22,11 +22,5 @@ public class MainController {
     @RequestMapping(value = "/adminLogin", method = RequestMethod.GET)
     public String adminLoginPage(){
         return "LoginPage/adminLogin";
-    }
-
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String addAdmin(ModelMap model){
-        model.addAttribute("message","success");
-        return "AdminPage/adminHome";
     }
 }
