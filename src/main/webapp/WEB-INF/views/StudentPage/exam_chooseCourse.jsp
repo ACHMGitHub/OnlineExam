@@ -23,16 +23,13 @@
         <div class="row placeholders">
             <c:forEach items="${courses}" var="u" >
                 <div class="col-xs-12 col-sm-3 placeholder">
-                    <a href="#">
+                    <a href="/studentPage/exam/${u.uuid}" target="_blank">
                         <img <c:if test="${u.uuid % 4 == 0}">src="../../../img/icons_01.gif"</c:if>
                              <c:if test="${u.uuid % 4 == 1}">src="../../../img/icons_02.gif"</c:if>
                              <c:if test="${u.uuid % 4 == 2}">src="../../../img/icons_03.jpg"</c:if>
                              <c:if test="${u.uuid % 4 == 3}">src="../../../img/icons_04.jpg"</c:if>
                              width="200" height="200" class="img-responsive img-circle" alt="Generic placeholder thumbnail">
                         <h4 class="text-center">${u.name}</h4>
-                        <span class="text-muted">
-                            <p class="text-center">text-center</p>
-                        </span>
                     </a>
                 </div>
             </c:forEach>
@@ -55,7 +52,7 @@
                     （八）用规定以外的笔或者纸答题或者在试卷规定以外的地方书写姓名、考号或者以其他方式在答卷上标记信息的；<br>
                     （九）其他违反考场规则但尚未构成作弊的行为。<br>
                 </p>
-                <p><a class="btn btn-success btn-large" href="#">更多>></a></p>
+                <%--<p><a class="btn btn-success btn-large" href="#">更多>></a></p>--%>
             </div>
         </div>
     </div>
@@ -64,7 +61,7 @@
         <table  align="center" class="heise12x"  border="0" cellspacing="0" cellpadding="0">
             <tbody>
             <tr>
-                <td height="85" align="center"><p><br>Copyright © 2018 by&nbsp;<a href="http://jwc.zqu.edu.cn">肇庆学院教务处</a> <br>地址：肇庆学院行政楼2楼西 电话：0758-2776500&nbsp;&nbsp;&nbsp; 传真：0758-2776500<!--#endeditable--></p><!--#endeditable-->&nbsp;</td>
+                <td height="85" align="center"><p><br>Copyright © 2018 by&nbsp;</p>&nbsp;</td>
             </tr>
             </tbody>
         </table>

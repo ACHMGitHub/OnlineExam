@@ -65,6 +65,28 @@ public interface IStudentService extends IBaseService<Student>{
     List<Student> findClassByPage(String className, int startIndex, int pageSize);
 
     /**
+     * 学号模糊查询
+     * @param id 学号
+     * @return 集合
+     */
+    List<Student> findByIdBlur(String id);
+
+    /**
+     * 班级模糊查询
+     * @param className 班级名称
+     * @return 集合
+     */
+    List<Student> findByClassNameBlur(String className);
+
+    /**
+     * 学号、班级名称模糊查询
+     * @param id 学号
+     * @param className 班级名
+     * @return 集合
+     */
+    List<Student> findByStuIdClassBlur(String id, String className);
+
+    /**
      * 用户登录方法
      * @param id 用户账号
      * @param pw 用户密码

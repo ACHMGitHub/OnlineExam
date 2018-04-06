@@ -52,7 +52,7 @@
                     },
                     success:function(data){
                         if(data){
-                            location.href = "/test";
+                            location.href = "/teacherPage/teacherHome";
                         }
                         else{
                             alert("账号或密码错误");

@@ -4,8 +4,11 @@ import com.onlineExam.dao.BaseDao.BaseDaoImpl;
 import com.onlineExam.entity.Admin;
 import com.onlineExam.entity.Student;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Property;
+import org.hibernate.criterion.Restrictions;
 import org.omg.CORBA.Object;
+import org.omg.CORBA.StructMember;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -88,6 +91,16 @@ public class StudentDao extends BaseDaoImpl<Student> implements IStudentDao {
     public List<Student> findClassByPage(String className, int startIndex, int pageSize) {
         DetachedCriteria dc = DetachedCriteria.forClass(Student.class).add(Property.forName("className").eq(className));
         return this.findByPage(dc, startIndex, pageSize);
+    }
+
+    @Override
+    public DetachedCriteria findByIdBlur(DetachedCriteria detachedCriteria, String id) {
+        return detachedCriteria.add(Restrictions.like("id", id, MatchMode.ANYWHERE));
+    }
+
+    @Override
+    public DetachedCriteria findByClassBlur(DetachedCriteria detachedCriteria, String className) {
+        return detachedCriteria.add(Restrictions.like("className", className, MatchMode.ANYWHERE));
     }
 
 }

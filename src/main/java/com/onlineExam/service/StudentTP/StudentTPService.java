@@ -86,12 +86,12 @@ public class StudentTPService implements IStudentTPService{
 
     @Override
     public Integer recordNum() {
-        return studentTPDao.findRecordNumByPage(DetachedCriteria.forClass(StudentTP.class));
+        return studentTPDao.findRecordNum(DetachedCriteria.forClass(StudentTP.class));
     }
 
     @Override
     public Integer findRecordNumByPage(DetachedCriteria detachedCriteria) {
-        return studentTPDao.findRecordNumByPage(detachedCriteria);
+        return studentTPDao.findRecordNum(detachedCriteria);
     }
 
     @Override
@@ -154,7 +154,7 @@ public class StudentTPService implements IStudentTPService{
         DetachedCriteria dc = studentTPDao.getDetachedCriteria();
         dc = studentTPDao.findByStudent(dc, student);
         dc = studentTPDao.findByTime(dc, after, before);
-        return studentTPDao.findRecordNumByPage(dc);
+        return studentTPDao.findRecordNum(dc);
     }
 
     @Override
@@ -171,7 +171,7 @@ public class StudentTPService implements IStudentTPService{
         dc = studentTPDao.findByStudent(dc, student);
         dc = studentTPDao.findByTime(dc, after, before);
         dc = studentTPDao.findByGrade(dc, min, max);
-        return studentTPDao.findRecordNumByPage(dc);
+        return studentTPDao.findRecordNum(dc);
     }
 
     @Override
@@ -180,6 +180,28 @@ public class StudentTPService implements IStudentTPService{
         dc = studentTPDao.findByStudent(dc, student);
         dc = studentTPDao.findByTime(dc, after, before);
         dc = studentTPDao.findByGrade(dc, min, max);
+        return studentTPDao.findByPage(dc, startIndex, pageSize);
+    }
+
+    @Override
+    public Integer recordOfTimeGradeStudent(String stuId, String className, Timestamp after, Timestamp before, int min, int max) {
+        DetachedCriteria dc = studentTPDao.getDetachedCriteria();
+        dc = studentTPDao.findByTime(dc, after, before);
+        dc = studentTPDao.findByGrade(dc, min, max);
+        dc.createAlias("student", "student");
+        dc = studentTPDao.findByStudentClassBlur(dc, className);
+        dc = studentTPDao.findByStudentIdBlur(dc, stuId);
+        return studentTPDao.findRecordNum(dc);
+    }
+
+    @Override
+    public List<StudentTP> findByTimeGradeStudent(String stuId, String className, Timestamp after, Timestamp before, int min, int max, int startIndex, int pageSize) {
+        DetachedCriteria dc = studentTPDao.getDetachedCriteria();
+        dc = studentTPDao.findByTime(dc, after, before);
+        dc = studentTPDao.findByGrade(dc, min, max);
+        dc.createAlias("student", "student");
+        dc = studentTPDao.findByStudentClassBlur(dc, className);
+        dc = studentTPDao.findByStudentIdBlur(dc, stuId);
         return studentTPDao.findByPage(dc, startIndex, pageSize);
     }
 

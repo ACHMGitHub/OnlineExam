@@ -50,7 +50,7 @@ public interface IBaseDao<T> {
 	 * @param detachedCriteria 查询条件
 	 * @return 记录数
 	 */
-	Integer findRecordNumByPage(DetachedCriteria detachedCriteria);
+	Integer findRecordNum(DetachedCriteria detachedCriteria);
 
 	/**
 	 * 向分页对象中设置记录

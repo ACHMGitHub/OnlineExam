@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="../../../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../../../css/forPanel.css" />
     <link rel="stylesheet" href="../../../css/dcalendar.picker.css"/>
+    <script type="application/javascript" src="../../../js/jquery-1.11.1.min.js"></script>
+    <script language="JavaScript" src="../../../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../js/dcalendar.picker.js"></script>
 
     <style type="text/css">
         input{
@@ -22,13 +25,6 @@
         }
 
     </style>
-
-    <script type="application/javascript" src="../../../js/jquery-1.11.1.min.js"></script>
-
-    <script language="JavaScript" src="../../../js/bootstrap.min.js"></script>
-
-    <script type="text/javascript" src="../../../js/dcalendar.picker.js"></script>
-
     <script type="text/javascript">
         $(function(){
             $('#mydatepicker2').dcalendarpicker({

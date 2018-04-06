@@ -2,6 +2,8 @@ package com.onlineExam.dao.Blank;
 
 import com.onlineExam.dao.BaseDao.IBaseDao;
 import com.onlineExam.entity.Blank;
+import com.onlineExam.entity.Course;
+import org.hibernate.criterion.DetachedCriteria;
 
 import java.util.List;
 
@@ -27,4 +29,19 @@ public interface IBlankDao extends IBaseDao<Blank>{
      * @return 从startIndex到startIndex+pageSize的list集合
      */
     List<Blank> findAllByPage(int startIndex, int pageSize);
+
+    /**
+     * 按课程号查询
+     * @param detachedCriteria 已有查询条件
+     * @param course 课程
+     * @return 加上课程查询的查询条件
+     */
+    DetachedCriteria findByCourse(DetachedCriteria detachedCriteria, Course course);
+
+    /**
+     * 按教师主码编号升序排序
+     * @param detachedCriteria 已有的查询条件
+     * @return 添加了按教师主码编号排序的查询条件
+     */
+    DetachedCriteria orderByTeacherAsc(DetachedCriteria detachedCriteria);
 }

@@ -72,7 +72,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
     }
 
     @Override
-    public Integer findRecordNumByPage(DetachedCriteria detachedCriteria) {
+    public Integer findRecordNum(DetachedCriteria detachedCriteria) {
         // 设置记录数投影
         detachedCriteria.setProjection(Projections.rowCount());
         List<Long> list = (List<Long>) this.getHibernateTemplate().findByCriteria(detachedCriteria);

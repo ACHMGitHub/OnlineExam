@@ -2,6 +2,8 @@ package com.onlineExam.dao.Choice;
 
 import com.onlineExam.dao.BaseDao.IBaseDao;
 import com.onlineExam.entity.Choice;
+import com.onlineExam.entity.Course;
+import org.hibernate.criterion.DetachedCriteria;
 
 import java.util.List;
 
@@ -27,4 +29,19 @@ public interface IChoiceDao extends IBaseDao<Choice>{
      * @return 从startIndex到startIndex+pageSize的list集合
      */
     List<Choice> findAllByPage(int startIndex, int pageSize);
+
+    /**
+     * 按课程号查询
+     * @param detachedCriteria 已有查询条件
+     * @param course 课程
+     * @return
+     */
+    DetachedCriteria findByCourse(DetachedCriteria detachedCriteria, Course course);
+
+    /**
+     * 按教师编号升序
+     * @param detachedCriteria 已有查询条件
+     * @return 加上排序的查询条件
+     */
+    DetachedCriteria orderByTeacherAsc(DetachedCriteria detachedCriteria);
 }

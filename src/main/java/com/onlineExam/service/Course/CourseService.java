@@ -75,12 +75,12 @@ public class CourseService implements ICourseService{
 
     @Override
     public Integer recordNum() {
-        return courseDao.findRecordNumByPage(DetachedCriteria.forClass(Course.class));
+        return courseDao.findRecordNum(DetachedCriteria.forClass(Course.class));
     }
 
     @Override
     public Integer findRecordNumByPage(DetachedCriteria detachedCriteria) {
-        return courseDao.findRecordNumByPage(detachedCriteria);
+        return courseDao.findRecordNum(detachedCriteria);
     }
 
     @Override

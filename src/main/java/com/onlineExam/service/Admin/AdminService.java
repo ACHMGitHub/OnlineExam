@@ -152,11 +152,11 @@ public class AdminService implements IAdminService{
 
     @Override
     public Integer recordNum() {
-        return adminDao.findRecordNumByPage(DetachedCriteria.forClass(Admin.class));
+        return adminDao.findRecordNum(DetachedCriteria.forClass(Admin.class));
     }
 
     @Override
     public Integer findRecordNumByPage(DetachedCriteria detachedCriteria) {
-        return adminDao.findRecordNumByPage(detachedCriteria);
+        return adminDao.findRecordNum(detachedCriteria);
     }
 }

@@ -1,7 +1,9 @@
 package com.onlineExam.controller;
 
-import com.onlineExam.entity.Student;
-import com.onlineExam.entity.StudentTP;
+import com.onlineExam.GradeAsis;
+import com.onlineExam.entity.*;
+import com.onlineExam.service.Blank.IBlankService;
+import com.onlineExam.service.Choice.IChoiceService;
 import com.onlineExam.service.Course.ICourseService;
 import com.onlineExam.service.Grades.IGradesService;
 import com.onlineExam.service.Student.IStudentService;
@@ -16,7 +18,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 @RequestMapping("/studentPage")
@@ -32,6 +36,10 @@ public class StudentController {
     IStudentTPService studentTPService;
     @Autowired
     ITestPaperService testPaperService;
+    @Autowired
+    IChoiceService choiceService;
+    @Autowired
+    IBlankService blankService;
 
     //页面显示辅助
     @RequestMapping("homePage")
@@ -174,17 +182,75 @@ public class StudentController {
     }
 
     /********************************************考试功能************************************************************/
-
+    /**
+     * 选择课程页面
+     * @param model 模型
+     * @return 页面
+     */
     @RequestMapping("studentExamPage")
     public String studentExamPage(ModelMap model){
         model.addAttribute("courses", courseService.findAll());
         return "StudentPage/exam_chooseCourse";
     }
 
-    @RequestMapping("testPaperChoose/{cozId}")
+    @RequestMapping("exam/{cozId}")
     public String showTestPaper(@PathVariable("cozId")Integer courseId, ModelMap model){
-        List list = testPaperService.findByCourse(courseId);
-        model.addAttribute("testPaper", list);
-        return "";
+
+        Course course = courseService.findById(courseId);
+        TestPaper tp = testPaperService.findByCourse(courseId).get(0);
+
+        //试卷需要的选择题数
+        int choiceNum = tp.getChoiceNum();
+        //试卷需要的填空题数
+        int blankNum = tp.getBlankNum();
+
+        //现有选择题数
+        List<Choice> choices = choiceService.findByCourse(course);
+        int chNum = choices.size();
+        //现有填空题数
+        List<Blank> blanks = blankService.findByCourse(course);
+        int blNum = blanks.size();
+
+        Random random = new Random();
+
+        List<Choice> c = new ArrayList<Choice>();
+        List<Blank> b = new ArrayList<Blank>();
+
+        //随机生成试题
+        if(chNum > 0)
+            for(int i=0; i<choiceNum; i++)
+                c.add(choices.get(random.nextInt(chNum)));
+        if(blNum > 0)
+            for(int i=0; i<blankNum; i++)
+                b.add(blanks.get(random.nextInt(blNum)));
+
+        model.addAttribute("testPaper", tp);
+        model.addAttribute("blanks", b);
+        model.addAttribute("choices", c);
+        return "StudentPage/exam";
+    }
+
+    @RequestMapping("addGrade")
+    @ResponseBody
+    public Boolean addGrade(@RequestBody GradeAsis asis, HttpSession session){
+        Student student = (Student) session.getAttribute("currentUser");
+        TestPaper testPaper = testPaperService.getByUuid(asis.getId());
+        if(testPaper == null || student == null)
+            return false;
+
+        StudentTP studentTP = new StudentTP();
+        Grades grade = new Grades();
+        grade.setGrade(asis.getGrade());
+        grade.setStuTestPaper(studentTP);
+
+        studentTP.setGrade(grade);
+        studentTP.setStudent(student);
+        studentTP.setTestPaper(testPaper);
+        studentTP.setStuAnswer("");
+        studentTP.setStpTime(new Timestamp(System.currentTimeMillis()));
+
+        studentTPService.saveViaCheck(studentTP);
+        gradesService.saveViaCheck(grade);
+        return true;
     }
 }

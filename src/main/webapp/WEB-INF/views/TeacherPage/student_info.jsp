@@ -19,45 +19,45 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>管理员账号</th>
-                    <th>姓名</th>
-                    <th>密码</th>
-                    <th>性别</th>
-                    <th>电话</th>
+                    <th>考生登录id</th>
+                    <th>考生姓名</th>
+                    <th>考生性别</th>
                     <th>身份证号</th>
+                    <th>班别</th>
+                    <th>考生电话</th>
+
                 </tr>
                 </thead>
 
                 <tbody>
-                <c:forEach items="${admins}" var="u">
+                <c:forEach items="${students}" var="u">
                     <tr>
                         <td>${u.id}</td>
                         <td>${u.name}</td>
-                        <td>${u.pw}</td>
                         <td>
                             <c:if test="${u.sex == 0}">女</c:if>
                             <c:if test="${u.sex == 1}">男</c:if>
                         </td>
-                        <td>${u.phone}</td>
                         <td>${u.card}</td>
-                        <%--<td><a href="#">修改</a></td>--%>
-                        <%--<td><a href="/adminPage/adminDelete/${u.id}">删除</a></td>--%>
+                        <td>${u.className}</td>
+                        <td>${u.phone}</td>
+
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
             <div class="page_index">
-                <ul class="pagination" >
+                <ul class="pagination " >
                     <li>
-                        <a href="/adminPage/adminInfoByPage/1"><<</a>
+                        <a href="/teaccherPage/studentInfoByPage/1"><<</a>
                     </li>
                     <c:forEach var="i" begin="1" end="${num}" step="1">
-                    <li>
-                        <a href="/adminPage/adminInfoByPage/${i}">${i}</a>
-                    </li>
+                        <li>
+                            <a href="/teacherPage/studentInfoByPage/${i}">${i}</a>
+                        </li>
                     </c:forEach>
                     <li>
-                        <a href="/adminPage/adminInfoByPage/${num}">>></a>
+                        <a href="/teacherPage/studentInfoByPage/${num}">>></a>
                     </li>
                 </ul>
             </div>
@@ -66,4 +66,3 @@
 </div>
 </body>
 </html>
-

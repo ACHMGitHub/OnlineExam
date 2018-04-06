@@ -52,7 +52,7 @@
                 <li><a href="/studentPage/studentTPSearch/${i}?after=${after}&before=${before}&min=${min}&max=${max}">${i}</a></li>
             </c:forEach>
 
-            <li><a href="/studentPage/studentTPSearch/after=${after}&before=${before}&min=${min}&max=${max}">>></a></li>
+            <li><a href="/studentPage/studentTPSearch/${num}?after=${after}&before=${before}&min=${min}&max=${max}">>></a></li>
         </ul>
     </div>
 </div>
