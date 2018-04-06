@@ -92,7 +92,6 @@
         function tijiao(){
             var gradePerQ = ${testPaper.totalGrade} / (${choices.size()}+${blanks.size()});
             var grade = 0;
-            alert("您的得分为：" + grade);
             for(var i=1; i<=${choices.size()}; i++){
                 var id = "input[name='c" + i + "']:checked";
                 var a = $(id).val();
@@ -165,11 +164,11 @@
     </nav>
     <div class="testFrame">
         <div>
-            <h4>一、选择题</h4>
+            <c:if test="${choices.size() > 0}"><h4>选择题</h4></c:if>
             <c:forEach items="${choices}" var="u" varStatus="i">
             <div class="question">
                 <div class="panels">
-                    <h4>${u.question}</h4>
+                    <h4>${i.count}、${u.question}</h4>
                 </div>
                 <div>
                     <div class="radio">
@@ -208,11 +207,11 @@
             </div>
             </c:forEach>
 
-            <h4>二、填空题</h4>
+            <c:if test="${blanks.size() > 0}"> <h4>填空题</h4></c:if>
             <c:forEach items="${blanks}" var="u" varStatus="i">
             <div class="question">
                 <div class="panels">
-                    <h4>${u.question}</h4>
+                    <h4>${i.count}、${u.question}</h4>
                 </div>
                 <div class="answer">
                     <span class="input input--hoshi">

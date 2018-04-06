@@ -63,8 +63,8 @@
                             <c:if test="${u.analyse.length() > 5}">${fn:substring(u.analyse, 0, 5)}... ...</c:if>
                             <c:if test="${u.analyse.length() <= 5}">${u.analyse}</c:if>
                         </td>
-                        <td>${u.teacher.name}</td>
                         <td>${u.course.name}</td>
+                        <td>${u.teacher.name}</td>
                         <td><a href="/adminPage/choiceMoreInfo/${u.uuid}">详细</a></td>
                         <td><c:if test="${u.teacher.uuid == sessionScope.currentUser.uuid}"><a href="/teacherPage/choiceUpdatePage/${u.uuid}">修改</a></c:if></td>
                     </tr>

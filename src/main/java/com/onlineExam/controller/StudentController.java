@@ -217,12 +217,12 @@ public class StudentController {
         List<Blank> b = new ArrayList<Blank>();
 
         //随机生成试题
-        if(chNum != 0)
+        if(chNum > 0)
             for(int i=0; i<choiceNum; i++)
-                c.add(choices.get(random.nextInt(chNum-1)));
-        if(blNum != 0)
+                c.add(choices.get(random.nextInt(chNum)));
+        if(blNum > 0)
             for(int i=0; i<blankNum; i++)
-                b.add(blanks.get(random.nextInt(blNum-1)));
+                b.add(blanks.get(random.nextInt(blNum)));
 
         model.addAttribute("testPaper", tp);
         model.addAttribute("blanks", b);
