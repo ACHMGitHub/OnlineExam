@@ -43,6 +43,8 @@ public class TeacherController {
     @Autowired
     IStudentTPService studentTPService;
 
+    private int pageSize = 5;
+
     //页面显示辅助
     @RequestMapping("homePage")
     public String homePage(){
@@ -58,7 +60,7 @@ public class TeacherController {
      * @return 页面
      */
     @RequestMapping("teacherHome")
-    public String studentHome(){
+    public String teacherHome(){
         return "TeacherPage/teacherHome";
     }
     //注销
@@ -97,7 +99,6 @@ public class TeacherController {
     @RequestMapping("studentInfoByPage/{index}")
     public String studentInfo(@PathVariable(value="index")int index, ModelMap model){
 
-        int pageSize = 2;
         int studentNum = studentService.recordNum();
         int pageNum = studentNum/pageSize;
         pageNum = studentNum % pageSize == 0 ? pageNum : pageNum+ 1;
@@ -115,7 +116,6 @@ public class TeacherController {
     /****************************成绩信息管理***********************************************************************/
     @RequestMapping("gradesInfoByPage/{index}")
     public String gradesInfoByPage(@PathVariable(value="index")int index, ModelMap model){
-        int pageSize = 2;
         int gradesNum = gradesService.recordNum();
         int pageNum = gradesNum/pageSize;
         pageNum = gradesNum % pageSize == 0 ? pageNum : pageNum+ 1;
@@ -168,8 +168,6 @@ public class TeacherController {
         if(className == null)
             className = "";
 
-        //页面大小
-        int pageSize = 2;
         //记录数
         int studentTPNum = studentTPService.recordOfTimeGradeStudent(stuId,className,aTime,bTime,min,max);
         //页面数
@@ -227,7 +225,6 @@ public class TeacherController {
      */
     @RequestMapping("blankInfoPage/{index}")
     public String blankInfoPage(@PathVariable(value = "index")int index, ModelMap model){
-        int pageSize = 2;
         int blankNum = blankService.recordNum();
         int pageNum = blankNum/pageSize;
         pageNum = blankNum % pageSize == 0 ? pageNum : pageNum+ 1;
@@ -324,7 +321,6 @@ public class TeacherController {
      */
     @RequestMapping("choiceInfoPage/{index}")
     public String choiceInfoPage(@PathVariable(value = "index")int index, ModelMap model){
-        int pageSize = 2;
         int choiceNum = choiceService.recordNum();
         int pageNum = choiceNum/pageSize;
         pageNum = choiceNum % pageSize == 0 ? pageNum : pageNum+ 1;

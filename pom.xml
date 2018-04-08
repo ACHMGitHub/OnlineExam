@@ -26,6 +26,7 @@
     <jspapiVersion>2.2.1-b03</jspapiVersion>
     <alibabaVersion>1.0.29</alibabaVersion>
     <gsonVersion>2.8.0</gsonVersion>
+    <poiVersion>3.17</poiVersion>
   </properties>
 
   <dependencies>
@@ -235,7 +236,12 @@
       <artifactId>jetty-util</artifactId>
       <version>6.1.25</version>
     </dependency>
-
+    <!-- 解析excel文件-->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>${poiVersion}</version>
+    </dependency>
   </dependencies>
 
   <build>

@@ -41,6 +41,8 @@ public class StudentController {
     @Autowired
     IBlankService blankService;
 
+    private int pageSize = 5;
+
     //页面显示辅助
     @RequestMapping("homePage")
     public String homePage(){
@@ -106,7 +108,6 @@ public class StudentController {
     public String studentGradesByPage(@PathVariable(value = "index")int index, HttpSession session, ModelMap model){
 
         Student student = (Student)session.getAttribute("currentUser");
-        int pageSize = 2;
         int studentTPNum = studentTPService.findRecordNumByPage(DetachedCriteria.forClass(StudentTP.class)
                             .add(Restrictions.eq("student", student)));
         int pageNum = studentTPNum/pageSize;
@@ -166,8 +167,6 @@ public class StudentController {
 
         //获取当前学生
         Student student = (Student)session.getAttribute("currentUser");
-        //页面大小
-        int pageSize = 2;
         //记录数
         int studentTPNum = studentTPService.recordOfTimeGradeStudent(student,aTime,bTime,min,max);
         //页面数

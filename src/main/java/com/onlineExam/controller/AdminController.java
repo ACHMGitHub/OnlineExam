@@ -1,6 +1,5 @@
 package com.onlineExam.controller;
 
-import com.onlineExam.dao.Grades.IGradesDao;
 import com.onlineExam.entity.*;
 import com.onlineExam.service.Admin.IAdminService;
 import com.onlineExam.service.Blank.IBlankService;
@@ -39,6 +38,7 @@ public class AdminController {
     @Autowired
     IGradesService gradesService;
 
+    private int pageSize = 5;
     //页面显示辅助
     @RequestMapping("homePage")
     public String homePage(){
@@ -67,7 +67,6 @@ public class AdminController {
     @RequestMapping("adminInfoByPage/{index}")
     public String adminInfo(@PathVariable(value="index")int index, ModelMap model){
 
-        int pageSize = 2;
         int adminNum = adminService.recordNum();
         int pageNum = adminNum/pageSize;
         pageNum = adminNum % pageSize == 0 ? pageNum : pageNum + 1;
@@ -135,7 +134,6 @@ public class AdminController {
     @RequestMapping("studentInfoByPage/{index}")
     public String studentInfo(@PathVariable(value="index")int index, ModelMap model){
 
-        int pageSize = 2;
         int studentNum = studentService.recordNum();
         int pageNum = studentNum/pageSize;
         pageNum = studentNum % pageSize == 0 ? pageNum : pageNum+ 1;
@@ -230,7 +228,6 @@ public class AdminController {
     @RequestMapping("teacherInfoByPage/{index}")
     public String teacherInfo(@PathVariable(value="index")int index, ModelMap model){
 
-        int pageSize = 2;
         int teacherNum = teacherService.recordNum();
         int pageNum = teacherNum/pageSize;
         pageNum = teacherNum % pageSize == 0 ? pageNum : pageNum+ 1;
@@ -321,7 +318,6 @@ public class AdminController {
      */
     @RequestMapping("courseInfoByPage/{index}")
     public String courseInfoByPage(@PathVariable(value="index")int index, ModelMap model){
-        int pageSize = 2;
         int courseNum = courseService.recordNum();
         int pageNum = courseNum/pageSize;
         pageNum = courseNum % pageSize == 0 ? pageNum : pageNum+ 1;
@@ -352,7 +348,6 @@ public class AdminController {
      */
     @RequestMapping("blankInfoByPage/{index}")
     public String blankInfoByPage(@PathVariable(value="index")int index, ModelMap model){
-        int pageSize = 2;
         int blankNum = blankService.recordNum();
         int pageNum = blankNum/pageSize;
         pageNum = blankNum % pageSize == 0 ? pageNum : pageNum+ 1;
@@ -382,7 +377,6 @@ public class AdminController {
      */
     @RequestMapping("choiceInfoByPage/{index}")
     public String choiceInfoByPage(@PathVariable(value="index")int index, ModelMap model){
-        int pageSize = 2;
         int choiceNum = choiceService.recordNum();
         int pageNum = choiceNum/pageSize;
         pageNum = choiceNum % pageSize == 0 ? pageNum : pageNum+ 1;
@@ -412,7 +406,6 @@ public class AdminController {
      */
     @RequestMapping("gradesInfoByPage/{index}")
     public String gradesInfoByPage(@PathVariable(value="index")int index, ModelMap model){
-        int pageSize = 2;
         int gradesNum = gradesService.recordNum();
         int pageNum = gradesNum/pageSize;
         pageNum = gradesNum % pageSize == 0 ? pageNum : pageNum+ 1;

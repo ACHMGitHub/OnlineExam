@@ -113,8 +113,8 @@
             <textarea class="form-control" rows="3" name="analyse" id="analyse"></textarea>
         </div>
     </div>
-    <div class="form-group" style="padding-bottom: 50px;">
-        <label for="analyse" class="col-sm-2 control-label">课程</label>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">课程</label>
         <div class="col-sm-10">
             <select id="courseId" name="courseId">
                 <option value="" selected="selected">请选择</option>

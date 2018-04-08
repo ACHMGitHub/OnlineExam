@@ -12,7 +12,7 @@
 
     <style>
         .form-group{
-            height: 60px;
+            height: 40px;
         }
     </style>
 
@@ -202,7 +202,7 @@
         </div>
     </div>
 
-    <div class="form-group" style="padding-bottom: 50px;">
+    <div class="form-group">
         <label class="col-sm-2 control-label">课程</label>
         <div class="col-sm-10">
             <select id="courseId" name="courseId">
