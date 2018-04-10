@@ -1,5 +1,7 @@
 package com.onlineExam.controller;
 
+import com.onlineExam.ExcelOperating;
+import com.onlineExam.SearchCondition;
 import com.onlineExam.entity.*;
 import com.onlineExam.service.Admin.IAdminService;
 import com.onlineExam.service.Blank.IBlankService;
@@ -7,16 +9,21 @@ import com.onlineExam.service.Choice.IChoiceService;
 import com.onlineExam.service.Course.ICourseService;
 import com.onlineExam.service.Grades.IGradesService;
 import com.onlineExam.service.Student.IStudentService;
+import com.onlineExam.service.StudentTP.IStudentTPService;
 import com.onlineExam.service.Teacher.ITeacherService;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -37,6 +44,8 @@ public class AdminController {
     IChoiceService choiceService;
     @Autowired
     IGradesService gradesService;
+    @Autowired
+    IStudentTPService studentTPService;
 
     private int pageSize = 5;
     //页面显示辅助
@@ -415,5 +424,158 @@ public class AdminController {
         model.addAttribute("grades", list);
         model.addAttribute("num", pageNum);
         return "AdminPage/grades_info";
+    }
+
+    @RequestMapping("gradesInfoSearch/{index}")
+    public String gradesInfoSearch(SearchCondition condition, @PathVariable(value = "index")int index, ModelMap model){
+
+        //保留查询条件
+        model.addAttribute("condition", condition);
+
+        //时间检验
+        Timestamp aTime, bTime;
+        String after = condition.getAfter();
+        String before = condition.getBefore();
+        Integer min = condition.getMin();
+        Integer max = condition.getMax();
+        String stuId = condition.getStuId();
+        String className = condition.getClassName();
+
+        if(after == null || after.equals("")) after = "0000-01-01 00:00:00";
+        else after = after + " 00:00:00";
+        if(before == null || before.equals("")) before = "3000-01-01 00:00:00";
+        else before = before + " 00:00:00";
+        aTime = Timestamp.valueOf(after);
+        bTime = Timestamp.valueOf(before);
+        //比较时间大小，使其正常化
+        if(aTime.compareTo(bTime) > 0) {
+            Timestamp mid = aTime;
+            aTime = bTime;
+            bTime = mid;
+        }
+        //使后一个时间增加23：59：59
+        bTime.setTime(bTime.getTime() + 86399000);
+
+        //分数检验
+        if(min == null)
+            min = 0;
+        if(max == null)
+            max = 100;
+
+        //学生条件
+        if(stuId == null)
+            stuId = "";
+        if(className == null)
+            className = "";
+
+        //记录数
+        int studentTPNum = studentTPService.recordOfTimeGradeStudent(stuId,className,aTime,bTime,min,max);
+        //页面数
+        int pageNum = studentTPNum/pageSize;
+        pageNum = studentTPNum % pageSize == 0 ? pageNum : pageNum+ 1;
+
+        List<StudentTP> list = studentTPService.findByTimeGradeStudent(stuId,className, aTime, bTime, min, max, (index-1)*pageSize, pageSize);
+
+        model.addAttribute("studentTPs", list);
+        model.addAttribute("num", pageNum);
+        return "AdminPage/gradesInfo";
+    }
+
+    /**
+     * 描述：导出excel文件
+     * @param response
+     * @throws Exception
+     */
+    @RequestMapping(value="gradeExport",method={RequestMethod.GET,RequestMethod.POST})
+    public String gradeExportExcel(SearchCondition condition, HttpServletResponse response) throws Exception {
+
+        OutputStream os = null;
+        Workbook wb = null;    //工作薄
+
+        try {
+            String after = condition.getAfter();
+            String before = condition.getBefore();
+            Integer min = condition.getMin();
+            Integer max = condition.getMax();
+            String stuId = condition.getStuId();
+            String className = condition.getClassName();
+
+            //时间检验
+            Timestamp aTime, bTime;
+
+            if(after == null || after.equals("")) after = "0000-01-01 00:00:00";
+            else after = after + " 00:00:00";
+            if(before == null || before.equals("")) before = "3000-01-01 00:00:00";
+            else before = before + " 00:00:00";
+            aTime = Timestamp.valueOf(after);
+            bTime = Timestamp.valueOf(before);
+            //比较时间大小，使其正常化
+            if(aTime.compareTo(bTime) > 0) {
+                Timestamp mid = aTime;
+                aTime = bTime;
+                bTime = mid;
+            }
+            //使后一个时间增加23：59：59
+            bTime.setTime(bTime.getTime() + 86399000);
+
+            //分数检验
+            if(min == null)
+                min = 0;
+            if(max == null)
+                max = 100;
+
+            //学生条件
+            if(stuId == null)
+                stuId = "";
+            if(className == null)
+                className = "";
+
+            //记录数
+            int studentTPNum = studentTPService.recordOfTimeGradeStudent(stuId,className,aTime,bTime,min,max);
+            List<StudentTP> list = studentTPService.findByTimeGradeStudent(stuId,className, aTime, bTime, min, max,0, studentTPNum);
+            //模拟数据库取值
+            List<List<String>> objs = new ArrayList<List<String>>();
+            List<String> header = new ArrayList<String>();
+            //标题
+            header.add("学生学号");
+            header.add("学生姓名");
+            header.add("班级");
+            header.add("课程");
+            header.add("成绩");
+            header.add("考试日期");
+            objs.add(header);
+            //数据
+            for(StudentTP tp : list){
+                List<String> obj = new ArrayList<String>();
+                Student student = tp.getStudent();
+                obj.add(student.getId());
+                obj.add(student.getName());
+                obj.add(student.getClassName());
+                obj.add(tp.getTestPaper().getCourse().getName());
+                obj.add(tp.getGrade().getGrade().toString());
+                obj.add(tp.getStpTime().toString());
+                objs.add(obj);
+            }
+
+            //导出Excel文件数据
+            ExcelOperating util = new ExcelOperating();
+            File file =util.getExcelDemoFile("/ExcelDemoFile/测试模板.xlsx");
+            String sheetName="sheet1";
+            wb = util.writeNewExcel(file, sheetName, objs);
+
+            String fileName="学生成绩表.xlsx";
+            response.setContentType("application/vnd.ms-excel");
+            response.setHeader("Content-disposition", "attachment;filename="+ URLEncoder.encode(fileName, "utf-8"));
+            os = response.getOutputStream();
+            wb.write(os);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally{
+            os.flush();
+            os.close();
+            wb.close();
+        }
+        return null;
     }
 }

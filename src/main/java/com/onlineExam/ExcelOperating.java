@@ -1,5 +1,7 @@
 package com.onlineExam;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
@@ -8,14 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Workbook;
 
-
-public class ImportExcelUtil {
+public class ExcelOperating {
 
     private final static String excel2003L =".xls";    //2003- 版本的excel
     private final static String excel2007U =".xlsx";   //2007+ 版本的excel
@@ -26,7 +25,7 @@ public class ImportExcelUtil {
      * @return
      * @throws IOException
      */
-    public  List<List<Object>> getBankListByExcel(InputStream in,String fileName) throws Exception{
+    public  List<List<Object>> getListByExcel(InputStream in, String fileName) throws Exception{
         List<List<Object>> list = null;
 
         //创建Excel工作薄
@@ -46,7 +45,7 @@ public class ImportExcelUtil {
             if(sheet==null){continue;}
 
             //遍历当前sheet中的所有行
-            for (int j = sheet.getFirstRowNum(); j < sheet.getLastRowNum(); j++) {
+            for (int j = sheet.getFirstRowNum() + 1; j <= sheet.getLastRowNum(); j++) {
                 row = sheet.getRow(j);
                 if(row==null)
                     continue;
@@ -127,6 +126,69 @@ public class ImportExcelUtil {
                 break;
         }
         return value;
+    }
+
+
+    /**
+     * 描述：根据文件路径获取项目中的文件
+     * @param fileDir 文件路径
+     * @return 文件
+     * @throws Exception 异常
+     */
+    public File getExcelDemoFile(String fileDir) throws Exception{
+        String classDir = null;
+        String fileBaseDir = null;
+        File file = null;
+        classDir = Thread.currentThread().getContextClassLoader().getResource("/").getPath();
+        fileBaseDir = classDir.substring(0, classDir.lastIndexOf("classes"));
+
+        file = new File(fileBaseDir+fileDir);
+        if(!file.exists()){
+            throw new Exception("模板文件不存在！");
+        }
+        return file;
+    }
+
+    public  Workbook writeNewExcel(File file,String sheetName, List< List<String> > lis) throws Exception{
+        Workbook wb = null;
+        Row row = null;
+        Cell cell = null;
+
+        FileInputStream fis = new FileInputStream(file);
+        wb = this.getWorkbook(fis, file.getName());    //获取工作薄
+        Sheet sheet = wb.getSheet(sheetName);
+
+        //循环插入数据
+        int lastRow = sheet.getLastRowNum();    //插入数据的数据ROW
+        CellStyle cs = setSimpleCellStyle(wb);    //Excel单元格样式
+        int j;
+        for (List<String> strs : lis) {
+            row = sheet.createRow(lastRow++); //创建新的ROW，用于数据插入
+            //Cell赋值开始
+            j = 0;
+            for (String str : strs) {
+                cell = row.createCell(j++);      //创建新的Cell，用于数据插入
+                cell.setCellValue(str);
+                cell.setCellStyle(cs);
+            }
+        }
+        return wb;
+    }
+
+    /**
+     * 描述：设置简单的Cell样式
+     * @return
+     */
+    public CellStyle setSimpleCellStyle(Workbook wb){
+
+        CellStyle cs = wb.createCellStyle();
+        cs.setBorderBottom(BorderStyle.THIN); //下边框
+        cs.setBorderLeft(BorderStyle.THIN);//左边框
+        cs.setBorderTop(BorderStyle.THIN);//上边框
+        cs.setBorderRight(BorderStyle.THIN);//右边框
+        cs.setAlignment(HorizontalAlignment.CENTER); // 居中
+
+        return cs;
     }
 
 

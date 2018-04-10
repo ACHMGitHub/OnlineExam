@@ -49,7 +49,7 @@
             <div class="page_index">
                 <ul class="pagination " >
                     <li>
-                        <a href="/teaccherPage/studentInfoByPage/1"><<</a>
+                        <a href="/teacherPage/studentInfoByPage/1"><<</a>
                     </li>
                     <c:forEach var="i" begin="1" end="${num}" step="1">
                         <li>

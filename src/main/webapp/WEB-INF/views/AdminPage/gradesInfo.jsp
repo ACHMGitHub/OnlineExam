@@ -44,9 +44,9 @@
 </head>
 <body>
 <div class="container">
-    <form action="/teacherPage/gradeExport" method="post" id="form2" style="text-align:right;">
+    <form action="/adminPage/gradeExport" method="post" id="form2" style="text-align:right;">
         <button type="submit" class="btn btn-sm btn-success" id="exportExcel" name="exportExcel">导出成绩</button>
-        <input type='text' name="after" hidden value="${condition.after}"/>
+        <input type='text' name="after"  value="${condition.after}" hidden/>
         <input type='text' name="before" hidden value="${condition.before}"/>
         <input class="grade" type='text' name="min" value="${condition.min}" hidden/>
         <input class="grade" type='text' name="max" value="${condition.max}" hidden/>
@@ -56,10 +56,10 @@
     <div class="row clearfix">
         <div class="col-md-12 column">
             <div id="formDiv">
-                <form action="/teacherPage/gradesInfoSearch/1">
+                <form action="/adminPage/gradesInfoSearch/1">
                     <label for="mydatepicker1">起始时间：</label><input id='mydatepicker1' type='text' name="after"/>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <label for="mydatepicker2">结束时间：</label><input id='mydatepicker2' type='text' name="before"/>
+                    <label for="mydatepicker2">结束时间：</label><input id='mydatepicker2' type='text' name="before" />
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <label for="grade1">成绩区间：</label>
                         <input id='grade1' class="grade" type='text' onchange="check();" name="min" value="${condition.min}"/>~
@@ -102,15 +102,15 @@
             <div class="page_index">
                 <ul class="pagination " >
                     <li>
-                        <a href="/teacherPage/gradesInfoSearch/1?after=${condition.after}&before=${condition.before}&min=${condition.min}&max=${condition.max}&stuId=${condition.stuId}&className=${condition.className}"><<</a>
+                        <a href="/adminPage/gradesInfoSearch/1?after=${condition.after}&before=${condition.before}&min=${condition.min}&max=${condition.max}&stuId=${condition.stuId}&className=${condition.className}"><<</a>
                     </li>
                     <c:forEach var="i" begin="1" end="${num}" step="1">
                         <li>
-                            <a href="/teacherPage/gradesInfoSearch/${i}?after=${condition.after}&before=${condition.before}&min=${condition.min}&max=${condition.max}&stuId=${condition.stuId}&className=${condition.className}">${i}</a>
+                            <a href="/adminPage/gradesInfoSearch/${i}?after=${condition.after}&before=${condition.before}&min=${condition.min}&max=${condition.max}&stuId=${condition.stuId}&className=${condition.className}">${i}</a>
                         </li>
                     </c:forEach>
                     <li>
-                        <a href="/teacherPage/gradesInfoSearch/${num}?after=${condition.after}&before=${condition.before}&min=${condition.min}&max=${condition.max}&stuId=${condition.stuId}&className=${condition.className}">>></a>
+                        <a href="/adminPage/gradesInfoSearch/${num}?after=${condition.after}&before=${condition.before}&min=${condition.min}&max=${condition.max}&stuId=${condition.stuId}&className=${condition.className}">>></a>
                     </li>
                 </ul>
             </div>

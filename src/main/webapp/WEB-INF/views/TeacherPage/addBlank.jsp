@@ -13,9 +13,7 @@
     <script type="application/javascript" src="../../../js/jquery-1.11.1.min.js"></script>
     <script language="JavaScript" src="../../../js/bootstrap.min.js"></script>
     <script language="JavaScript" src="../../../js/jquery.validate.min.js"></script>
-
     <script language="JavaScript" src="../../../js/additional-methods.js"></script>
-
     <script language="JavaScript" src="../../../js/messages_zh.js"></script>
     <script>
         $.validator.setDefaults({

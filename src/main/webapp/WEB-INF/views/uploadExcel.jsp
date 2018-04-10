@@ -1,11 +1,8 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <head>
-    <base href="<%=basePath%>">
     <script type="text/javascript" src="../../js/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="../../js/jquery.form.js"></script>
     <title>My JSP 'index.jsp' starting page</title>
@@ -51,18 +48,23 @@
 </head>
 
 <body>
-<form method="POST"  enctype="multipart/form-data" id="form1" action="uploadExcel">
-    <table>
-        <tr>
-            <td>上传文件: </td>
-            <td> <input id="upfile" type="file" name="upfile"></td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="提交" onclick="return checkData()"></td>
-            <td><input type="button" value="ajax方式提交" id="btn" name="btn" ></td>
-        </tr>
-    </table>
-</form>
-
+    <form method="POST" enctype="multipart/form-data" id="form1" action="">
+        <table>
+            <tr>
+                <td>上传文件: </td>
+                <td> <input id="upfile" type="file" name="upfile"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="提交" onclick="return checkData()"></td>
+                <td><input type="button" value="ajax方式提交" id="btn" name="btn" ></td>
+            </tr>
+        </table>
+    </form>
+<div>
+    文件以模板的方式导出，模板存放在项目中(WEB-INF/ExcelDemoFile/)
+</div><br>
+    <form action="ajaxExport" method="post" id="form2">
+        <input type="submit" id="exportExcel" name="exportExcel" value="Excel导出"/>
+    </form>
 </body>
 </html>  

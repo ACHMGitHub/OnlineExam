@@ -236,10 +236,15 @@
       <artifactId>jetty-util</artifactId>
       <version>6.1.25</version>
     </dependency>
-    <!-- 解析excel文件-->
+    <!-- excel文件导入导出-->
     <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi-ooxml</artifactId>
+      <version>${poiVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
       <version>${poiVersion}</version>
     </dependency>
   </dependencies>

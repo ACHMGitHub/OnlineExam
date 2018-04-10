@@ -1,5 +1,7 @@
 package com.onlineExam.controller;
 
+import com.onlineExam.ExcelOperating;
+import com.onlineExam.SearchCondition;
 import com.onlineExam.entity.*;
 import com.onlineExam.service.Blank.IBlankService;
 import com.onlineExam.service.Choice.IChoiceService;
@@ -9,16 +11,23 @@ import com.onlineExam.service.Student.IStudentService;
 import com.onlineExam.service.StudentTP.IStudentTPService;
 import com.onlineExam.service.Teacher.ITeacherService;
 import com.onlineExam.service.TestPaper.ITestPaperService;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -129,18 +138,20 @@ public class TeacherController {
 
 
     @RequestMapping("gradesInfoSearch/{index}")
-    public String gradesInfoSearch(String after, String before, Integer min, Integer max,
-                                   String stuId, String className, @PathVariable(value = "index")int index, ModelMap model){
+    public String gradesInfoSearch(SearchCondition condition, @PathVariable(value = "index")int index, ModelMap model){
         //保留查询条件
-        model.addAttribute("after", after);
-        model.addAttribute("before", before);
-        model.addAttribute("min", min);
-        model.addAttribute("max", max);
-        model.addAttribute("stuId", stuId);
-        model.addAttribute("className", className);
+        model.addAttribute("condition", condition);
+
+        String after = condition.getAfter();
+        String before = condition.getBefore();
+        Integer min = condition.getMin();
+        Integer max = condition.getMax();
+        String stuId = condition.getStuId();
+        String className = condition.getClassName();
 
         //时间检验
         Timestamp aTime, bTime;
+
         if(after == null || after.equals("")) after = "0000-01-01 00:00:00";
         else after = after + " 00:00:00";
         if(before == null || before.equals("")) before = "3000-01-01 00:00:00";
@@ -181,6 +192,104 @@ public class TeacherController {
         return "TeacherPage/gradesInfo";
     }
 
+    /**
+     * 描述：导出excel文件
+     * @param response
+     * @throws Exception
+     */
+    @RequestMapping(value="gradeExport",method={RequestMethod.GET,RequestMethod.POST})
+    public String gradeExportExcel(SearchCondition condition, HttpServletResponse response) throws Exception {
+        System.out.println("通过 jquery.form.js 提供的ajax方式导出文件！");
+        OutputStream os = null;
+        Workbook wb = null;    //工作薄
+
+        try {
+            String after = condition.getAfter();
+            String before = condition.getBefore();
+            Integer min = condition.getMin();
+            Integer max = condition.getMax();
+            String stuId = condition.getStuId();
+            String className = condition.getClassName();
+
+            //时间检验
+            Timestamp aTime, bTime;
+
+            if(after == null || after.equals("")) after = "0000-01-01 00:00:00";
+            else after = after + " 00:00:00";
+            if(before == null || before.equals("")) before = "3000-01-01 00:00:00";
+            else before = before + " 00:00:00";
+            aTime = Timestamp.valueOf(after);
+            bTime = Timestamp.valueOf(before);
+            //比较时间大小，使其正常化
+            if(aTime.compareTo(bTime) > 0) {
+                Timestamp mid = aTime;
+                aTime = bTime;
+                bTime = mid;
+            }
+            //使后一个时间增加23：59：59
+            bTime.setTime(bTime.getTime() + 86399000);
+
+            //分数检验
+            if(min == null)
+                min = 0;
+            if(max == null)
+                max = 100;
+
+            //学生条件
+            if(stuId == null)
+                stuId = "";
+            if(className == null)
+                className = "";
+
+            //记录数
+            int studentTPNum = studentTPService.recordOfTimeGradeStudent(stuId,className,aTime,bTime,min,max);
+            List<StudentTP> list = studentTPService.findByTimeGradeStudent(stuId,className, aTime, bTime, min, max,0, studentTPNum);
+            //模拟数据库取值
+            List<List<String>> objs = new ArrayList<List<String>>();
+            List<String> header = new ArrayList<String>();
+            //标题
+            header.add("学生学号");
+            header.add("学生姓名");
+            header.add("班级");
+            header.add("课程");
+            header.add("成绩");
+            header.add("考试日期");
+            objs.add(header);
+            //数据
+            for(StudentTP tp : list){
+                List<String> obj = new ArrayList<String>();
+                Student student = tp.getStudent();
+                obj.add(student.getId());
+                obj.add(student.getName());
+                obj.add(student.getClassName());
+                obj.add(tp.getTestPaper().getCourse().getName());
+                obj.add(tp.getGrade().getGrade().toString());
+                obj.add(tp.getStpTime().toString());
+                objs.add(obj);
+            }
+
+            System.out.println(objs.size());
+            //导出Excel文件数据
+            ExcelOperating util = new ExcelOperating();
+            File file =util.getExcelDemoFile("/ExcelDemoFile/测试模板.xlsx");
+            String sheetName="sheet1";
+            wb = util.writeNewExcel(file, sheetName, objs);
+
+            String fileName="学生成绩表.xlsx";
+            response.setContentType("application/vnd.ms-excel");
+            response.setHeader("Content-disposition", "attachment;filename="+ URLEncoder.encode(fileName, "utf-8"));
+            os = response.getOutputStream();
+            wb.write(os);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally{
+            os.flush();
+            os.close();
+            wb.close();
+        }
+        return null;
+    }
 /****************************填空题目信息管理***********************************************************************/
     /**
      * 添加填空题页面
@@ -277,6 +386,7 @@ public class TeacherController {
         else
             return false;
     }
+
 
     /**************************选择题目信息管理***********************************************************************/
     /**
@@ -381,4 +491,94 @@ public class TeacherController {
         return "TeacherPage/testPaperInfo";
     }
 
+    /**********************************试题EXCEL上传**************************************************************************/
+
+    @RequestMapping("uploadChooseCourse")
+    public String uploadChooseCourse(ModelMap model){
+        model.addAttribute("courses", courseService.findAll());
+        return "TeacherPage/chooseCourse";
+    }
+
+    /**
+     * 上传试题页面
+     * @return 页面
+     */
+    @RequestMapping("/uploadExcel/{courseId}")
+    public String uploadTest(@PathVariable(value = "courseId") int courseId, ModelMap model){
+        model.addAttribute("courseId", courseId);
+        return "TeacherPage/upload";
+    }
+
+    /**
+     * 上传填空题
+     * @param request
+     * @throws Exception
+     */
+    @RequestMapping(value="blankUpload",method={RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public  void  blankUploadExcel(HttpServletRequest request, HttpSession session, Integer courseId) throws Exception {
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+
+        InputStream in = null;
+        List<List<Object>> listob = null;
+        MultipartFile file = multipartRequest.getFile("blankFile");
+        if(file.isEmpty())
+            throw new Exception("文件不存在！");
+
+        in = file.getInputStream();
+        listob = new ExcelOperating().getListByExcel(in,file.getOriginalFilename());
+
+        Teacher teacher = (Teacher)session.getAttribute("currentUser");
+        Course course = courseService.findById(courseId);
+        if(teacher == null || course == null)
+            return;
+
+        for (List<Object> lo : listob) {
+            Blank blank = new Blank();
+            blank.setQuestion(String.valueOf(lo.get(0)));
+            blank.setAnswer(String.valueOf(lo.get(1)));
+            blank.setAnalyse(String.valueOf(lo.get(2)));
+            blank.setCourse(course);
+            blank.setTeacher(teacher);
+            blankService.saveViaCheck(blank);
+        }
+    }
+
+    /**
+     * 上传选择题
+     * @param request
+     * @throws Exception
+     */
+    @RequestMapping(value="choiceUpload",method={RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public  void  choiceUploadExcel(HttpServletRequest request, HttpSession session, Integer courseId) throws Exception {
+
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        InputStream in = null;
+        List<List<Object>> listob = null;
+        MultipartFile file = multipartRequest.getFile("choiceFile");
+        if(file.isEmpty())
+            throw new Exception("文件不存在！");
+
+        in = file.getInputStream();
+        listob = new ExcelOperating().getListByExcel(in,file.getOriginalFilename());
+
+        Teacher teacher = (Teacher)session.getAttribute("currentUser");
+        Course course = courseService.findById(courseId);
+        if(teacher == null || course == null)
+            return;
+        for (List<Object> lo : listob) {
+            Choice choice = new Choice();
+            choice.setQuestion(String.valueOf(lo.get(0)));
+            choice.setChoiceA(String.valueOf(lo.get(1)));
+            choice.setChoiceB(String.valueOf(lo.get(2)));
+            choice.setChoiceC(String.valueOf(lo.get(3)));
+            choice.setChoiceD(String.valueOf(lo.get(4)));
+            choice.setAnswer(String.valueOf(lo.get(5)));
+            choice.setAnalyse(String.valueOf(lo.get(6)));
+            choice.setCourse(course);
+            choice.setTeacher(teacher);
+            System.out.println(choiceService.saveViaCheck(choice));
+        }
+    }
 }
