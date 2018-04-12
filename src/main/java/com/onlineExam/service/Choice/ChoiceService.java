@@ -135,4 +135,6 @@ public class ChoiceService implements IChoiceService{
     public Integer findRecordNumByPage(DetachedCriteria detachedCriteria) {
         return choiceDao.findRecordNum(detachedCriteria);
     }
+
+
 }
