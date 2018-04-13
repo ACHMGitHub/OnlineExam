@@ -41,6 +41,8 @@ public class StudentController {
     @Autowired
     IBlankService blankService;
 
+    private int pageSize = 5;
+
     //页面显示辅助
     @RequestMapping("homePage")
     public String homePage(){
@@ -106,7 +108,6 @@ public class StudentController {
     public String studentGradesByPage(@PathVariable(value = "index")int index, HttpSession session, ModelMap model){
 
         Student student = (Student)session.getAttribute("currentUser");
-        int pageSize = 2;
         int studentTPNum = studentTPService.findRecordNumByPage(DetachedCriteria.forClass(StudentTP.class)
                             .add(Restrictions.eq("student", student)));
         int pageNum = studentTPNum/pageSize;
@@ -166,8 +167,6 @@ public class StudentController {
 
         //获取当前学生
         Student student = (Student)session.getAttribute("currentUser");
-        //页面大小
-        int pageSize = 2;
         //记录数
         int studentTPNum = studentTPService.recordOfTimeGradeStudent(student,aTime,bTime,min,max);
         //页面数
@@ -193,6 +192,12 @@ public class StudentController {
         return "StudentPage/exam_chooseCourse";
     }
 
+    /**
+     * 进入考试界面
+     * @param courseId
+     * @param model
+     * @return
+     */
     @RequestMapping("exam/{cozId}")
     public String showTestPaper(@PathVariable("cozId")Integer courseId, ModelMap model){
 
@@ -211,18 +216,14 @@ public class StudentController {
         List<Blank> blanks = blankService.findByCourse(course);
         int blNum = blanks.size();
 
-        Random random = new Random();
-
         List<Choice> c = new ArrayList<Choice>();
         List<Blank> b = new ArrayList<Blank>();
 
         //随机生成试题
         if(chNum > 0)
-            for(int i=0; i<choiceNum; i++)
-                c.add(choices.get(random.nextInt(chNum)));
+            c = choose(chNum, choiceNum, choices);
         if(blNum > 0)
-            for(int i=0; i<blankNum; i++)
-                b.add(blanks.get(random.nextInt(blNum)));
+            b = choose(blNum, blankNum, blanks);
 
         model.addAttribute("testPaper", tp);
         model.addAttribute("blanks", b);
@@ -230,6 +231,42 @@ public class StudentController {
         return "StudentPage/exam";
     }
 
+    /**
+     * 选择题目算法
+     * @param quesNum 已有题数
+     * @param needNum 所需题目
+     * @param list 已有题数集合
+     * @return 选择结果
+     */
+    private List choose(int quesNum, int needNum, List list){
+        boolean isAdded[] = new boolean[quesNum];
+        for(boolean bo : isAdded) bo = false;
+        int rand;
+        Random random = new Random();
+        List l = new ArrayList();
+
+        for (int i = 0; i < needNum; i++) {
+            rand = random.nextInt(quesNum);
+            //如果未加入到试卷中
+            if(!isAdded[rand]){
+                isAdded[rand] = true;   //置该题为已选择
+                l.add(list.get(rand));  //加入试卷
+            }
+            //如果已经加入到试卷中
+            else{
+                isAdded[rand] = false;  //置该题为未选择
+                i--;                    //重新选择
+            }
+        }
+        return l;
+    }
+
+    /**
+     * 生成成绩，持久化
+     * @param asis
+     * @param session
+     * @return
+     */
     @RequestMapping("addGrade")
     @ResponseBody
     public Boolean addGrade(@RequestBody GradeAsis asis, HttpSession session){

@@ -16,7 +16,7 @@ public class TeacherInterceptor implements HandlerInterceptor{
         if(sessionObj != null && sessionObj instanceof Teacher) {
             return true;
         }
-        response.sendRedirect("/studentLogin");
+        response.sendRedirect("/teacherLogin");
         return false;
     }
 

@@ -13,9 +13,7 @@
     <script type="application/javascript" src="../../../js/jquery-1.11.1.min.js"></script>
     <script language="JavaScript" src="../../../js/bootstrap.min.js"></script>
     <script language="JavaScript" src="../../../js/jquery.validate.min.js"></script>
-
     <script language="JavaScript" src="../../../js/additional-methods.js"></script>
-
     <script language="JavaScript" src="../../../js/messages_zh.js"></script>
     <script>
         $.validator.setDefaults({
@@ -113,8 +111,8 @@
             <textarea class="form-control" rows="3" name="analyse" id="analyse"></textarea>
         </div>
     </div>
-    <div class="form-group" style="padding-bottom: 50px;">
-        <label for="analyse" class="col-sm-2 control-label">课程</label>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">课程</label>
         <div class="col-sm-10">
             <select id="courseId" name="courseId">
                 <option value="" selected="selected">请选择</option>

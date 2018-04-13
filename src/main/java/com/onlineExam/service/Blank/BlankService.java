@@ -40,6 +40,8 @@ public class BlankService implements IBlankService{
             return false;
         if(entity.getTeacher() == null)
             return false;
+        if(entity.getCourse() == null)
+            return false;
         return true;
     }
 
