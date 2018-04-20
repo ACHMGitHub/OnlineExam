@@ -65,8 +65,16 @@
                         </td>
                         <td>${u.course.name}</td>
                         <td>${u.teacher.name}</td>
-                        <td><a href="/adminPage/choiceMoreInfo/${u.uuid}">详细</a></td>
-                        <td><c:if test="${u.teacher.uuid == sessionScope.currentUser.uuid}"><a href="/teacherPage/choiceUpdatePage/${u.uuid}">修改</a></c:if></td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${u.teacher.uuid == sessionScope.currentUser.uuid}">
+                                    <a href="/teacherPage/choiceUpdatePage/${u.uuid}">修改</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="/teacherPage/choiceMoreInfo/${u.uuid}">详细</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>

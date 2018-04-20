@@ -27,7 +27,7 @@
     <script language="JavaScript" src="../../../js/messages_zh.js"></script>
 
     <script>
-
+        $(doc)
         $.validator.setDefaults({
             submitHandler: function() {
                 var param = {

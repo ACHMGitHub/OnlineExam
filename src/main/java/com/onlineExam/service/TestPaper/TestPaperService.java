@@ -46,17 +46,31 @@ public class TestPaperService implements ITestPaperService{
 
     @Override
     public boolean saveViaCheck(TestPaper entity) {
-        return false;
+        if(!allowToSave(entity))
+            return false;
+        save(entity);
+        return true;
     }
 
     @Override
     public boolean allowToSave(TestPaper entity) {
-        return false;
+        if(entity.getCourse() == null)
+            return false;
+        if(entity.getTotalGrade() == null)
+            return false;
+        if(entity.getTimeLimit() == null)
+            return false;
+        if(entity.getChoiceNum() == null)
+            return false;
+        if(entity.getBlankNum() == null)
+            return false;
+        return true;
     }
 
     @Override
     public void update(TestPaper entity) {
-        testPaperDao.update(entity);
+        if(allowToSave(entity))
+            testPaperDao.update(entity);
     }
 
     @Override

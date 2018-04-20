@@ -134,8 +134,24 @@
                         <div class="panel-body">
                             <ul>
                                 <li><a href="/adminPage/courseInfoByPage/1" target="iframe_a">课程管理</a></li>
+                                <li><a href="/adminPage/courseAddPage" target="iframe_a">课程添加</a></li>
                                 <li><a href="/adminPage/choiceInfoByPage/1" target="iframe_a">选择题管理</a></li>
                                 <li><a href="/adminPage/blankInfoByPage/1" target="iframe_a">填空题管理</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a href="#"  data-toggle="collapse" data-target="#channel_demo5">信息导入</a>
+                        </h4>
+                    </div>
+                    <div class="collapse panel-collapse"  id="channel_demo6">
+                        <div class="panel-body">
+                            <ul>
+                                <li><a href="/adminPage/upload" target="iframe_a">用户信息导入</a></li>
                             </ul>
                         </div>
                     </div>

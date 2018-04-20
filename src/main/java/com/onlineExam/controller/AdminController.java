@@ -1,5 +1,6 @@
 package com.onlineExam.controller;
 
+import com.onlineExam.CourseAdd;
 import com.onlineExam.ExcelOperating;
 import com.onlineExam.SearchCondition;
 import com.onlineExam.entity.*;
@@ -11,15 +12,20 @@ import com.onlineExam.service.Grades.IGradesService;
 import com.onlineExam.service.Student.IStudentService;
 import com.onlineExam.service.StudentTP.IStudentTPService;
 import com.onlineExam.service.Teacher.ITeacherService;
+import com.onlineExam.service.TestPaper.ITestPaperService;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
@@ -46,6 +52,8 @@ public class AdminController {
     IGradesService gradesService;
     @Autowired
     IStudentTPService studentTPService;
+    @Autowired
+    ITestPaperService testPaperService;
 
     private int pageSize = 5;
     //页面显示辅助
@@ -327,15 +335,47 @@ public class AdminController {
      */
     @RequestMapping("courseInfoByPage/{index}")
     public String courseInfoByPage(@PathVariable(value="index")int index, ModelMap model){
-        int courseNum = courseService.recordNum();
-        int pageNum = courseNum/pageSize;
-        pageNum = courseNum % pageSize == 0 ? pageNum : pageNum+ 1;
+//        int courseNum = courseService.recordNum();
+//        int pageNum = courseNum/pageSize;
+//        pageNum = courseNum % pageSize == 0 ? pageNum : pageNum + 1;
+//
+//        List<Course> list = courseService.findAllByPage((index-1)*pageSize,pageSize);
+//
+//        model.addAttribute("courses", list);
+//        model.addAttribute("num", pageNum);
 
-        List<Course> list = courseService.findAllByPage((index-1)*pageSize,pageSize);
+        int testPaperNum = testPaperService.recordNum();
+        int pageNum = testPaperNum/pageSize;
+        pageNum = testPaperNum % pageSize == 0 ? pageNum : pageNum + 1;
 
-        model.addAttribute("courses", list);
+        List<TestPaper> list = testPaperService.findAllByPage((index-1)*pageSize,pageSize);
+
+        model.addAttribute("testPapers", list);
         model.addAttribute("num", pageNum);
         return "AdminPage/course_info";
+    }
+
+    @RequestMapping("courseAddPage")
+    public String courseAddPage(){
+        return "AdminPage/newCourse";
+    }
+
+    @RequestMapping("courseAdd")
+    @ResponseBody
+    public Boolean courseAdd(@RequestBody CourseAdd courseAdd){
+        Course course = new Course();
+        course.setName(courseAdd.getName());
+        course.setUuid((Integer) courseService.save(course));
+        TestPaper testPaper = new TestPaper();
+        testPaper.setCourse(course);
+        testPaper.setChoiceNum(courseAdd.getChoiceNum());
+        testPaper.setBlankNum(courseAdd.getBlankNum());
+        testPaper.setTotalGrade(courseAdd.getTotalGrade());
+        testPaper.setTimeLimit(courseAdd.getTimeLimit());
+        List<TestPaper> testPapers = new ArrayList<TestPaper>();
+        testPapers.add(testPaper);
+        testPaperService.save(testPaper);
+        return true;
     }
 
     /**
@@ -577,5 +617,120 @@ public class AdminController {
             wb.close();
         }
         return null;
+    }
+
+    /******************************用户信息导入****************************************************************/
+
+    /**
+     * 上传信息页面
+     * @return 页面
+     */
+    @RequestMapping("/upload")
+    public String uploadTest(ModelMap model){
+        return "AdminPage/userInfoUpload";
+    }
+
+    /**
+     * 上传
+     * @param request
+     * @throws Exception
+     */
+    @RequestMapping(value="stuUpload",method={RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public void stuUploadExcel(HttpServletRequest request, HttpSession session) throws Exception {
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+
+        InputStream in = null;
+        List<List<Object>> listob = null;
+        MultipartFile file = multipartRequest.getFile("stuFile");
+        if(file.isEmpty())
+            throw new Exception("文件不存在！");
+
+        in = file.getInputStream();
+        listob = new ExcelOperating().getListByExcel(in,file.getOriginalFilename());
+
+        for (List<Object> lo : listob) {
+            Student stu = new Student();
+            stu.setId(String.valueOf(lo.get(0)));
+            if(!studentService.idUnique(stu.getId()))
+                continue;
+            stu.setPw(String.valueOf(lo.get(1)));
+            stu.setName(String.valueOf(lo.get(2)));
+            int sex = String.valueOf(lo.get(3)).equals("男") ? 1 : 0;
+            stu.setSex(sex);
+            stu.setPhone(String.valueOf(lo.get(4)));
+            stu.setCard(String.valueOf(lo.get(5)));
+            stu.setClassName(String.valueOf(lo.get(6)));
+            studentService.saveViaCheck(stu);
+        }
+    }
+
+    /**
+     * 上传
+     * @param request
+     * @throws Exception
+     */
+    @RequestMapping(value="adminUpload",method={RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public void adminUploadExcel(HttpServletRequest request, HttpSession session) throws Exception {
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+
+        InputStream in = null;
+        List<List<Object>> listob = null;
+        MultipartFile file = multipartRequest.getFile("adminFile");
+        if(file.isEmpty())
+            throw new Exception("文件不存在！");
+
+        in = file.getInputStream();
+        listob = new ExcelOperating().getListByExcel(in,file.getOriginalFilename());
+
+        for (List<Object> lo : listob) {
+            Admin user = new Admin();
+            user.setId(String.valueOf(lo.get(0)));
+            if(!adminService.idUnique(user.getId()))
+                continue;
+            user.setPw(String.valueOf(lo.get(1)));
+            user.setName(String.valueOf(lo.get(2)));
+            int sex = String.valueOf(lo.get(3)).equals("男") ? 1 : 0;
+            user.setSex(sex);
+            user.setPhone(String.valueOf(lo.get(4)));
+            user.setCard(String.valueOf(lo.get(5)));
+            adminService.saveViaCheck(user);
+        }
+    }
+
+    /**
+     * 上传
+     * @param request
+     * @throws Exception
+     */
+    @RequestMapping(value="tchUpload",method={RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public void tchUploadExcel(HttpServletRequest request, HttpSession session) throws Exception {
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+
+        InputStream in = null;
+        List<List<Object>> listob = null;
+        MultipartFile file = multipartRequest.getFile("tchFile");
+        if(file.isEmpty())
+            throw new Exception("文件不存在！");
+
+        in = file.getInputStream();
+        listob = new ExcelOperating().getListByExcel(in,file.getOriginalFilename());
+
+        for (List<Object> lo : listob) {
+            Teacher user = new Teacher();
+            user.setId(String.valueOf(lo.get(0)));
+            if(!teacherService.idUnique(user.getId()))
+                continue;
+            user.setPw(String.valueOf(lo.get(1)));
+            user.setName(String.valueOf(lo.get(2)));
+            int sex = String.valueOf(lo.get(3)).equals("男") ? 1 : 0;
+            user.setSex(sex);
+            user.setPhone(String.valueOf(lo.get(4)));
+            user.setCard(String.valueOf(lo.get(5)));
+            user.setTitle(String.valueOf(lo.get(6)));
+            teacherService.saveViaCheck(user);
+        }
     }
 }

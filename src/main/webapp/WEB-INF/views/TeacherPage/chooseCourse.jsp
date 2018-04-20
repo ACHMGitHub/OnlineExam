@@ -36,16 +36,6 @@
         </div>
     </div>
 
-    <div>
-        <table  align="center" class="heise12x"  border="0" cellspacing="0" cellpadding="0">
-            <tbody>
-            <tr>
-                <td height="85" align="center"><p><br>Copyright © 2018 by&nbsp;</p>&nbsp;</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
 </div>
 </body>
 </html>

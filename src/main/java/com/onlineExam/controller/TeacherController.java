@@ -387,6 +387,16 @@ public class TeacherController {
             return false;
     }
 
+    /**
+     * 填空题详细信息
+     * @return 页面
+     */
+    @RequestMapping("blankMoreInfo/{id}")
+    public String blankMoreInfo(@PathVariable(value="id")int id, ModelMap model){
+        Blank blank = blankService.getByUuid(id);
+        model.addAttribute("blank",blank);
+        return "AdminPage/blankMoreInfo";
+    }
 
     /**************************选择题目信息管理***********************************************************************/
     /**
@@ -482,13 +492,36 @@ public class TeacherController {
         else
             return false;
     }
+
+    /**
+     * 选择题详细信息
+     * @return 页面
+     */
+    @RequestMapping("choiceMoreInfo/{id}")
+    public String choiceMoreInfo(@PathVariable(value="id")int id, ModelMap model){
+        Choice choice = choiceService.getByUuid(id);
+        model.addAttribute("choice",choice);
+        return "AdminPage/choiceMoreInfo";
+    }
     /**************************试卷信息管理***********************************************************************/
 
     @RequestMapping("testPaperPage")
     public String testPaperPage(ModelMap model){
         List<TestPaper> list = testPaperService.findAll();
         model.addAttribute("testPapers", list);
-        return "TeacherPage/testPaperInfo";
+        return "TeacherPage/testPaperSetting";
+    }
+
+    @RequestMapping("testPaperUpdate")
+    @ResponseBody
+    public Boolean testPaperUpdate(@RequestBody TestPaper testPaper){
+        TestPaper tp = testPaperService.getByUuid(testPaper.getUuid());
+        tp.setTotalGrade(testPaper.getTotalGrade());
+        tp.setTimeLimit(testPaper.getTimeLimit());
+        tp.setBlankNum(testPaper.getBlankNum());
+        tp.setChoiceNum(testPaper.getChoiceNum());
+        testPaperService.update(tp);
+        return true;
     }
 
     /**********************************试题EXCEL上传**************************************************************************/

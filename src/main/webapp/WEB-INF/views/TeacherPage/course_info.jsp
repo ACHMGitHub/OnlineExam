@@ -19,24 +19,18 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
+                    <th>课程号</th>
                     <th>课程名称</th>
-                    <th>考试时长(分钟)</th>
-                    <th>总分</th>
-                    <th>选择题数</th>
-                    <th>填空题数</th>
                     <th colspan="2" style="text-align:center;">操作</th>
                 </tr>
                 </thead>
 
                 <tbody>
-                <c:forEach items="${testPapers}" var="u">
+                <c:forEach items="${courses}" var="u">
                     <tr>
-                        <td>${u.course.name}</td>
-                        <td>${u.timeLimit}</td>
-                        <td>${u.totalGrade}</td>
-                        <td>${u.choiceNum}</td>
-                        <td>${u.blankNum}</td>
-                        <%--<td><a href="/adminPage/courseDelete/${u.uuid}">删除</a></td>--%>
+                        <td>${u.uuid}</td>
+                        <td>${u.name}</td>
+                        <td><a href="/adminPage/courseDelete/${u.uuid}">删除</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

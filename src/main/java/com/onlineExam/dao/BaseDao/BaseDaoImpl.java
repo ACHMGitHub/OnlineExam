@@ -39,7 +39,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
     @Autowired
     public void setSessionFactory0(SessionFactory sessionFactory){
         super.setSessionFactory(sessionFactory);
-    }
+}
 
     @Override
     public Serializable save(T entity) {

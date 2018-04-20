@@ -78,13 +78,14 @@
 </head>
 <body>
     <div class="parentElement">
+
         <form method="POST" enctype="multipart/form-data" id="formBlank" action="">
             <input type="text" hidden value="${courseId}" name="courseId">
             <div class="form-group childElement">
                 <label for="blankFile">选择文件</label>
                 <input type="file" id="blankFile" name="blankFile">
                 <p class="help-block">Example block-level help text here.</p>
-                <button type="button" class="btn btn-success" id="blankButton">提交</button>
+                <button type="button" class="btn btn-success" id="blankButton">填空题上传</button>
             </div>
         </form>
         <form method="POST" enctype="multipart/form-data" id="formChoice" action="">
@@ -93,7 +94,7 @@
                 <label for="choiceFile">选择文件</label>
                 <input type="file" id="choiceFile" name="choiceFile">
                 <p class="help-block">Example block-level help text here.</p>
-                <button type="button" class="btn btn-success" id="choiceButton">提交</button>
+                <button type="button" class="btn btn-success" id="choiceButton">选择题上传</button>
             </div>
         </form>
     </div>

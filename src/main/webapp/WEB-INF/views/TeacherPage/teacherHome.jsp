@@ -62,7 +62,6 @@
                         <div class="panel-body">
                             <ul>
                                 <li><a href="/teacherPage/studentInfoByPage/1" target="iframe_a">学生信息</a></li>
-
                             </ul>
                         </div>
                     </div>
@@ -96,7 +95,7 @@
                                 <li><a href="/teacherPage/blankInfoPage/1" target="iframe_a">填空题查看</a></li>
                                 <li><a href="/teacherPage/addChoicePage" target="iframe_a">添加选择题</a></li>
                                 <li><a href="/teacherPage/addBlankPage" target="iframe_a">添加填空题</a></li>
-                                <%--<li><a href="/teacherPage/testPaperPage" target="iframe_a">试卷信息</a></li>--%>
+                                <li><a href="/teacherPage/testPaperPage" target="iframe_a">试卷信息</a></li>
                                 <li><a href="/teacherPage/uploadChooseCourse" target="iframe_a">上传试题</a></li>
                             </ul>
                         </div>
