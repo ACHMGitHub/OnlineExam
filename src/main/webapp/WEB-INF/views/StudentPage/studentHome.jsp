@@ -39,9 +39,9 @@
                 <li><a href="/studentPage/studentUpdatePage" target="iframe_a"><span class="glyphicon glyphicon-user"></span>&nbsp;修改信息</a></li>
                 <li><a href="/studentPage/studentLogOut"><span class="glyphicon glyphicon-off"></span>&nbsp;注销</a></li>
             </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="搜索">
-            </form>
+            <%--<form class="navbar-form navbar-right">--%>
+                <%--<input type="text" class="form-control" placeholder="搜索">--%>
+            <%--</form>--%>
         </div>
     </div>
 </nav>

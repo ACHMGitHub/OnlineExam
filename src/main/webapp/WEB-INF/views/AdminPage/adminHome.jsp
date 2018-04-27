@@ -43,9 +43,9 @@
                 <li><a href="/adminPage/adminUpdatePage" target="iframe_a"><span class="glyphicon glyphicon-user"></span>&nbsp;修改信息</a></li>
                 <li><a href="/adminPage/adminLogOut"><span class="glyphicon glyphicon-off"></span>&nbsp;注销</a></li>
             </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="搜索">
-            </form>
+            <%--<form class="navbar-form navbar-right">--%>
+                <%--<input type="text" class="form-control" placeholder="搜索">--%>
+            <%--</form>--%>
         </div>
     </div>
 </nav>
@@ -145,7 +145,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a href="#"  data-toggle="collapse" data-target="#channel_demo5">信息导入</a>
+                            <a href="#"  data-toggle="collapse" data-target="#channel_demo6">信息导入</a>
                         </h4>
                     </div>
                     <div class="collapse panel-collapse"  id="channel_demo6">

@@ -24,7 +24,7 @@
                     <th>总分</th>
                     <th>选择题数</th>
                     <th>填空题数</th>
-                    <th colspan="2" style="text-align:center;">操作</th>
+
                 </tr>
                 </thead>
 
